@@ -3,11 +3,11 @@ import React from 'react'
 import Onboarding from '../components/Onboarding'
 import { colors } from '../utilities/Color'
 
-const OnBoarding = () => {
+const OnBoarding = ({navigation}) => {
   
   return (
     <SafeAreaView style={{flex:1, backgroundColor:colors.white }}>
-      <Onboarding />
+      <Onboarding navigation={navigation} />
     </SafeAreaView>
   )
 }

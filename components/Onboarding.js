@@ -7,14 +7,13 @@ import { onBoardingData } from "../utilities/OnboardingDatas";
 import Buttons from "./Buttons";
 import { colors } from "../utilities/Color";
 
-const Onboarding = () => {
+const Onboarding = ({navigation}) => {
   const [currentIndex, setCurrentIndex]=useState(0)
   const scrollX = useRef(new Animated.Value(0)).current
 
   const viewableItemsChanged = useRef(({viewableItems})=>{
     setCurrentIndex(viewableItems[0].index)
   }).current
-
   const viewConfig = useRef({viewAreaCoveragePercentThreshold:50}).current
 const slidesRef  = useRef(null)
 
@@ -56,7 +55,7 @@ const scrollSkip = ()=>{
       <Paginator  data={onBoardingData} scrollX={scrollX} />
       {
         currentIndex === 2 ? (
-          <Buttons title={"Get Started "} titleStyle={{fontWeight:"800"}}   buttonStyle={{backgroundColor:colors.main, width:150, padding:15, borderRadius:20}}  />
+          <Buttons onPress={()=>navigation.replace('signin')} title={"Get Started "}    />
           ):(
             <SkipAndNextButton  scrollSkip={scrollSkip} scrollTo={scrollTo} />
         )
