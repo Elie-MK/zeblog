@@ -14,16 +14,17 @@ import InputGlobal from "../../components/InputGlobal";
 import { KeyboardAvoidingView } from "react-native";
 import Buttons from "../../components/Buttons";
 import { Ionicons } from "@expo/vector-icons";
-import { CheckBox } from "@rneui/themed";
 
-const SignIn = ({ navigation }) => {
+export default function SignUp({ navigation }) {
   const [signupData, setSignupData] = useState({
-    name: "",
+    username: "",
+    email: "",
     password: "",
+    confirmPassword: "",
   });
   const [showPassword, setShowPassword] = useState(true);
-  const [checked, setChecked] = useState(true);
-  const toggleCheckbox = () => setChecked(!checked);
+
+
   return (
     <KeyboardAvoidingView
       keyboardVerticalOffset={Platform.OS === "ios" ? 10 : 0}
@@ -43,8 +44,8 @@ const SignIn = ({ navigation }) => {
             <View>
               <View style={{ flexDirection: "row", justifyContent: "center" }}>
                 <Image
-                  style={{ width: 310, height: 295 }}
-                  source={require("../../assets/images/3dsignin.png")}
+                  style={{ width: 250, height: 320 }}
+                  source={require("../../assets/images/3dsignup.png")}
                 />
               </View>
 
@@ -56,18 +57,24 @@ const SignIn = ({ navigation }) => {
                     textAlign: "center",
                   }}
                 >
-                  SignIn
+                  Sign up
                 </Text>
 
                 <View style={{ marginTop: 30 }}>
                   <InputGlobal
-                    onChangeText={(name) =>
-                      setSignupData({ ...signupData, name })
+                    onChangeText={(username) =>
+                      setSignupData({ ...signupData, username })
                     }
-                    value={signupData.name}
-                    placeholder={"Name's"}
+                    value={signupData.username}
+                    placeholder={"Username"}
                   />
-
+                  <InputGlobal
+                    value={signupData.email}
+                    onChangeText={(email) =>
+                      setSignupData({ ...signupData, email })
+                    }
+                    placeholder={"email@email.com"}
+                  />
                   <InputGlobal
                     onChangeText={(password) =>
                       setSignupData({ ...signupData, password })
@@ -95,23 +102,39 @@ const SignIn = ({ navigation }) => {
                       </TouchableOpacity>
                     }
                   />
+                  <InputGlobal
+                    onChangeText={(confirmPassword) =>
+                      setSignupData({ ...signupData, confirmPassword })
+                    }
+                    value={signupData.confirmPassword}
+                    secure={showPassword}
+                    placeholder={"Confirm Password"}
+                    rightIcon={
+                      <TouchableOpacity
+                        onPress={() => setShowPassword(!showPassword)}
+                      >
+                        {showPassword ? (
+                          <Ionicons
+                            name="eye-off-sharp"
+                            size={24}
+                            color={colors.main}
+                          />
+                        ) : (
+                          <Ionicons
+                            name="eye-sharp"
+                            size={24}
+                            color={colors.main}
+                          />
+                        )}
+                      </TouchableOpacity>
+                    }
+                  />
                 </View>
               </View>
-
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <CheckBox
-                  checked={checked}
-                  onPress={toggleCheckbox}
-                  iconType="material-community"
-                  checkedIcon="checkbox-marked"
-                  uncheckedIcon="checkbox-blank-outline"
-                  checkedColor={colors.main}
-                />
-                <Text style={{ fontSize: 16, fontWeight:"400" }}>Remember me</Text>
-              </View>
+             
 
               <View style={{ flexDirection: "row", justifyContent: "center" }}>
-                <Buttons title={"Connexion"} />
+                <Buttons title={"Register"} />
               </View>
               <View
                 style={{
@@ -121,8 +144,8 @@ const SignIn = ({ navigation }) => {
                   marginTop: 20,
                 }}
               >
-                <Text style={{ fontSize: 15 }}>Don't have an account?</Text>
-                <TouchableOpacity onPress={() => navigation.replace("signup")}>
+                <Text style={{ fontSize: 15 }}>Do you have an account?</Text>
+                <TouchableOpacity onPress={() => navigation.replace("signin")}>
                   <Text
                     style={{
                       fontSize: 15,
@@ -130,7 +153,7 @@ const SignIn = ({ navigation }) => {
                       fontWeight: "bold",
                     }}
                   >
-                    SignUp
+                    SignIn
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -140,6 +163,4 @@ const SignIn = ({ navigation }) => {
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
-};
-
-export default SignIn;
+}

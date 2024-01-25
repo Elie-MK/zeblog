@@ -55,7 +55,7 @@ const scrollSkip = ()=>{
       <Paginator  data={onBoardingData} scrollX={scrollX} />
       {
         currentIndex === 2 ? (
-          <Buttons onPress={()=>navigation.replace('signin')} title={"Get Started "}    />
+          <Buttons onPress={()=>navigation.replace('login')} title={"Get Started "}    />
           ):(
             <SkipAndNextButton  scrollSkip={scrollSkip} scrollTo={scrollTo} />
         )
