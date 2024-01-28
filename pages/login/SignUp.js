@@ -14,15 +14,24 @@ import InputGlobal from "../../components/InputGlobal";
 import { KeyboardAvoidingView } from "react-native";
 import Buttons from "../../components/Buttons";
 import { Ionicons } from "@expo/vector-icons";
+import ModalGender from "../../components/ModalGender";
 
 export default function SignUp({ navigation }) {
+  const [selectGender, setSelectGender]=useState('Gender')
   const [signupData, setSignupData] = useState({
     username: "",
     email: "",
     password: "",
     confirmPassword: "",
+    gender: selectGender,
   });
   const [showPassword, setShowPassword] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+
+  const selectedGender = (gender)=>{
+    setSelectGender(gender)
+    setShowModal(!showModal)
+  }
 
 
   return (
@@ -32,13 +41,14 @@ export default function SignUp({ navigation }) {
       style={{ backgroundColor: colors.white, flex: 1 }}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View
             style={{
               flex: 1,
               flexDirection: "row",
               justifyContent: "center",
               marginTop: 60,
+              marginBottom:30
             }}
           >
             <View>
@@ -75,6 +85,13 @@ export default function SignUp({ navigation }) {
                     }
                     placeholder={"email@email.com"}
                   />
+                 <InputGlobal
+                    value={selectGender}
+                    onFocus={()=>setShowModal(!showModal)}
+                    // placeholder={"Gender"}
+                    // disabled={true}
+                  />
+
                   <InputGlobal
                     onChangeText={(password) =>
                       setSignupData({ ...signupData, password })
@@ -159,6 +176,7 @@ export default function SignUp({ navigation }) {
               </View>
             </View>
           </View>
+          <ModalGender checked={selectGender} selectedGender={(e)=>selectedGender(e)}  isVisible={showModal} onBackdropPress={()=>setShowModal(!showModal)} />
         </ScrollView>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>

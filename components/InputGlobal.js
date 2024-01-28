@@ -2,8 +2,9 @@ import { View, Text } from "react-native";
 import React from "react";
 import { Input } from "@rneui/themed";
 import { Ionicons } from '@expo/vector-icons';
+import { colors } from "../utilities/Color";
 
-const InputGlobal = ({rightIcon, value, onChangeText, placeholder, secure}) => {
+const InputGlobal = ({rightIcon, onFocus, value, onChangeText, placeholder, secure, disabled}) => {
   return (
       <Input
         placeholder={placeholder}
@@ -13,11 +14,14 @@ const InputGlobal = ({rightIcon, value, onChangeText, placeholder, secure}) => {
           borderWidth: 1,
           borderRadius: 5,
         }}
+        onFocus={onFocus}
         value={value}
         onChangeText={onChangeText}
         inputStyle={{ paddingLeft: 7, paddingRight: 7 }}
         rightIcon={rightIcon}
         secureTextEntry={secure}
+        disabled={disabled}
+        
       />
   );
 };
