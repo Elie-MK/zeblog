@@ -122,7 +122,7 @@ const SignIn = ({ navigation }) => {
                 }}
               >
                 <Text style={{ fontSize: 15 }}>Don't have an account?</Text>
-                <TouchableOpacity onPress={() => navigation.replace("signup")}>
+                <TouchableOpacity onPress={() => navigation.replace("signupsteps")}>
                   <Text
                     style={{
                       fontSize: 15,

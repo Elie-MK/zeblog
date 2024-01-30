@@ -151,7 +151,7 @@ export default function SignUp({ navigation }) {
              
 
               <View style={{ flexDirection: "row", justifyContent: "center" }}>
-                <Buttons title={"Register"} />
+                <Buttons title={"Register"} onPress={()=>navigation.navigate("signupsteps")} />
               </View>
               <View
                 style={{

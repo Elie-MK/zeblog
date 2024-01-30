@@ -12,13 +12,12 @@ const Buttons = ({ title, buttonStyle, titleStyle, onPress }) => {
       titleStyle={{ fontWeight: "800" }}
       buttonStyle={{
         backgroundColor: colors.main,
-        width: 300,
         padding: 15,
-        borderRadius: 5,
+        borderRadius: 7,
       }}
       style={{
         margin: 8,
-        shadowColor: '#000',
+        shadowColor: "#000",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.5,
         shadowRadius: 2,
