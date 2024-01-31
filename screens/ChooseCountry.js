@@ -6,8 +6,10 @@ import { colors } from "../utilities/Color";
 import ListOfAllCountries from "../components/ListOfAllCountries";
 import { countries } from "../utilities/Countries";
 import SearchInput from "../components/SearchInput";
+import ProgressBars from "../components/ProgressBars";
+import { SafeAreaView } from "react-native";
 
-const ChooseCountry = () => {
+const ChooseCountry = ({navigation}) => {
   const [search, setSearch] = useState("");
   const [filteredCountry, setFilteredCountry] = useState([]);
   const [touch, setTouch] = useState("none");
@@ -22,8 +24,8 @@ const ChooseCountry = () => {
 
 
   return (
-    <GlobalSteps value={10} style={{ flex: 1 }}>
-      <View style={{ flex: 1, marginTop: 20 }}>
+    <SafeAreaView style={{flex:1, backgroundColor:colors.white}} >
+      <View style={{ flex: 1, marginTop: 20, marginHorizontal:20}}>
         <Text style={{ fontSize: 30, fontWeight: "bold" }}>
           Which country are you from ?
         </Text>
@@ -39,10 +41,10 @@ const ChooseCountry = () => {
             ))}
           </ScrollView>
          
-          <Buttons title={"Continue"} />
+          <Buttons onPress={()=>navigation.navigate("signup")} title={"Continue"} />
         </View>
       </View>
-    </GlobalSteps>
+    </SafeAreaView>
   );
 };
 

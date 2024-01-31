@@ -4,32 +4,22 @@ import { AntDesign } from "@expo/vector-icons";
 import { Slider, Icon } from "@rneui/base";
 import { colors } from "../utilities/Color";
 import Buttons from "./Buttons";
+import { ProgressBar } from "react-native-paper";
 
-const GlobalSteps = ({children, value}) => {
+const GlobalSteps = ({ children, value }) => {
   return (
-    <SafeAreaView style={{flex:1, marginHorizontal: 20,}}>
-      <View style={{ flexDirection:"row", alignItems:"center", gap:60 }}>
-        <AntDesign name="arrowleft" size={24} color="black" />
-        <Slider
-          animateTransitions
-          animationType="timing"
-          maximumTrackTintColor={colors.gray}
-          maximumValue={100}
-          minimumTrackTintColor={colors.main}
-          minimumValue={0}
-          onSlidingComplete={() => console.log("onSlidingComplete()")}
-          onSlidingStart={() => console.log(alert('stop'))}
-          onValueChange={(value) => console.log(alert('stop'), value)}
-          orientation="horizontal"
-          step={1}
-          style={{ width: "70%"}}
-          thumbStyle={{ height: 1, width: 2 }}
-         
-          trackStyle={{ height: 10, borderRadius: 20 }}
-          value={value}
-        />
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.white }}>
+      <View style={{ marginHorizontal: 20 }}>
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 25 }}>
+          <AntDesign name="arrowleft" size={24} color="black" />
+          <ProgressBar
+            style={{ width: "70%", height: 8, borderRadius: 20 }}
+            progress={value}
+            color={colors.main}
+          />
+        </View>
       </View>
-        {children}
+      {children}
     </SafeAreaView>
   );
 };
