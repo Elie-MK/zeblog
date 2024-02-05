@@ -25,7 +25,7 @@ const PeopleFollowItem = ({ followers,  names, username, items, onPress }) => {
         />
         <View>
           <Text style={{ fontSize: 18, fontWeight: "bold" }}>{names}</Text>
-          <Text style={{ fontSize: 16, color: "gray" }}>{username}</Text>
+          <Text style={{ fontSize: 16, color: "gray", marginTop:5 }}>{username}</Text>
         </View>
       </View>
       <TouchableOpacity >
