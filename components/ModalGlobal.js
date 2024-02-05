@@ -5,7 +5,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { colors } from "../utilities/Color";
 import Loading from "./Loading";
 
-const ModalGlobal = () => {
+const ModalGlobal = ({isVisible,  onBackdropPress}) => {
   const animation = useRef(null);
   useEffect(() => {
     animation.current?.play();
@@ -15,8 +15,8 @@ const ModalGlobal = () => {
     // }, 5000);
   }, []);
   return (
-    <Dialog isVisible={true} overlayStyle={{ borderRadius: 10 }}>
-      <View style={{}}>
+    <Dialog isVisible={true} onBackdropPress={onBackdropPress} overlayStyle={{ borderRadius: 22 }}>
+      <View  style={{padding:20}}>
         <View style={{ flexDirection: "row", justifyContent: "center" }}>
           <View
             style={{
@@ -31,7 +31,8 @@ const ModalGlobal = () => {
         <View
           style={{
             flexDirection: "row",
-            marginTop: 20,
+            marginTop: 40,
+            marginBottom:-60,
             justifyContent: "center",
           }}
         >
@@ -49,8 +50,6 @@ const ModalGlobal = () => {
             <Text
               style={{
                 fontSize: 15,
-                fontWeight: "600",
-                color: colors.gray,
                 textAlign: "center",
                 marginTop: 15,
               }}
