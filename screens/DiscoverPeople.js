@@ -4,6 +4,7 @@ import { colors } from "../utilities/Color";
 import Buttons from "../components/Buttons";
 import PeopleFollowItem from "../components/PeopleFollowItem";
 import { FakeFollowers } from "../utilities/FakeFollowers";
+import ModalGlobal from "../components/ModalGlobal";
 
 const DiscoverPeople = ({ navigation }) => {
   const [follow, setFollow] = useState([]);
@@ -47,6 +48,7 @@ const DiscoverPeople = ({ navigation }) => {
           />
         </View>
       </View>
+      <ModalGlobal />
     </SafeAreaView>
   );
 };
