@@ -193,7 +193,7 @@ export default function SignUp({ navigation }) {
           </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
         <Buttons
-          onPress={() => navigation.navigate("signup")}
+          onPress={() => navigation.navigate("choosetopics")}
           title={"Continue"}
         />
       </View>

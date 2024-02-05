@@ -9,14 +9,7 @@ const SkipAndNextButton = ({ scrollTo, scrollSkip }) => {
   return (
     <View style={{ flexDirection: "row", gap: 60 }}>
       <Button
-        style={{
-          margin: 8,
-          shadowColor: "#000",
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.5,
-          shadowRadius: 2,
-          elevation: 2,
-        }}
+       
         containerStyle={{ width: 150 }}
         titleStyle={{ color: colors.main, fontWeight: "800" }}
         buttonStyle={{
@@ -28,14 +21,7 @@ const SkipAndNextButton = ({ scrollTo, scrollSkip }) => {
         onPress={scrollSkip}
       />
       <Button
-        style={{
-          margin: 8,
-          shadowColor: "#000",
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.5,
-          shadowRadius: 2,
-          elevation: 2,
-        }}
+      
         containerStyle={{ width: 150 }}
         titleStyle={{ fontWeight: "800" }}
         buttonStyle={{
