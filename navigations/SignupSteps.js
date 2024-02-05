@@ -1,4 +1,3 @@
-import { View, Text } from 'react-native'
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
 import SignUp from '../pages/login/SignUp';
@@ -12,7 +11,7 @@ const SignupSteps = () => {
   return (
     <Stack.Navigator screenOptions={{
         headerShown:false
-    }} initialRouteName='choosetopics'>
+    }} initialRouteName='discoverPeople'>
                 <Stack.Screen name='choosecountry' component={ChooseCountry} />
                 <Stack.Screen  name="choosetopics" component={ChooseTopics} />
                 <Stack.Screen  name="discoverPeople" component={DiscoverPeople} />

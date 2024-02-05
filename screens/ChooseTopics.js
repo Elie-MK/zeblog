@@ -6,7 +6,7 @@ import TopicItem from "../components/TopicItem";
 import { FakeTopics } from "../utilities/FakeTopics";
 import SkipAndNextButton from "../components/SkipAndNextButton";
 
-const ChooseTopics = () => {
+const ChooseTopics = ({navigation}) => {
   const [select, setSelect] = useState([]);
 
   const selectedItem = (idItem) => {
@@ -40,17 +40,16 @@ const ChooseTopics = () => {
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
               <TopicItem
+              onPress={() => selectedItem(item.title)}
                 items={item}
-                onPress={() => selectedItem(item.title)}
                 select={select}
                 setSelect={setSelect}
-                item={item}
                 names={item.title}
               />
             )}
           />
         </View>
-        <SkipAndNextButton />
+        <SkipAndNextButton scrollSkip={()=>navigation.navigate('discoverPeople')}  scrollTo={()=>navigation.navigate('discoverPeople')}/>
       </View>
     </SafeAreaView>
   );
