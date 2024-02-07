@@ -8,6 +8,7 @@ import Login from './pages/login/Login';
 import SignUp from './pages/login/SignUp';
 import SignIn from './pages/login/SignIn';
 import SignupSteps from './navigations/SignupSteps';
+import HomeNavigation from './navigations/HomeNavigation';
 
 
 
@@ -17,12 +18,13 @@ export default function App() {
   return (
    <NavigationContainer  >
     <StatusBar style='dark' />
-      <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName='signupsteps'>
+      <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName='home'>
         <Stack.Screen  name="welcome" component={Welcome} />
         <Stack.Screen  name="onboarding" component={OnBoarding} />
         <Stack.Screen  name="login" component={Login} />
         <Stack.Screen  name="signin" component={SignIn} />
         <Stack.Screen  name="signupsteps" component={SignupSteps} />
+        <Stack.Screen  name="home" component={HomeNavigation} />
       </Stack.Navigator>
    </NavigationContainer>
   );

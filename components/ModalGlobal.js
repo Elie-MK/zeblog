@@ -15,7 +15,7 @@ const ModalGlobal = ({isVisible,  onBackdropPress}) => {
     // }, 5000);
   }, []);
   return (
-    <Dialog isVisible={true} onBackdropPress={onBackdropPress} overlayStyle={{ borderRadius: 22 }}>
+    <Dialog isVisible={isVisible} onBackdropPress={onBackdropPress} overlayStyle={{ borderRadius: 22 }}>
       <View  style={{padding:20}}>
         <View style={{ flexDirection: "row", justifyContent: "center" }}>
           <View

@@ -8,6 +8,7 @@ import ModalGlobal from "../components/ModalGlobal";
 
 const DiscoverPeople = ({ navigation }) => {
   const [follow, setFollow] = useState([]);
+  const [validate, setValidate] = useState(false);
 
   const handleFollow = (username) => {
     const isFollow = follow.includes(username);
@@ -17,6 +18,14 @@ const DiscoverPeople = ({ navigation }) => {
       setFollow([...follow, username]);
     }
   };
+
+  const handleFinish = () => {
+    setValidate(!validate)
+   setTimeout(()=>{
+    navigation.navigate("home")
+    setValidate(false)
+  }, 3000)
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.white }}>
@@ -43,12 +52,12 @@ const DiscoverPeople = ({ navigation }) => {
             )}
           />
           <Buttons
-            onPress={() => navigation.navigate("signup")}
+            onPress={handleFinish}
             title={"Finish"}
           />
         </View>
       </View>
-      <ModalGlobal />
+      <ModalGlobal isVisible={validate}  />
     </SafeAreaView>
   );
 };
