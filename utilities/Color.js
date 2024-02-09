@@ -3,5 +3,5 @@ export const colors = {
     second : "#f8ecf4",
     white:"#fff", 
     black:"#aaa",
-    gray:"#ccc"
+    gray:"#706d6d"
 }

@@ -1,12 +1,88 @@
-import { View, Text, SafeAreaView } from "react-native";
+import { View, Text, SafeAreaView, Image } from "react-native";
 import React from "react";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Octicons } from "@expo/vector-icons";
+import { colors } from "../../utilities/Color";
+import { Button } from "@rneui/base";
 
 const MainHome = () => {
   return (
-    <SafeAreaView>
-      <View>
-        <Text>MainHome</Text>
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.white }}>
+      <View
+        style={{
+          marginHorizontal: 15,
+          flexDirection: "row",
+          alignItems: "flex-end",
+          justifyContent: "space-between",
+        }}
+      >
+        <View>
+          <View>
+            <Image
+              style={{ width: 120, height: 70 }}
+              source={require("../../assets/images/secondLogo.png")}
+            />
+          </View>
+        </View>
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 20 }}>
+          <Octicons name="bell" size={24} color={colors.gray} />
+          <MaterialCommunityIcons
+            name="bookmark-minus-outline"
+            size={30}
+            color={colors.gray}
+          />
+        </View>
       </View>
+
+{/* Announce */}
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "center",
+          marginTop: 30,
+        
+        }}
+      >
+        <View>
+          <View>
+            <Image
+              style={{ width: 380, height: 190, borderRadius: 22 }}
+              source={require("../../assets/images/announce.png")}
+            />
+          </View>
+          <View
+            style={{
+              position: "absolute",
+              marginTop: 145,
+              flexDirection: "row",
+              marginLeft: 10,
+            }}
+          >
+            <Button
+              buttonStyle={{
+                backgroundColor: colors.white,
+                padding: 5,
+                borderRadius: 7,
+              }}
+              titleStyle={{
+                color: colors.main,
+                fontSize:12
+              }}
+              title="Read more"
+            />
+          </View>
+        </View>
+      </View>
+
+{/* Recent Articles */}
+
+<View style={{flex:1, marginLeft:20, marginTop:20}}>
+  <View style={{flexDirection:"row", justifyContent:"space-between",marginRight:20}}>
+    <Text style={{fontWeight:"bold", fontSize:20}}>Recent Articles</Text>
+    <Octicons name="arrow-right" size={24} color={colors.main} />
+  </View>
+</View>
+
     </SafeAreaView>
   );
 };
