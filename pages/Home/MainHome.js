@@ -4,6 +4,8 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
 import { colors } from "../../utilities/Color";
 import { Button } from "@rneui/base";
+import CardArticles from "../../components/CardArticles";
+import { ScrollView } from "react-native";
 
 const MainHome = () => {
   return (
@@ -34,55 +36,85 @@ const MainHome = () => {
         </View>
       </View>
 
-{/* Announce */}
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "center",
-          marginTop: 30,
-        
-        }}
-      >
-        <View>
+      <ScrollView style={{ flex: 1 }}>
+        {/* Announce */}
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            marginTop: 30,
+          }}
+        >
           <View>
-            <Image
-              style={{ width: 380, height: 190, borderRadius: 22 }}
-              source={require("../../assets/images/announce.png")}
-            />
-          </View>
-          <View
-            style={{
-              position: "absolute",
-              marginTop: 145,
-              flexDirection: "row",
-              marginLeft: 10,
-            }}
-          >
-            <Button
-              buttonStyle={{
-                backgroundColor: colors.white,
-                padding: 5,
-                borderRadius: 7,
+            <View>
+              <Image
+                style={{ width: 380, height: 190, borderRadius: 22 }}
+                source={require("../../assets/images/announce.png")}
+              />
+            </View>
+            <View
+              style={{
+                position: "absolute",
+                marginTop: 145,
+                flexDirection: "row",
+                marginLeft: 10,
               }}
-              titleStyle={{
-                color: colors.main,
-                fontSize:12
-              }}
-              title="Read more"
-            />
+            >
+              <Button
+                buttonStyle={{
+                  backgroundColor: colors.white,
+                  padding: 5,
+                  borderRadius: 7,
+                }}
+                titleStyle={{
+                  color: colors.main,
+                  fontSize: 12,
+                }}
+                title="Read more"
+              />
+            </View>
           </View>
         </View>
-      </View>
 
-{/* Recent Articles */}
+        {/* Recent Articles */}
 
-<View style={{flex:1, marginLeft:20, marginTop:20}}>
-  <View style={{flexDirection:"row", justifyContent:"space-between",marginRight:20}}>
-    <Text style={{fontWeight:"bold", fontSize:20}}>Recent Articles</Text>
-    <Octicons name="arrow-right" size={24} color={colors.main} />
-  </View>
-</View>
+        <View style={{ flex: 1, marginLeft: 20, marginTop: 20 }}>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginRight: 20,
+            }}
+          >
+            <Text style={{ fontWeight: "bold", fontSize: 25 }}>
+              Recent Articles
+            </Text>
+            <Octicons name="arrow-right" size={24} color={colors.main} />
+          </View>
+          <View style={{ marginTop: 15 }}>
+            <CardArticles />
+          </View>
+        </View>
 
+        {/* Your Article */}
+        <View style={{ flex: 1, marginLeft: 20, marginTop: 20 }}>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginRight: 20,
+            }}
+          >
+            <Text style={{ fontWeight: "bold", fontSize: 25 }}>
+              Your Articles
+            </Text>
+            <Octicons name="arrow-right" size={24} color={colors.main} />
+          </View>
+          <View style={{ marginTop: 15 }}>
+            <CardArticles />
+          </View>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
