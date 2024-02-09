@@ -6,60 +6,90 @@ import { Octicons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
+import { colors } from "../utilities/Color";
 
 const HomeBottomNavigation = () => {
   const Tab = createBottomTabNavigator();
 
   return (
     <Tab.Navigator
-      screenOptions={{
+      screenOptions={({ route, navigation }) => ({
         headerShown: false,
-      }}
+        tabBarIcon: ({ color, focused, size }) => {
+          let iconName;
+          if (route.name === "mainhome") {
+            iconName = focused ? "home" : "home-outline";
+          } else if (route.name === "discover") {
+            iconName = focused ? "compass" : "compass-outline";
+          } else if (route.name === "my articles") {
+            iconName = focused ? "document-text" : "document-text-outline";
+          } else if (route.name === "profile") {
+            iconName = focused ? "person" : "person-outline";
+          }
+          return (
+            <Ionicons
+              name={iconName}
+              size={size}
+              color={focused ? colors.main : colors.gray}
+            />
+          );
+        },
+        tabBarActiveTintColor: colors.main,
+        tabBarInactiveTintColor: colors.gray,
+      })}
     >
       <Tab.Screen
-        name="mainhome"
         options={{
-          tabBarIcon: ({ color }) => (
-            <Octicons name="home" size={24} color="black" />
-          ),
+          tabBarLabel: "Home",
         }}
+        name="mainhome"
         component={MainHome}
       />
       <Tab.Screen
-        name="discover"
         options={{
-          tabBarIcon: ({ color }) => (
-            <FontAwesome5 name="compass" size={24} color="black" />
-          ),
+          tabBarLabel: "Discover",
         }}
+        name="discover"
         component={MainHome}
       />
 
       <Tab.Screen
         name="create"
         options={{
-          tabBarIcon: ({ color }) => (
-            <Entypo name="plus" size={24} color="black" />
+          tabBarIcon: ({ color, focused }) => (
+            <View
+              style={{
+                backgroundColor: colors.main,
+                padding: 10,
+                borderRadius: 22,
+                shadowColor: "#000",
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.5,
+                shadowRadius: 2,
+                elevation: 2,
+              }}
+            >
+              <Entypo name="plus" size={24} color={colors.white} />
+            </View>
           ),
+          tabBarLabel: () => {
+            return null;
+          },
         }}
         component={MainHome}
       />
       <Tab.Screen
+        options={{
+          tabBarLabel: "My Articles",
+        }}
         name="my articles"
-        options={{
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="document-text-outline" size={24} color="black" />
-          ),
-        }}
         component={MainHome}
       />
       <Tab.Screen
-        name="profile"
         options={{
-          tabBarIcon: ({ color }) => (
-            <FontAwesome5 name="user" size={24} color="black" />
-          ),
+          tabBarLabel: "Profile",
         }}
+        name="profile"
         component={MainHome}
       />
     </Tab.Navigator>
