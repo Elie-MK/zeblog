@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, Image } from "react-native";
+import { View, Text, SafeAreaView, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
@@ -7,7 +7,7 @@ import { Button } from "@rneui/base";
 import CardArticles from "../../components/CardArticles";
 import { ScrollView } from "react-native";
 
-const MainHome = () => {
+const MainHome = ({navigation}) => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.white }}>
       <View
@@ -27,7 +27,9 @@ const MainHome = () => {
           </View>
         </View>
         <View style={{ flexDirection: "row", alignItems: "center", gap: 20 }}>
+          <TouchableOpacity onPress={()=>navigation.navigate('notification')} >
           <Octicons name="bell" size={24} color={colors.gray} />
+          </TouchableOpacity>
           <MaterialCommunityIcons
             name="bookmark-minus-outline"
             size={30}

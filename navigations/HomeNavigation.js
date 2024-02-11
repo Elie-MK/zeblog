@@ -2,6 +2,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import MainHome from "../pages/Home/MainHome";
 import HomeBottomNavigation from "./HomeBottomNavigation";
+import TopTabNavigation from "./TopTabNavigation";
 
 const HomeNavigation = () => {
   const Stack = createStackNavigator();
@@ -13,6 +14,7 @@ const HomeNavigation = () => {
       initialRouteName="bottomnavhome"
     >
       <Stack.Screen name="bottomnavhome" component={HomeBottomNavigation} />
+      <Stack.Screen name="notification" component={TopTabNavigation} />
     </Stack.Navigator>
   );
 };
