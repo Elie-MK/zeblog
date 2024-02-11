@@ -16,6 +16,7 @@ const MainHome = ({navigation}) => {
           flexDirection: "row",
           alignItems: "flex-end",
           justifyContent: "space-between",
+          paddingBottom:10
         }}
       >
         <View>
@@ -38,7 +39,7 @@ const MainHome = ({navigation}) => {
         </View>
       </View>
 
-      <ScrollView style={{ flex: 1 }}>
+      <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
         {/* Announce */}
         <View
           style={{
