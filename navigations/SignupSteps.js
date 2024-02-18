@@ -11,7 +11,7 @@ const SignupSteps = () => {
   return (
     <Stack.Navigator screenOptions={{
         headerShown:false
-    }} initialRouteName='discoverPeople'>
+    }} initialRouteName='choosecountry'>
                 <Stack.Screen name='choosecountry' component={ChooseCountry} />
                 <Stack.Screen  name="choosetopics" component={ChooseTopics} />
                 <Stack.Screen  name="discoverPeople" component={DiscoverPeople} />

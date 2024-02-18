@@ -31,11 +31,13 @@ const MainHome = ({navigation}) => {
           <TouchableOpacity onPress={()=>navigation.navigate('notification')} >
           <Octicons name="bell" size={24} color={colors.gray} />
           </TouchableOpacity>
+          <TouchableOpacity onPress={()=>navigation.navigate('bookmark')}>
           <MaterialCommunityIcons
             name="bookmark-minus-outline"
             size={30}
             color={colors.gray}
           />
+          </TouchableOpacity>
         </View>
       </View>
 

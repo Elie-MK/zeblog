@@ -1,10 +1,11 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { colors } from "../utilities/Color";
 
 const CardArticles = () => {
     const [text, setText] = useState("10 Tips Boosting your productivity and is good for your health.")
+    const [isBook, setIsBook] = useState(false)
 
     useEffect(()=>{
         if(text.length >= 34){
@@ -21,7 +22,7 @@ const CardArticles = () => {
             source={require("../assets/images/exemple.jpg")}
           />
         </View>
-        <View
+        <TouchableOpacity onPress={()=>setIsBook(!isBook)}
           style={{
             position: "absolute",
             marginTop: 15,
@@ -32,11 +33,11 @@ const CardArticles = () => {
           }}
         >
           <MaterialCommunityIcons
-            name="bookmark-minus-outline"
+            name={isBook ? "bookmark-minus-outline" : "bookmark-minus"}
             size={25}
             color={colors.white}
           />
-        </View>
+        </TouchableOpacity>
       </View>
       <View style={{marginTop:10, width:180}}>
         <Text style={{fontSize:20, fontWeight:"bold", textAlign:"justify"}}>{text}</Text>
