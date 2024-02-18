@@ -33,7 +33,7 @@ const CardArticles = () => {
           }}
         >
           <MaterialCommunityIcons
-            name={isBook ? "bookmark-minus-outline" : "bookmark-minus"}
+            name={isBook ? "bookmark-minus" : "bookmark-minus-outline"}
             size={25}
             color={colors.white}
           />

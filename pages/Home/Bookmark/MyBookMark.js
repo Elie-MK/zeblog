@@ -11,8 +11,9 @@ const MyBookMark = () => {
     const [isGrid, setIsGrid] = useState("nogrid")
     
   return (
-    <SafeAreaView style={{flex:1, marginHorizontal:15, }}>
-      <View style={{flexDirection:"row", alignItems:"center", marginTop:15, justifyContent:"space-between"}}>
+    <SafeAreaView style={{flex:1, marginHorizontal:15 }}>
+      <View style={{flex:1, marginTop:20,}}>
+      <View style={{flexDirection:"row", alignItems:"center",  justifyContent:"space-between"}}>
         <View style={{flexDirection:"row", alignItems:"center", gap:20}}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <AntDesign name="arrowleft" size={25} color="black" />
@@ -51,8 +52,8 @@ const MyBookMark = () => {
             }
         </View>
     }
-    contentContainerStyle={{paddingBottom:0}}
       />
+      </View>
     </SafeAreaView>
   );
 };

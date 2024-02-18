@@ -12,7 +12,7 @@ const HomeNavigation = () => {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="bookmark"
+      initialRouteName="bottomnavhome"
     >
       <Stack.Screen name="bottomnavhome" component={HomeBottomNavigation} />
       <Stack.Screen name="notification" component={TopTabNavigation} />

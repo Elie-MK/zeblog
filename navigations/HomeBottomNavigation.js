@@ -7,6 +7,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { colors } from "../utilities/Color";
+import Discover from "../pages/Home/Discover/Discover";
 
 const HomeBottomNavigation = () => {
   const Tab = createBottomTabNavigator();
@@ -50,7 +51,7 @@ const HomeBottomNavigation = () => {
           tabBarLabel: "Discover",
         }}
         name="discover"
-        component={MainHome}
+        component={Discover}
       />
 
       <Tab.Screen

@@ -18,7 +18,8 @@ const SearchInput = ({
         padding: 3,
         borderColor: colors.gray,
         borderRadius: 7,
-        backgroundColor: colors.gray,
+        backgroundColor: colors.lightGray,
+        borderBottomWidth:0
       }}
       onFocus={onFocus}
       value={value}
