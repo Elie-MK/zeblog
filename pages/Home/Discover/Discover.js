@@ -6,8 +6,9 @@ import { Octicons } from "@expo/vector-icons";
 import { colors } from '../../../utilities/Color';
 import { ScrollView } from 'react-native';
 import CardArticles from '../../../components/CardArticles';
+import { TouchableOpacity } from 'react-native';
 
-const Discover = () => {
+const Discover = ({navigation}) => {
   return (
     <SafeAreaView style={{flex:1}}>
         <View style={{flex:1}}>
@@ -37,7 +38,9 @@ const Discover = () => {
                 <Text style={{ fontWeight: "bold", fontSize: 25 }}>
                 Most popular
                 </Text>
-                <Octicons name="arrow-right" size={24} color={colors.main} />
+                <TouchableOpacity onPress={()=>navigation.navigate('mostpopular')}>
+                    <Octicons name="arrow-right" size={24} color={colors.main} />
+                </TouchableOpacity>
             </View>
                 <View style={{ marginTop: 15 }}>
                     <CardArticles />

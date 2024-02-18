@@ -6,14 +6,17 @@ import { colors } from "../../../utilities/Color";
 import { FakeTopics } from "../../../utilities/FakeTopics";
 import CardArticles from "../../../components/CardArticles";
 import SecondCardArticles from "../../../components/SecondCardArticles";
+import SearchInput from "../../../components/SearchInput";
 
 const MyBookMark = () => {
     const [isGrid, setIsGrid] = useState("nogrid")
+    const [isActiveSearch, setIsActiveSearch] = useState(false)
     
   return (
     <SafeAreaView style={{flex:1, marginHorizontal:15 }}>
       <View style={{flex:1, marginTop:20,}}>
-      <View style={{flexDirection:"row", alignItems:"center",  justifyContent:"space-between"}}>
+     <View>
+     <View style={{flexDirection:"row", alignItems:"center",  justifyContent:"space-between"}}>
         <View style={{flexDirection:"row", alignItems:"center", gap:20}}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <AntDesign name="arrowleft" size={25} color="black" />
@@ -21,13 +24,19 @@ const MyBookMark = () => {
           <Text style={{fontSize:20, fontWeight: "bold"}}>My Bookmarks</Text>
         </View>
         <View>
-        <TouchableOpacity >
+        <TouchableOpacity  onPress={()=>setIsActiveSearch(!isActiveSearch)}>
             <AntDesign name="search1" size={25} color="black" />
           </TouchableOpacity>
         </View>
       </View>
+         {
+            isActiveSearch && <View style={{flexDirection:"row", justifyContent:"center", marginTop:20}}>
+                <SearchInput placeholder={"Search by title or author"}/>
+            </View>
+         }
+     </View>
 
-      <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center", marginTop:30}}>
+      <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center", marginTop:isActiveSearch?0:30}}>
         <Text style={{fontSize:20, fontWeight:"bold"}}>48 Articles</Text>
         <View style={{flexDirection:"row", alignItems:"center"}}>
             <TouchableOpacity onPress={()=>setIsGrid('nogrid')}>
@@ -40,7 +49,7 @@ const MyBookMark = () => {
       </View>
 
       <FlatList
-      data={FakeTopics}
+        data={FakeTopics}
         keyExtractor={(item) => item.id.toString()}
         numColumns={isGrid === 'nogrid' ? 1 : 2}
         showsVerticalScrollIndicator={false}

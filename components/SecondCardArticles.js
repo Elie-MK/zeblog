@@ -32,9 +32,9 @@ const SecondCardArticles = () => {
         <Text style={{color:colors.gray, fontWeight:"600"}}>3 days ago</Text>
         <TouchableOpacity onPress={()=>setIsBook(!isBook)}>
         <MaterialCommunityIcons
-            name={isBook ? "bookmark-minus-outline" : "bookmark-minus"}
+            name={isBook ?  "bookmark-minus": "bookmark-minus-outline" }
             size={25}
-            color={isBook? colors.gray : colors.main}
+            color={isBook?  colors.main : colors.gray }
           />
         </TouchableOpacity>
       </View>
