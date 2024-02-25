@@ -81,11 +81,10 @@ const Discover = ({navigation}) => {
                 <Text style={{ fontWeight: "bold", fontSize: 25 }}>
                 Top Writers
                 </Text>
+                <TouchableOpacity onPress={()=>navigation.navigate('topwriters')}>
                 <Octicons name="arrow-right" size={24} color={colors.main} />
+                </TouchableOpacity>
             </View>
-                <View style={{ marginTop: 15 }}>
-                    <CardArticles />
-                </View>
             </View>
             </ScrollView>
         </View>

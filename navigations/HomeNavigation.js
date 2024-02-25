@@ -7,6 +7,7 @@ import MyBookMark from "../pages/Home/Bookmark/MyBookMark";
 import MostPopular from "../pages/Home/Discover/MostPopular";
 import ExploreByTopic from "../pages/Home/Discover/ExploreByTopic";
 import DetailArticlesByTopics from "../components/DetailArticlesByTopics";
+import TopWriters from "../pages/Home/Discover/TopWriters";
 
 const HomeNavigation = () => {
   const Stack = createStackNavigator();
@@ -23,6 +24,7 @@ const HomeNavigation = () => {
       <Stack.Screen name="mostpopular" component={MostPopular} />
       <Stack.Screen name="exploretopic" component={ExploreByTopic} />
       <Stack.Screen name="articlesbytopics" component={DetailArticlesByTopics} />
+      <Stack.Screen name="topwriters" component={TopWriters} />
     </Stack.Navigator>
   );
 };
