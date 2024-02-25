@@ -1,11 +1,11 @@
-import { View, Text, SafeAreaView, FlatList } from 'react-native'
+import { View, Text, SafeAreaView, FlatList, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import NavHeader from '../../../components/NavHeader'
 import PeopleFollowItem from '../../../components/PeopleFollowItem'
 import { FakeFollowers } from '../../../utilities/FakeFollowers'
 import { colors } from '../../../utilities/Color'
 
-const TopWriters = () => {
+const TopWriters = ({navigation}) => {
     const [follow, setFollow]=useState([])
 
     const handleFollow = (username) => {
@@ -24,13 +24,15 @@ const TopWriters = () => {
             style={{marginTop:20}}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => (
-              <PeopleFollowItem
+              <TouchableOpacity onPress={()=>navigation.navigate('writerdetail')}>
+                <PeopleFollowItem
                 onPress={() => handleFollow(item.username)}
                 items={item}
                 followers={follow}
                 names={item.name}
                 username={item.username}
               />
+              </TouchableOpacity>
             )}
           />
        </NavHeader>
