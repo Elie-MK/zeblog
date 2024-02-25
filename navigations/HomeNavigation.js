@@ -5,6 +5,8 @@ import HomeBottomNavigation from "./HomeBottomNavigation";
 import TopTabNavigation from "./TopTabNavigation";
 import MyBookMark from "../pages/Home/Bookmark/MyBookMark";
 import MostPopular from "../pages/Home/Discover/MostPopular";
+import ExploreByTopic from "../pages/Home/Discover/ExploreByTopic";
+import DetailArticlesByTopics from "../components/DetailArticlesByTopics";
 
 const HomeNavigation = () => {
   const Stack = createStackNavigator();
@@ -19,6 +21,8 @@ const HomeNavigation = () => {
       <Stack.Screen name="notification" component={TopTabNavigation} />
       <Stack.Screen name="bookmark" component={MyBookMark} />
       <Stack.Screen name="mostpopular" component={MostPopular} />
+      <Stack.Screen name="exploretopic" component={ExploreByTopic} />
+      <Stack.Screen name="articlesbytopics" component={DetailArticlesByTopics} />
     </Stack.Navigator>
   );
 };

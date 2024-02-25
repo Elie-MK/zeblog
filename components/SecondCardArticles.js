@@ -25,8 +25,8 @@ const SecondCardArticles = () => {
       <View>
         <Text style={{fontSize:18, fontWeight:"bold", }}>{text}</Text>
         <View style={{flexDirection:"row", alignItems:"center", gap:10, marginTop:10}}>
-        <Image style={{width:30, height:30, borderRadius:22}}  source={require('../assets/images/vectorPeople.jpg')}/>
-        <Text style={{fontSize:16, fontWeight:"600", color:colors.main}}>Doe</Text>
+        <Image style={{width:25, height:25, borderRadius:22}}  source={require('../assets/images/vectorPeople.jpg')}/>
+        <Text style={{fontSize:14, fontWeight:"600", color:colors.main}}>Doe</Text>
         </View>
       <View style={{marginTop:10, flexDirection:"row", justifyContent:"space-between", alignItems:"center", }}>
         <Text style={{color:colors.gray, fontWeight:"600"}}>3 days ago</Text>

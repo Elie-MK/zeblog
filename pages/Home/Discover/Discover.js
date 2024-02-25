@@ -7,6 +7,7 @@ import { colors } from '../../../utilities/Color';
 import { ScrollView } from 'react-native';
 import CardArticles from '../../../components/CardArticles';
 import { TouchableOpacity } from 'react-native';
+import CardTopics from '../../../components/CardTopics';
 
 const Discover = ({navigation}) => {
   return (
@@ -59,10 +60,12 @@ const Discover = ({navigation}) => {
                 <Text style={{ fontWeight: "bold", fontSize: 25 }}>
                 Explore by Topics
                 </Text>
-                <Octicons name="arrow-right" size={24} color={colors.main} />
+                <TouchableOpacity onPress={()=>navigation.navigate('exploretopic')}>
+                    <Octicons name="arrow-right" size={24} color={colors.main} />
+                </TouchableOpacity>
             </View>
                 <View style={{ marginTop: 15 }}>
-                    <CardArticles />
+                    <CardTopics />
                 </View>
             </View>
 
