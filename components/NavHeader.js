@@ -1,10 +1,10 @@
 import { View, Text, TouchableOpacity, SafeAreaView } from 'react-native'
 import React, { useState } from 'react'
 import { AntDesign } from "@expo/vector-icons";
-import SearchInput from './SearchInput';
+import { useNavigation } from '@react-navigation/native';
 
 const NavHeader = ({children, screenTitle}) => {
-    const [isActiveSearch, setIsActiveSearch] = useState(false)
+    const navigation = useNavigation()
 
   return (
     <View style={{marginHorizontal:15, flex:1, marginTop:20}}>
@@ -17,16 +17,12 @@ const NavHeader = ({children, screenTitle}) => {
         <Text style={{fontSize:20, fontWeight: "bold"}}>{screenTitle}</Text>
       </View>
       <View>
-      <TouchableOpacity  onPress={()=>setIsActiveSearch(!isActiveSearch)}>
+      <TouchableOpacity  onPress={()=>navigation.navigate('search')}>
           <AntDesign name="search1" size={25} color="black" />
         </TouchableOpacity>
       </View>
     </View>
-       {
-          isActiveSearch && <View style={{flexDirection:"row", justifyContent:"center", marginTop:20}}>
-              <SearchInput placeholder={"Search by title or author"}/>
-          </View>
-       }
+    
    </View>
    {children}
     </View>

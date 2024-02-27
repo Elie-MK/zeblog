@@ -9,6 +9,7 @@ import ExploreByTopic from "../pages/Home/Discover/ExploreByTopic";
 import DetailArticlesByTopics from "../components/DetailArticlesByTopics";
 import TopWriters from "../pages/Home/Discover/TopWriters";
 import WriterDetail from "../screens/writer/WriterDetail";
+import Searchs from "../screens/Searchs";
 
 const HomeNavigation = () => {
   const Stack = createStackNavigator();
@@ -27,6 +28,7 @@ const HomeNavigation = () => {
       <Stack.Screen name="articlesbytopics" component={DetailArticlesByTopics} />
       <Stack.Screen name="topwriters" component={TopWriters} />
       <Stack.Screen name="writerdetail" component={WriterDetail} />
+      <Stack.Screen name="search" component={Searchs} />
     </Stack.Navigator>
   );
 };
