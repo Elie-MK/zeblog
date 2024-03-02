@@ -8,6 +8,7 @@ import { Entypo } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { colors } from "../utilities/Color";
 import Discover from "../pages/Home/Discover/Discover";
+import WriterDetail from "../screens/writer/WriterDetail";
 
 const HomeBottomNavigation = () => {
   const Tab = createBottomTabNavigator();
@@ -91,7 +92,7 @@ const HomeBottomNavigation = () => {
           tabBarLabel: "Profile",
         }}
         name="profile"
-        component={MainHome}
+        component={WriterDetail}
       />
     </Tab.Navigator>
   );

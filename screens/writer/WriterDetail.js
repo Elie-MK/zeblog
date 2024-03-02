@@ -2,8 +2,6 @@ import { View, Text, SafeAreaView, TouchableOpacity, Image } from "react-native"
 import React, { useState } from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { colors } from "../../utilities/Color";
-import NotifGeneral from "../../pages/Home/Notifications/NotifGeneral";
-import NotifSystem from "../../pages/Home/Notifications/NotifSystem";
 import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";

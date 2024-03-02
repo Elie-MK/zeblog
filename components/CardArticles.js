@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { colors } from "../utilities/Color";
 
-const CardArticles = () => {
+const CardArticles = ({onPress}) => {
     const [text, setText] = useState("10 Tips Boosting your productivity and is good for your health.")
     const [isBook, setIsBook] = useState(false)
 
@@ -14,7 +14,7 @@ const CardArticles = () => {
     },[])
 
   return (
-    <View>
+    <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
       <View>
         <View>
           <Image
@@ -53,7 +53,7 @@ const CardArticles = () => {
         </View>
       </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

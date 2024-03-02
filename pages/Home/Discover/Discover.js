@@ -11,7 +11,7 @@ import CardTopics from '../../../components/CardTopics';
 
 const Discover = ({navigation}) => {
   return (
-    <SafeAreaView style={{flex:1}}>
+    <SafeAreaView style={{flex:1, backgroundColor:colors.white}}>
         <View style={{flex:1}}>
             <View style={{marginHorizontal:15}}>
                 <View style={{flexDirection:"row", alignItems:"flex-end", justifyContent:"space-between"}}>
@@ -26,7 +26,7 @@ const Discover = ({navigation}) => {
                 </View>
             </View>
 
-            <ScrollView style={{marginLeft:15}}>
+            <ScrollView style={{marginLeft:15, marginTop:15}}>
             {/* Most popular */}
             <View>
                 <View

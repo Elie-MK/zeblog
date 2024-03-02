@@ -97,7 +97,7 @@ const MainHome = ({navigation}) => {
             <Octicons name="arrow-right" size={24} color={colors.main} />
           </View>
           <View style={{ marginTop: 15 }}>
-            <CardArticles />
+            <CardArticles onPress={()=>navigation.navigate('viewArticle')} />
           </View>
         </View>
 
