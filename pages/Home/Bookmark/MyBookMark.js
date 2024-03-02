@@ -8,7 +8,7 @@ import CardArticles from "../../../components/CardArticles";
 import SecondCardArticles from "../../../components/SecondCardArticles";
 import SearchInput from "../../../components/SearchInput";
 
-const MyBookMark = () => {
+const MyBookMark = ({navigation}) => {
     const [isGrid, setIsGrid] = useState("nogrid")
     const [isActiveSearch, setIsActiveSearch] = useState(false)
     
@@ -24,16 +24,12 @@ const MyBookMark = () => {
           <Text style={{fontSize:20, fontWeight: "bold"}}>My Bookmarks</Text>
         </View>
         <View>
-        <TouchableOpacity  onPress={()=>setIsActiveSearch(!isActiveSearch)}>
+        <TouchableOpacity  onPress={()=>navigation.navigate('search')}>
             <AntDesign name="search1" size={25} color="black" />
           </TouchableOpacity>
         </View>
       </View>
-         {
-            isActiveSearch && <View style={{flexDirection:"row", justifyContent:"center", marginTop:20}}>
-                <SearchInput placeholder={"Search by title or author"}/>
-            </View>
-         }
+         
      </View>
 
       <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center", marginTop:isActiveSearch?0:30}}>

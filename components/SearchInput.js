@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 import React from "react";
-import { Input } from "@rneui/themed";
+import { SearchBar } from '@rneui/themed';
 import { Feather } from "@expo/vector-icons";
 import { colors } from "../utilities/Color";
 import { TouchableOpacity } from "react-native";
@@ -14,9 +14,9 @@ const SearchInput = ({
   disabled,
 }) => {
   return (
-    <Input
+      <SearchBar
       placeholder={placeholder}
-      inputContainerStyle={{
+      containerStyle={{
         padding: 3,
         borderColor: colors.gray,
         borderRadius: 7,
@@ -24,18 +24,16 @@ const SearchInput = ({
         borderBottomWidth: 0,
         width: "90%",
       }}
+      lightTheme={true}
+      showCancel={true}
+      inputContainerStyle={{backgroundColor:colors.lightGray}}
       onFocus={onFocus}
       value={value}
       onChangeText={onChangeText}
-      inputStyle={{ paddingLeft: 7, paddingRight: 7 }}
       leftIconContainerStyle={{ marginLeft: 10 }}
       rightIconContainerStyle={{ marginRight: 10 }}
-      leftIcon={<Feather name="search" size={24} color={colors.gray} />}
-      rightIcon={() => (
-        <TouchableOpacity>
-          <FontAwesome name="remove" size={24} color={colors.gray} />
-        </TouchableOpacity>
-      )}
+    searchIcon={<Feather name="search" size={24} color={colors.gray} />}
+      clearIcon={<FontAwesome name="remove" size={24} color={colors.gray} />}
       disabled={disabled}
     />
   );

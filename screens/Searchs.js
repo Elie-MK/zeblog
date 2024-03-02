@@ -10,11 +10,15 @@ import React, { useState } from "react";
 import SearchInput from "../components/SearchInput";
 import { AntDesign } from "@expo/vector-icons";
 import { colors } from "../utilities/Color";
+import NotFoundComponent from "../components/NotFoundComponent";
+import SearchArticleComponent from "../components/SearchArticleComponent";
+import SearchWriterComponent from "../components/SearchWriterComponent";
 
 const Searchs = () => {
   const [isSelected, setIsSelected] = useState("articles");
+  const [isFound, setIsFound] = useState(true);
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor:colors.white }}>
       <View style={{ flex: 1, marginHorizontal: 15 }}>
         <View
           style={{
@@ -30,6 +34,7 @@ const Searchs = () => {
           <SearchInput placeholder={"Search by title or author"} />
         </View>
 
+        <View style={{flexDirection:"row", justifyContent:"center", marginTop:20}}>
         <View style={{ flexDirection: "row", justifyContent: "space-between", paddingBottom:10 }}>
           <TouchableOpacity
             onPress={() => setIsSelected("articles")}
@@ -80,44 +85,17 @@ const Searchs = () => {
           </TouchableOpacity>
         </View>
 
-        <ScrollView  style={{
+        </View>
+
+        
+        <View  style={{
             flex: 1
           }}>
-
-
-        <View
-          style={{
-            flex: 1,
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <View>
-            <Image
-              style={{ width: 300, height: 300 }}
-              source={require("../assets/images/notfound.png")}
-            />
-            <View style={{ marginTop: 20 }}>
-              <Text
-                style={{
-                  textAlign: "center",
-                  fontSize: 20,
-                  fontWeight: "bold",
-                }}
-              >
-                Not Found
-              </Text>
-              <Text
-                style={{ textAlign: "center", marginTop: 20, fontSize: 18 }}
-              >
-                We're sorry, the keyword you were looking for could not be
-                found. Please search with another keyworkds.
-              </Text>
-            </View>
-          </View>
+            {
+              isFound?isSelected ==="articles" ?<SearchArticleComponent/> : <SearchWriterComponent />:<NotFoundComponent />
+            }
+            
         </View>
-        </ScrollView>
       </View>
     </SafeAreaView>
   );
