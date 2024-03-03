@@ -14,11 +14,11 @@ import NotFoundComponent from "../components/NotFoundComponent";
 import SearchArticleComponent from "../components/SearchArticleComponent";
 import SearchWriterComponent from "../components/SearchWriterComponent";
 
-const Searchs = () => {
+const Searchs = ({navigation}) => {
   const [isSelected, setIsSelected] = useState("articles");
   const [isFound, setIsFound] = useState(true);
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor:colors.white }}>
+    <SafeAreaView style={{ flex: 1, marginTop:20 }}>
       <View style={{ flex: 1, marginHorizontal: 15 }}>
         <View
           style={{

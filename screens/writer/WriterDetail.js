@@ -1,6 +1,7 @@
 import { View, Text, SafeAreaView, TouchableOpacity, Image } from "react-native";
 import React, { useState } from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+
 import { colors } from "../../utilities/Color";
 import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
@@ -17,7 +18,7 @@ const WriterDetail = () => {
 
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.white }}>
+    <SafeAreaView style={{ flex: 1}}>
       <View style={{ marginHorizontal: 15 }}>
        <View>
        <View

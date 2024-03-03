@@ -1,6 +1,5 @@
-import { createStackNavigator } from "@react-navigation/stack";
+import { createStackNavigator,  TransitionPresets } from "@react-navigation/stack";
 import React from "react";
-import MainHome from "../pages/Home/MainHome";
 import HomeBottomNavigation from "./HomeBottomNavigation";
 import TopTabNavigation from "./TopTabNavigation";
 import MyBookMark from "../pages/Home/Bookmark/MyBookMark";
@@ -11,13 +10,21 @@ import TopWriters from "../pages/Home/Discover/TopWriters";
 import WriterDetail from "../screens/writer/WriterDetail";
 import Searchs from "../screens/Searchs";
 import ViewArticleComponent from "../components/ViewArticleComponent";
+import { colors } from "../utilities/Color";
 
 const HomeNavigation = () => {
   const Stack = createStackNavigator();
+  const forFade = ({ current }) => ({
+    cardStyle: {
+      opacity: current.progress,
+    },
+  });
+ 
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
+        cardStyle:{backgroundColor:colors.white}
       }}
       initialRouteName="bottomnavhome"
     >
@@ -28,9 +35,11 @@ const HomeNavigation = () => {
       <Stack.Screen name="exploretopic" component={ExploreByTopic} />
       <Stack.Screen name="articlesbytopics" component={DetailArticlesByTopics} />
       <Stack.Screen name="topwriters" component={TopWriters} />
-      <Stack.Screen name="writerdetail" component={WriterDetail} />
-      <Stack.Screen name="search" component={Searchs} />
-      <Stack.Screen name="viewArticle" component={ViewArticleComponent} />
+      <Stack.Screen name="writerdetail" component={WriterDetail}  />
+      <Stack.Screen name="search" component={Searchs} options={{presentation:"modal"}} />
+      <Stack.Screen name="viewArticle" component={ViewArticleComponent} options={{
+       ...TransitionPresets.ScaleFromCenterAndroid
+      }} />
     </Stack.Navigator>
   );
 };
