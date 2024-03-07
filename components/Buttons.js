@@ -3,13 +3,14 @@ import React from "react";
 import { Button } from "@rneui/base";
 import { colors } from "../utilities/Color";
 
-const Buttons = ({ title, buttonStyle, titleStyle, onPress }) => {
+const Buttons = ({ title, onPress, disabled }) => {
   return (
     <Button
       onPress={onPress}
       title={title}
       activeOpacity={0.8}
       titleStyle={{ fontWeight: "800" }}
+      disabled={disabled}
       buttonStyle={{
         backgroundColor: colors.main,
         padding: 15,

@@ -9,6 +9,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { colors } from "../utilities/Color";
 import Discover from "../pages/Home/Discover/Discover";
 import WriterDetail from "../screens/writer/WriterDetail";
+import CreateArticles from "../pages/Home/CreateArticles/CreateArticles";
 
 const HomeBottomNavigation = () => {
   const Tab = createBottomTabNavigator();
@@ -17,6 +18,7 @@ const HomeBottomNavigation = () => {
     <Tab.Navigator
       screenOptions={({ route, navigation }) => ({
         headerShown: false,
+     
         tabBarIcon: ({ color, focused, size }) => {
           let iconName;
           if (route.name === "mainhome") {
@@ -77,8 +79,9 @@ const HomeBottomNavigation = () => {
           tabBarLabel: () => {
             return null;
           },
+          
         }}
-        component={MainHome}
+        component={CreateArticles}
       />
       <Tab.Screen
         options={{
