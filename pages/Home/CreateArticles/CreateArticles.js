@@ -41,7 +41,7 @@ const CreateArticles = () => {
     }
   };
   return (
-    <SafeAreaView style={{ backgroundColor: colors.white, flex: 1 }}>
+    <SafeAreaView style={{flex: 1 }}>
       <View style={{ flex: 1, marginHorizontal: 20, marginTop:10 }}>
         <View
           style={{

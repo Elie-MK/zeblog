@@ -18,9 +18,9 @@ const HomeBottomNavigation = () => {
 
   return (
     <Tab.Navigator
+    sceneContainerStyle={{backgroundColor:colors.white}}
       screenOptions={({ route, navigation }) => ({
         headerShown: false,
-     
         tabBarIcon: ({ color, focused, size }) => {
           let iconName;
           if (route.name === "mainhome") {
@@ -98,6 +98,7 @@ const HomeBottomNavigation = () => {
         }}
         name="profile"
         component={ProfileOverallView}
+        
       />
     </Tab.Navigator>
   );

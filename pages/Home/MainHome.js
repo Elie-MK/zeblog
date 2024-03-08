@@ -9,7 +9,7 @@ import { ScrollView } from "react-native";
 
 const MainHome = ({navigation}) => {
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.white }}>
+    <SafeAreaView style={{ flex: 1 }}>
       <View
         style={{
           marginHorizontal: 15,
