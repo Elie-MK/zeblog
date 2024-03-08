@@ -12,6 +12,7 @@ import Searchs from "../screens/Searchs";
 import ViewArticleComponent from "../components/ViewArticleComponent";
 import { colors } from "../utilities/Color";
 import CreateArticles from "../pages/Home/CreateArticles/CreateArticles";
+import Comments from "../screens/Comments";
 
 const HomeNavigation = () => {
   const Stack = createStackNavigator();
@@ -39,6 +40,7 @@ const HomeNavigation = () => {
       <Stack.Screen name="writerdetail" component={WriterDetail}  />
       <Stack.Screen name="search" component={Searchs} options={{presentation:"modal"}} />
       <Stack.Screen name="create" component={CreateArticles} options={{presentation:"modal"}} />
+      <Stack.Screen name="comments" component={Comments} options={{presentation:"modal"}} />
       <Stack.Screen name="viewArticle" component={ViewArticleComponent} options={{
        ...TransitionPresets.ScaleFromCenterAndroid
       }} />
