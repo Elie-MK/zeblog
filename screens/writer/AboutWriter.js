@@ -6,12 +6,13 @@ import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { FontAwesome6 } from '@expo/vector-icons';
+import { ScrollView } from "react-native";
 
 
 const AboutWriter = () => {
   return (
     <View style={{ flex: 1, backgroundColor: colors.white }}>
-      <View style={{ marginHorizontal: 15, marginTop:10 }}>
+      <ScrollView showsVerticalScrollIndicator={false} style={{ marginHorizontal: 15, marginTop:10 }}>
         <View>
           <Text style={{fontSize:18, fontWeight:"bold"}}>Description</Text>
           <Text style={{textAlign:"justify", marginTop:10}}>
@@ -64,7 +65,7 @@ const AboutWriter = () => {
           </View>
           </View>
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
 };

@@ -15,10 +15,12 @@ const Discover = ({navigation}) => {
         <View style={{flex:1}}>
             <View style={{marginHorizontal:15}}>
                 <View style={{flexDirection:"row", alignItems:"flex-end", justifyContent:"space-between"}}>
-                    <View style={{flexDirection:"row", alignItems:"flex-end", }}>
-                        <Image style={{width:55, height:55}} source={require('../../../assets/images/logo.png')} />
-                        <Text style={{ fontSize: 20, fontWeight:"bold" }}>Discover</Text>
-                    </View>
+                <View>
+            <Image
+              style={{ width: 120, height: 70 }}
+              source={require("../../../assets/images/discover.png")}
+            />
+          </View>
                     <MaterialCommunityIcons name="dots-horizontal-circle-outline" size={24} color="black" />
                 </View>
                 <View style={{flexDirection:"row", justifyContent:"center", marginTop:20}}>

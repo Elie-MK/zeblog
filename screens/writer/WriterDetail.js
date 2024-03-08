@@ -12,10 +12,9 @@ import ArticlesWriter from "./ArticlesWriter";
 import AboutWriter from "./AboutWriter";
 
 
-const WriterDetail = () => {
+const WriterDetail = ({navigation}) => {
   const Top = createMaterialTopTabNavigator();
   const [isFollow, setIsFollow] = useState(false);
-
 
   return (
     <SafeAreaView style={{ flex: 1}}>

@@ -60,7 +60,7 @@ const CreateArticles = () => {
             />
           </TouchableOpacity>
           {
-            !image && <TouchableOpacity  onPress={pickImage}>
+            !image? <TouchableOpacity  onPress={pickImage}>
             <Text
               style={{
                 borderWidth: 1,
@@ -71,6 +71,18 @@ const CreateArticles = () => {
               }}
             >
               + Upload cover
+            </Text>
+          </TouchableOpacity> :<TouchableOpacity style={{backgroundColor:colors.main, borderRadius: 20}} >
+            <Text
+              style={{
+                padding: 10,
+                color:colors.white,
+                flexDirection: "row",
+                alignSelf: "flex-start",
+                fontWeight:"bold"
+              }}
+            >
+              Save
             </Text>
           </TouchableOpacity>
           }

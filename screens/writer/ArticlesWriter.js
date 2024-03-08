@@ -12,7 +12,7 @@ const ArticlesWriter = () => {
 
   return (
     <View style={{ backgroundColor:colors.white, flex:1}}>
-        <View style={{marginHorizontal:15, flex:1}}>
+        <View style={{ flex:1}}>
 
       <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center", marginTop:10}}>
         <Text style={{fontSize:20, fontWeight:"bold"}}>364 Articles</Text>
@@ -31,6 +31,7 @@ const ArticlesWriter = () => {
         keyExtractor={(item) => item.id.toString()}
         numColumns={isGrid === 'nogrid' ? 1 : 2}
         showsVerticalScrollIndicator={false}
+        columnWrapperStyle={{marginLeft:10}}
         style={{flex:1, marginTop:5}}
         key={isGrid === 'nogrid' ? 'oneColumn' : 'twoColumns'} 
         renderItem={({item}) => <View style={{marginRight:isGrid==='nogrid'? 0 : 20, marginTop: 20 }}>

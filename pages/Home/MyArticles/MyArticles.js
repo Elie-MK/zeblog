@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, TouchableOpacity, FlatList } from "react-native";
+import { View, Text, SafeAreaView, TouchableOpacity, FlatList, Image } from "react-native";
 import React, { useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from '@expo/vector-icons';
@@ -16,14 +16,24 @@ const MyArticles = ({navigation}) => {
     <SafeAreaView style={{flex:1}}>
     <View style={{flex:1, marginTop:20, marginHorizontal:15}}>
    <View>
-   <View style={{flexDirection:"row", alignItems:"center", gap:10,  justifyContent:"flex-end"}}>
-    {
-        isSearch && <SearchInput />
-    }
+   <View style={{flexDirection:"row", alignItems:"center", gap:10,  justifyContent:"space-between"}}>
+      <View>
+            <Image
+              style={{ width: 120, height: 70 }}
+              source={require("../../../assets/images/myArticle.png")}
+            />
+          </View>
+
       <TouchableOpacity  onPress={()=>setIsSearch(!isSearch)}>
           <AntDesign name="search1" size={25} color="black" />
         </TouchableOpacity>
     </View>
+
+    {
+        isSearch && <View style={{flexDirection:"row", justifyContent:"center"}}>
+          <SearchInput />
+        </View>
+    }
        
    </View>
 
@@ -43,12 +53,13 @@ const MyArticles = ({navigation}) => {
       data={FakeTopics}
       keyExtractor={(item) => item.id.toString()}
       numColumns={isGrid === 'nogrid' ? 1 : 2}
+      columnWrapperStyle={{flexDirection:"row", justifyContent:"center"}}
       showsVerticalScrollIndicator={false}
-      style={{flex:1, marginTop:5}}
+      style={{flex:1, marginTop:5,}}
       key={isGrid === 'nogrid' ? 'oneColumn' : 'twoColumns'} 
       renderItem={({item}) => <View style={{marginRight:isGrid==='nogrid'? 0 : 20, marginTop: 20 }}>
           {
-              isGrid === 'nogrid' ? <SecondCardArticles /> : <CardArticles />
+              isGrid === 'nogrid' ? <SecondCardArticles /> :<CardArticles />
           }
       </View>
   }
