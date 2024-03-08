@@ -10,6 +10,8 @@ import { colors } from "../utilities/Color";
 import Discover from "../pages/Home/Discover/Discover";
 import WriterDetail from "../screens/writer/WriterDetail";
 import CreateArticles from "../pages/Home/CreateArticles/CreateArticles";
+import MyArticles from "../pages/Home/MyArticles/MyArticles";
+import ProfileOverallView from "../pages/Home/MyProfile/ProfileOverallView";
 
 const HomeBottomNavigation = () => {
   const Tab = createBottomTabNavigator();
@@ -25,7 +27,7 @@ const HomeBottomNavigation = () => {
             iconName = focused ? "home" : "home-outline";
           } else if (route.name === "discover") {
             iconName = focused ? "compass" : "compass-outline";
-          } else if (route.name === "my articles") {
+          } else if (route.name === "myArticles") {
             iconName = focused ? "document-text" : "document-text-outline";
           } else if (route.name === "profile") {
             iconName = focused ? "person" : "person-outline";
@@ -87,15 +89,15 @@ const HomeBottomNavigation = () => {
         options={{
           tabBarLabel: "My Articles",
         }}
-        name="my articles"
-        component={MainHome}
+        name="myArticles"
+        component={MyArticles}
       />
       <Tab.Screen
         options={{
           tabBarLabel: "Profile",
         }}
         name="profile"
-        component={WriterDetail}
+        component={ProfileOverallView}
       />
     </Tab.Navigator>
   );

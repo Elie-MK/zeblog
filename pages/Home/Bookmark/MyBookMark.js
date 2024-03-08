@@ -6,11 +6,9 @@ import { colors } from "../../../utilities/Color";
 import { FakeTopics } from "../../../utilities/FakeTopics";
 import CardArticles from "../../../components/CardArticles";
 import SecondCardArticles from "../../../components/SecondCardArticles";
-import SearchInput from "../../../components/SearchInput";
 
 const MyBookMark = ({navigation}) => {
     const [isGrid, setIsGrid] = useState("nogrid")
-    const [isActiveSearch, setIsActiveSearch] = useState(false)
     
   return (
     <SafeAreaView style={{flex:1, marginHorizontal:15 }}>
@@ -32,7 +30,7 @@ const MyBookMark = ({navigation}) => {
          
      </View>
 
-      <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center", marginTop:isActiveSearch?0:30}}>
+      <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center", marginTop:30}}>
         <Text style={{fontSize:20, fontWeight:"bold"}}>48 Articles</Text>
         <View style={{flexDirection:"row", alignItems:"center"}}>
             <TouchableOpacity onPress={()=>setIsGrid('nogrid')}>
