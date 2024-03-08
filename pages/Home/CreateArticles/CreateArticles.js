@@ -108,6 +108,8 @@ const CreateArticles = () => {
                   multiline
                   placeholder="Content"
                   placeholderTextColor={colors.gray}
+                  scrollEnabled
+                  autoCorrect
                   style={{
                     backgroundColor: colors.subGray,
                     borderColor: colors.gray,
