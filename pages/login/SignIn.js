@@ -28,7 +28,7 @@ const SignIn = ({ navigation }) => {
     <KeyboardAvoidingView
       keyboardVerticalOffset={Platform.OS === "ios" ? 10 : 0}
       behavior={Platform.OS === "ios" ? "padding" : null}
-      style={{ backgroundColor: colors.white, flex: 1 }}
+      style={{ flex: 1 }}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScrollView>
