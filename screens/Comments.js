@@ -1,15 +1,32 @@
 import { View, Text, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, Platform } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import CommentItem from '../components/CommentItem'
 import { TouchableOpacity } from 'react-native'
 import { AntDesign } from "@expo/vector-icons";
 import { colors } from '../utilities/Color';
 import { ScrollView } from 'react-native';
 import CommentInput from '../components/CommentInput';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 const Comments = ({navigation}) => {
+  const [isCommented, setIsCommented]=useState(false)
+  const [valueComments, setValueComments]=useState("")
+  const [listOfComments, setListOfComments]=useState([1])
+
+
+  const handleComments = ()=>{
+    if(valueComments.length>0){
+      setIsCommented(true)
+      setTimeout(() => {
+        setIsCommented(false)
+        setListOfComments([...listOfComments, valueComments])
+        setValueComments("")
+      }, 1000);
+    }else{
+      alert("Please add a comment")
+    }
+  }
+
   return (
     <KeyboardAvoidingView
     keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
@@ -26,12 +43,12 @@ const Comments = ({navigation}) => {
 
         <ScrollView showsVerticalScrollIndicator={false} style={{flex:1, marginTop:20 }}>
           {
-            [1,2,3,4,5,6,7,8,9,10].map((item, index)=><CommentItem key={index} />)
+            listOfComments.map((item, index)=><CommentItem key={index} />)
           }
          
         </ScrollView>
         <View style={{marginTop:10, marginBottom:10}}>
-          <CommentInput />
+          <CommentInput onChangeText={setValueComments} valueComments={valueComments} isCommented={isCommented} setIsCommented={handleComments}/>
         </View>
 
       </View>
