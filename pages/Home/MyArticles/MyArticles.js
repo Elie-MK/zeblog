@@ -53,7 +53,7 @@ const MyArticles = ({navigation}) => {
       data={FakeTopics}
       keyExtractor={(item) => item.id.toString()}
       numColumns={isGrid === 'nogrid' ? 1 : 2}
-      columnWrapperStyle={{flexDirection:"row", justifyContent:"center"}}
+      {...isGrid === 'nogrid' ? null: {columnWrapperStyle: {flexDirection:"row", justifyContent:"center", marginLeft:20}}}
       showsVerticalScrollIndicator={false}
       style={{flex:1, marginTop:5,}}
       key={isGrid === 'nogrid' ? 'oneColumn' : 'twoColumns'} 

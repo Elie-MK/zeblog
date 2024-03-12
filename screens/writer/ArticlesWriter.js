@@ -31,7 +31,8 @@ const ArticlesWriter = () => {
         keyExtractor={(item) => item.id.toString()}
         numColumns={isGrid === 'nogrid' ? 1 : 2}
         showsVerticalScrollIndicator={false}
-        columnWrapperStyle={{marginLeft:10}}
+        {...isGrid === 'nogrid' ? null: {columnWrapperStyle: {flexDirection:"row", justifyContent:"center", marginLeft:10}}}
+        
         style={{flex:1, marginTop:5}}
         key={isGrid === 'nogrid' ? 'oneColumn' : 'twoColumns'} 
         renderItem={({item}) => <View style={{marginRight:isGrid==='nogrid'? 0 : 20, marginTop: 20 }}>

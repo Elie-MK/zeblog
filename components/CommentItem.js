@@ -1,13 +1,32 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { colors } from '../utilities/Color'
 import { Octicons } from '@expo/vector-icons';
 import { CardDivider } from '@rneui/base/dist/Card/Card.Divider';
+import Animated, {useSharedValue,  useAnimatedStyle, withTiming } from 'react-native-reanimated'
 
 const CommentItem = () => {
-    const [isLiked, setIsLiked]=useState(false)
+  
+  const [isLiked, setIsLiked]=useState(false)
+
+  const progress = useSharedValue(0)
+  const scale = useSharedValue(0)
+
+
+  const progressStyle = useAnimatedStyle(() => {
+    return {
+      opacity: progress.value,
+      transform:[{scale:scale.value}]
+    };
+  }, []);
+
+  useEffect(()=>{
+    progress.value = withTiming(1)
+    scale.value = withTiming(1, {duration:700})
+  },[])
+
   return (
-    <View>
+    <Animated.View style={progressStyle}>
       <View style={{flexDirection:"row", alignItems:"center", gap:15}}>
         <Image
             resizeMode="contain"
@@ -31,7 +50,7 @@ const CommentItem = () => {
         </View>
       </View>
       <CardDivider />
-    </View>
+    </Animated.View>
   )
 }
 

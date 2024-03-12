@@ -1,10 +1,11 @@
 import { View, Text, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, Platform } from 'react-native'
-import React, { useState } from 'react'
-import CommentItem from '../components/CommentItem'
+import React, { useEffect, useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { AntDesign } from "@expo/vector-icons";
-import { colors } from '../utilities/Color';
 import { ScrollView } from 'react-native';
+
+import { colors } from '../utilities/Color';
+import CommentItem from '../components/CommentItem'
 import CommentInput from '../components/CommentInput';
 
 
@@ -12,6 +13,8 @@ const Comments = ({navigation}) => {
   const [isCommented, setIsCommented]=useState(false)
   const [valueComments, setValueComments]=useState("")
   const [listOfComments, setListOfComments]=useState([1])
+
+  
 
 
   const handleComments = ()=>{
@@ -43,7 +46,7 @@ const Comments = ({navigation}) => {
 
         <ScrollView showsVerticalScrollIndicator={false} style={{flex:1, marginTop:20 }}>
           {
-            listOfComments.map((item, index)=><CommentItem key={index} />)
+            listOfComments.map((item, index)=><CommentItem  key={index} />)
           }
          
         </ScrollView>
