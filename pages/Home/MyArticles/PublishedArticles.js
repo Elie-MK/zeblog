@@ -30,7 +30,7 @@ const PublishedArticles = () => {
     numColumns={isGrid === 'nogrid' ? 1 : 2}
     {...isGrid === 'nogrid' ? null: {columnWrapperStyle: {flexDirection:"row", justifyContent:"center", marginLeft:20}}}
     showsVerticalScrollIndicator={false}
-    style={{flex:1, marginTop:5,}}
+    style={{flex:1, marginTop:5}}
     key={isGrid === 'nogrid' ? 'oneColumn' : 'twoColumns'} 
     renderItem={({item}) => <View style={{marginRight:isGrid==='nogrid'? 0 : 20, marginTop: 20 }}>
         {

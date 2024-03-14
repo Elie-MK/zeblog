@@ -4,7 +4,8 @@ import { Button } from "@rneui/base";
 import { colors } from "../utilities/Color";
 import InfosWriter from "./InfosWriter";
 
-const ProfileItem = ({ names, username }) => {
+const ProfileItem = ({ names, username, onPress }) => {
+  
   return (
     <View style={{ marginTop: 30 }}>
       <View
@@ -39,6 +40,7 @@ const ProfileItem = ({ names, username }) => {
           icon={{ name: "edit", size: 20, color: colors.main }}
           titleStyle={{ color: colors.main }}
           title={"Edit"}
+          onPress={onPress}
         />
       </View>
       <View

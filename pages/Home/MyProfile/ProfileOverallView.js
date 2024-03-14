@@ -11,7 +11,7 @@ import ArticlesWriter from '../../../screens/writer/ArticlesWriter';
 import AboutWriter from '../../../screens/writer/AboutWriter';
 
 
-const ProfileOverallView = () => {
+const ProfileOverallView = ({navigation}) => {
   const Top = createMaterialTopTabNavigator();
 
   return (
@@ -32,13 +32,13 @@ const ProfileOverallView = () => {
           </TouchableOpacity>
           </View>
       </View>
-      <ProfileItem names={"Doe Kanyinda"} username={'@elie_mk'}/>
+      <ProfileItem onPress={()=>navigation.navigate('editprofile')} names={"Doe Kanyinda"} username={'@elie_mk'}/>
       <Top.Navigator
         screenOptions={({ route, navigation }) => ({
           tabBarLabel: ({ focused }) => {
             let label;
             if (route.name === "article") {
-              label = "Article";
+              label = "Articles";
             } else if (route.name === "about") {
               label = "About";
             }
