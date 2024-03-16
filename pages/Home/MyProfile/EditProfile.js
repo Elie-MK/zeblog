@@ -1,10 +1,32 @@
 import { View, Text, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { AntDesign } from "@expo/vector-icons";
 import { Avatar, Icon } from '@rneui/themed';
 import { colors } from '../../../utilities/Color';
+import * as ImagePicker from 'expo-image-picker';
+
 
 const EditProfile = ({navigation}) => {
+    const [profileImage, setProfileImage] = useState(null)
+
+    const handleProfileImage = async () => {
+      const requestLibrary = await ImagePicker.requestMediaLibraryPermissionsAsync()
+      if(requestLibrary.granted){
+        let image = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            quality: 1,
+            allowsEditing: true,
+            aspect: [4, 3]
+        })
+console.log(image);
+        if (!image.canceled) {
+            setProfileImage(image.assets[0].uri)
+        }
+      }else {
+        alert('Permission to access Library is required!')
+      
+      }
+    }
     
 
   return (
@@ -15,13 +37,13 @@ const EditProfile = ({navigation}) => {
         </TouchableOpacity>
             <Text style={{fontSize:20, fontWeight: "bold"}}>Edit Profile</Text>
      </View>
-     
-     <View style={{flexDirection:"row", justifyContent:"center", marginTop:30}}>
+
+     <TouchableOpacity onPress={handleProfileImage} style={{flexDirection:"row", justifyContent:"center", marginTop:30}}>
      <View>
           <Avatar
             rounded
             source={{
-              uri: 'https://randomuser.me/api/portraits/women/40.jpg',
+              uri: profileImage?profileImage:'https://randomuser.me/api/portraits/women/40.jpg',
             }}
             size="xlarge"
           />
@@ -29,7 +51,7 @@ const EditProfile = ({navigation}) => {
             <Icon  type="materialicons" name="mode-edit" color={colors.white} size={20}/>
          </View>
         </View>
-     </View>
+     </TouchableOpacity>
     </View>
   )
 }
