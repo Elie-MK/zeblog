@@ -14,6 +14,7 @@ import { colors } from "../utilities/Color";
 import CreateArticles from "../pages/Home/CreateArticles/CreateArticles";
 import Comments from "../screens/Comments";
 import EditProfile from "../pages/Home/MyProfile/EditProfile";
+import Settings from "../pages/Home/MyProfile/Settings";
 
 const HomeNavigation = () => {
   const Stack = createStackNavigator();
@@ -43,6 +44,7 @@ const HomeNavigation = () => {
       <Stack.Screen name="create" component={CreateArticles} options={{presentation:"modal"}} />
       <Stack.Screen name="comments" component={Comments} options={{presentation:"modal"}} />
       <Stack.Screen name="editprofile" component={EditProfile} options={{presentation:"modal"}} />
+      <Stack.Screen name="settings" component={Settings} />
       <Stack.Screen name="viewArticle" component={ViewArticleComponent} options={{
        ...TransitionPresets.ScaleFromCenterAndroid
       }} />

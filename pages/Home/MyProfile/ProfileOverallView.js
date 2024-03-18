@@ -27,7 +27,7 @@ const ProfileOverallView = ({navigation}) => {
           <TouchableOpacity>
             <Ionicons name="share-outline" size={30} color={colors.black} />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=>navigation.navigate('settings')}>
             <Octicons name="gear" size={24} color={colors.black} />            
           </TouchableOpacity>
           </View>
