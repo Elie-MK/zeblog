@@ -1,11 +1,11 @@
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import { AntDesign } from "@expo/vector-icons";
-import { Avatar, Icon } from '@rneui/themed';
 import { colors } from '../../../utilities/Color';
 import * as ImagePicker from 'expo-image-picker';
 import { Input } from '@rneui/themed';
 import Buttons from '../../../components/Buttons';
+import ProfileImage from '../../../components/ProfileImage';
 
 const EditProfile = ({navigation}) => {
     const [profileImage, setProfileImage] = useState(null)
@@ -40,20 +40,7 @@ console.log(image);
      </View>
 
      <ScrollView showsVerticalScrollIndicator={false} style={{flex:1}}>
-     <TouchableOpacity onPress={handleProfileImage} style={{flexDirection:"row", justifyContent:"center", marginTop:30}}>
-     <View>
-          <Avatar
-            rounded
-            source={{
-              uri: profileImage?profileImage:'https://randomuser.me/api/portraits/women/40.jpg',
-            }}
-            size="xlarge"
-          />
-         <View style={{ position: 'absolute', top: 120, left: 100, backgroundColor:colors.main, padding:5, borderRadius:10  }}>
-            <Icon  type="materialicons" name="mode-edit" color={colors.white} size={20}/>
-         </View>
-        </View>
-     </TouchableOpacity>
+     <ProfileImage profileImage={profileImage} handleProfileImage={handleProfileImage} />
 
      <View>
       <Text style={{marginLeft:10, fontWeight:"bold"}}>Display Name</Text>

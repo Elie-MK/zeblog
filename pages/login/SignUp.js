@@ -16,9 +16,7 @@ import { KeyboardAvoidingView } from "react-native";
 import Buttons from "../../components/Buttons";
 import { Ionicons } from "@expo/vector-icons";
 import ModalGender from "../../components/ModalGender";
-import GlobalSteps from "../../components/GlobalSteps";
-import ProgressBars from "../../components/ProgressBars";
-import { AntDesign } from "@expo/vector-icons";
+
 
 export default function SignUp({ navigation }) {
   const [selectGender, setSelectGender] = useState("Gender");

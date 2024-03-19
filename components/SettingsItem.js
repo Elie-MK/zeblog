@@ -3,11 +3,12 @@ import React from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { colors } from "../utilities/Color";
 
-const SettingsItem = ({ title, IconRight, titleIcon, isLanguage, currentLanguage }) => {
+const SettingsItem = ({ title, IconRight, titleIcon, isLanguage, currentLanguage, onPress }) => {
   return (
     <>
       {isLanguage ? (
         <TouchableOpacity
+        onPress={onPress}
           activeOpacity={0.6}
           style={{
             flexDirection: "row",
@@ -36,6 +37,7 @@ const SettingsItem = ({ title, IconRight, titleIcon, isLanguage, currentLanguage
         </TouchableOpacity>
       ) : (
         <TouchableOpacity
+        onPress={onPress}
           activeOpacity={0.6}
           style={{
             flexDirection: "row",
