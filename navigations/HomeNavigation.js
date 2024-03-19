@@ -16,6 +16,7 @@ import Comments from "../screens/Comments";
 import EditProfile from "../pages/Home/MyProfile/EditProfile";
 import Settings from "../pages/Home/MyProfile/Settings/Settings";
 import PersonalInfo from "../pages/Home/MyProfile/Settings/PersonalInfo";
+import Notification from "../pages/Home/MyProfile/Settings/Notification";
 
 const HomeNavigation = () => {
   const Stack = createStackNavigator();
@@ -45,11 +46,14 @@ const HomeNavigation = () => {
       <Stack.Screen name="create" component={CreateArticles} options={{presentation:"modal"}} />
       <Stack.Screen name="comments" component={Comments} options={{presentation:"modal"}} />
       <Stack.Screen name="editprofile" component={EditProfile} options={{presentation:"modal"}} />
-      <Stack.Screen name="settings" component={Settings} />
-      <Stack.Screen name="personalinfo" component={PersonalInfo} />
       <Stack.Screen name="viewArticle" component={ViewArticleComponent} options={{
        ...TransitionPresets.ScaleFromCenterAndroid
       }} />
+
+      {/* Settings */}
+      <Stack.Screen name="settings" component={Settings} />
+      <Stack.Screen name="personalinfo" component={PersonalInfo} />
+      <Stack.Screen name="settingnotification" component={Notification} />
 
     </Stack.Navigator>
   );

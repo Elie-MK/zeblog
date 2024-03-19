@@ -20,7 +20,7 @@ const Settings = ({navigation}) => {
 
         <ScrollView style={{flex:1}}>
             <SettingsItem onPress={()=>navigation.navigate('personalinfo')} IconRight={FontAwesome5} titleIcon={"user-alt"} title={"Personal Info"} />
-            <SettingsItem IconRight={FontAwesome} titleIcon={"bell"} title={"Notification"} />
+            <SettingsItem onPress={()=>navigation.navigate('settingnotification')} IconRight={FontAwesome} titleIcon={"bell"} title={"Notification"} />
             <SettingsItem IconRight={MaterialCommunityIcons} titleIcon={"shield-check"} title={"Security"} />
             <SettingsItem isLanguage currentLanguage={"English (US)"} IconRight={MaterialCommunityIcons} titleIcon={"file-document"} title={"Language"} />
             <SettingsItem IconRight={Entypo} titleIcon={"eye"} title={"Dark Mode"} />
