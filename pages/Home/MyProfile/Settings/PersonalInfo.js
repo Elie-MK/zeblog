@@ -10,7 +10,7 @@ import Buttons from '../../../../components/Buttons';
 
 
 
-const PersonalInfo = () => {
+const PersonalInfo = ({navigation}) => {
     const [profileImage, setProfileImage] = useState(null)
     const [selectGender, setSelectGender] = useState("Gender");
     const [showModal, setShowModal] = useState(false);

@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native'
 import React, { useState } from 'react'
 import { AntDesign } from "@expo/vector-icons";
 import { colors } from '../../../utilities/Color';
@@ -6,6 +6,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { Input } from '@rneui/themed';
 import Buttons from '../../../components/Buttons';
 import ProfileImage from '../../../components/ProfileImage';
+import { KeyboardAvoidingView } from 'react-native';
 
 const EditProfile = ({navigation}) => {
     const [profileImage, setProfileImage] = useState(null)
@@ -31,7 +32,13 @@ console.log(image);
     
 
   return (
-    <View style={{marginHorizontal:20, marginTop:20, flex:1}}>
+    <KeyboardAvoidingView
+    behavior={Platform.OS === "ios" ? "padding" : "height"}
+    style={{flex:1}}
+   >
+    
+    <SafeAreaView style={{flex:1, marginHorizontal:20, marginTop:20}}>
+
      <View style={{flexDirection:"row", alignItems:"center", gap:20, marginBottom:10}}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
             <AntDesign name="arrowleft" size={25} color="black" />
@@ -80,7 +87,8 @@ console.log(image);
      <Buttons title={"Save"} />
 
      </ScrollView>
-    </View>
+     </SafeAreaView>
+    </KeyboardAvoidingView>
   )
 }
 

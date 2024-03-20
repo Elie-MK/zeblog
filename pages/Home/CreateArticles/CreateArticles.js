@@ -18,7 +18,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { ScrollView } from "react-native";
 import Buttons from "../../../components/Buttons";
 
-const CreateArticles = () => {
+const CreateArticles = ({ navigation }) => {
   const [image, setImage] = useState(null);
 
   const pickImage = async () => {
@@ -41,8 +41,13 @@ const CreateArticles = () => {
     }
   };
   return (
-    <SafeAreaView style={{flex: 1 }}>
-      <View style={{ flex: 1, marginHorizontal: 20, marginTop:10 }}>
+    <KeyboardAvoidingView
+    behavior={Platform.OS === "ios" ? "padding" : "height"}
+    style={{flex:1}}
+   >
+
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <SafeAreaView style={{flex: 1, marginHorizontal: 20, marginTop:10 }}>
         <View
           style={{
             flexDirection: "row",
@@ -51,7 +56,7 @@ const CreateArticles = () => {
             alignItems: "center",
           }}
         >
-          <TouchableOpacity>
+          <TouchableOpacity  onPress={()=>navigation.goBack()} >
             <MaterialIcons
               style={{ flexDirection: "row", alignSelf: "flex-start" }}
               name="arrow-back-ios"
@@ -88,13 +93,7 @@ const CreateArticles = () => {
           }
         </View>
 
-        <KeyboardAvoidingView
-          keyboardVerticalOffset={Platform.OS === "ios" ? 10 : 0}
-          behavior={Platform.OS === "ios" ? "padding" : null}
-          style={{ flex: 1 }}
-        >
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView style={{flex:1}} showsVerticalScrollIndicator={false}>
               <TouchableOpacity activeOpacity={0.7} onPress={image&&pickImage} style={{ marginTop: 20 }}>
                 <Image
                   style={{ width: "auto", height: 300, borderRadius: 20 }}
@@ -102,7 +101,6 @@ const CreateArticles = () => {
                 />
               </TouchableOpacity>
 
-              <View style={{ marginTop: 15 }}>
                 <TextInput
                   placeholder="Title"
                   placeholderTextColor={colors.gray}
@@ -112,6 +110,7 @@ const CreateArticles = () => {
                     borderRadius: 10,
                     padding: 15,
                     fontSize: 20,
+                    marginTop:15,
                     fontWeight: "bold",
                     marginVertical: 10,
                   }}
@@ -129,20 +128,17 @@ const CreateArticles = () => {
                     padding: 15,
                     fontSize: 18,
                     paddingTop: 20,
-                    height: 200,
+                    height: 300,
                     marginVertical: 10,
                   }}
                 />
-              </View>
-
               <View>
-                <Buttons title={"Post"} />
+                <Buttons title={"Publish"} />
               </View>
             </ScrollView>
-          </TouchableWithoutFeedback>
-        </KeyboardAvoidingView>
-      </View>
     </SafeAreaView>
+            </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 
