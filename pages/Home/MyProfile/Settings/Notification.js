@@ -5,7 +5,7 @@ import { ScrollView } from 'react-native';
 import SwitchInput from '../../../../components/SwitchInput';
 import { colors } from '../../../../utilities/Color';
 
-const Notification = () => {
+const Notification = ({navigation}) => {
     const [switchStates, setSwitchStates] = useState({
         'There is a new recommendation': false,
         'Someone is following me': false,
@@ -50,7 +50,7 @@ const Notification = () => {
             key={title} 
             title={title}
             trackColor={{ true: colors.main }}
-            value={switchStates[title]}
+            value={switchSystem[title]}
             onValueChange={() => handleSwitchSystem(title)}
         />
     );
