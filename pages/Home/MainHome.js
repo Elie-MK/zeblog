@@ -1,11 +1,10 @@
-import { View, Text, SafeAreaView, Image, TouchableOpacity } from "react-native";
+import { View, Text, SafeAreaView, Image, TouchableOpacity, ScrollView } from "react-native";
 import React from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
 import { colors } from "../../utilities/Color";
 import { Button } from "@rneui/base";
 import CardArticles from "../../components/CardArticles";
-import { ScrollView } from "react-native";
 
 const MainHome = ({navigation}) => {
   return (

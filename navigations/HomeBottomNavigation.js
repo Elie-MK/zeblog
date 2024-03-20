@@ -81,6 +81,7 @@ const HomeBottomNavigation = () => {
           tabBarLabel: () => {
             return null;
           },
+          tabBarStyle:{display:"none"}
           
         }}
         component={CreateArticles}
