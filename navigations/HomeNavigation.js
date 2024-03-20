@@ -18,6 +18,7 @@ import Settings from "../pages/Home/MyProfile/Settings/Settings";
 import PersonalInfo from "../pages/Home/MyProfile/Settings/PersonalInfo";
 import Notification from "../pages/Home/MyProfile/Settings/Notification";
 import Security from "../pages/Home/MyProfile/Settings/Security";
+import Languages from "../pages/Home/MyProfile/Settings/Languages";
 
 const HomeNavigation = () => {
   const Stack = createStackNavigator();
@@ -56,6 +57,7 @@ const HomeNavigation = () => {
       <Stack.Screen name="personalinfo" component={PersonalInfo} />
       <Stack.Screen name="settingnotification" component={Notification} />
       <Stack.Screen name="security" component={Security} />
+      <Stack.Screen name="language" component={Languages} />
 
     </Stack.Navigator>
   );

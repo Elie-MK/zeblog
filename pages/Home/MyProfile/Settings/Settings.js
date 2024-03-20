@@ -22,7 +22,7 @@ const Settings = ({navigation}) => {
             <SettingsItem onPress={()=>navigation.navigate('personalinfo')} IconRight={FontAwesome5} titleIcon={"user-alt"} title={"Personal Info"} />
             <SettingsItem onPress={()=>navigation.navigate('settingnotification')} IconRight={FontAwesome} titleIcon={"bell"} title={"Notification"} />
             <SettingsItem onPress={()=>navigation.navigate('security')} IconRight={MaterialCommunityIcons} titleIcon={"shield-check"} title={"Security"} />
-            <SettingsItem isLanguage currentLanguage={"English (US)"} IconRight={MaterialCommunityIcons} titleIcon={"file-document"} title={"Language"} />
+            <SettingsItem onPress={()=>navigation.navigate('language')} isLanguage currentLanguage={"English (US)"} IconRight={MaterialCommunityIcons} titleIcon={"file-document"} title={"Language"} />
             <SettingsItem IconRight={Entypo} titleIcon={"eye"} title={"Dark Mode"} />
             <SettingsItem IconRight={MaterialIcons} titleIcon={"people-alt"} title={"Invite Friends"} />
             <SettingsItem IconRight={Entypo} titleIcon={"help-with-circle"} title={"Help Center"} />
