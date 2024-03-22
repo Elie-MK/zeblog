@@ -9,10 +9,8 @@ const InputGlobal = ({rightIcon, onFocus, value, onChangeText, placeholder, secu
       <Input
         placeholder={placeholder}
         inputContainerStyle={{
-          width: 300,
-          padding: 3,
-          borderWidth: 1,
-          borderRadius: 5,
+          width:"auto",
+          paddingBottom: 3,
         }}
         onFocus={onFocus}
         value={value}

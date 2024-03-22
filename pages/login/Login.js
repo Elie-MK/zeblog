@@ -65,7 +65,7 @@ const Login = ({navigation}) => {
             </View>
 
             <View style={{ marginTop: 20 }}>
-              <Buttons title={"Sign in with  password"} onPress={()=>navigation.replace('signin')} />
+              <Buttons title={"Sign in with  password"} onPress={()=>navigation.navigate('signin')} />
 
               <View
                 style={{
@@ -76,7 +76,7 @@ const Login = ({navigation}) => {
                 }}
               >
                 <Text style={{ fontSize: 15 }}>Don't have an account ?</Text>
-                <TouchableOpacity onPress={()=>navigation.replace('signupsteps')}>
+                <TouchableOpacity onPress={()=>navigation.navigate('signupsteps')}>
                   <Text
                     style={{
                       fontSize: 15,

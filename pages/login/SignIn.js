@@ -6,6 +6,8 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   TouchableOpacity,
+  SafeAreaView,
+  Button,
 } from "react-native";
 import React, { useState } from "react";
 import { colors } from "../../utilities/Color";
@@ -14,7 +16,9 @@ import InputGlobal from "../../components/InputGlobal";
 import { KeyboardAvoidingView } from "react-native";
 import Buttons from "../../components/Buttons";
 import { Ionicons } from "@expo/vector-icons";
-import { CheckBox } from "@rneui/themed";
+import { CheckBox, Divider } from "@rneui/themed";
+import { Octicons } from "@expo/vector-icons";
+
 
 const SignIn = ({ navigation }) => {
   const [signupData, setSignupData] = useState({
@@ -25,47 +29,45 @@ const SignIn = ({ navigation }) => {
   const [checked, setChecked] = useState(true);
   const toggleCheckbox = () => setChecked(!checked);
   return (
+    <SafeAreaView style={{flex:1}}>
     <KeyboardAvoidingView
       keyboardVerticalOffset={Platform.OS === "ios" ? 10 : 0}
       behavior={Platform.OS === "ios" ? "padding" : null}
-      style={{ flex: 1 }}
+      style={{ flex: 1, marginHorizontal:20}}
     >
+       <TouchableOpacity style={{marginTop:20}} onPress={()=>navigation.goBack()}>
+                    <Octicons name="arrow-left" size={25} color={colors.black} />
+                </TouchableOpacity>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <ScrollView>
-          <View
-            style={{
-              flex: 1,
-              flexDirection: "row",
-              justifyContent: "center",
-              marginTop: 60,
-            }}
-          >
-            <View>
-              <View style={{ flexDirection: "row", justifyContent: "center" }}>
-                <Image
-                  style={{ width: 310, height: 295 }}
-                  source={require("../../assets/images/3dsignin.png")}
-                />
-              </View>
-
+        <ScrollView style={{flex:1, marginTop:20}}>
               <View>
+                <View>
                 <Text
                   style={{
-                    fontSize: 40,
+                    fontSize: 30,
                     fontWeight: "bold",
-                    textAlign: "center",
                   }}
                 >
-                  SignIn
+                  Hello there 👋
                 </Text>
+                <Text
+                  style={{
+                    fontSize: 18,
+                    marginTop:20, 
+                    color:colors.gray
+                  }}
+                >
+                  Please enter your username/email and password to sign in
+                </Text>
+                </View>
 
-                <View style={{ marginTop: 30 }}>
+                <View style={{ marginTop: 20}}>
                   <InputGlobal
                     onChangeText={(name) =>
                       setSignupData({ ...signupData, name })
                     }
                     value={signupData.name}
-                    placeholder={"Name's"}
+                    placeholder={"Username / Email"}
                   />
 
                   <InputGlobal
@@ -98,7 +100,7 @@ const SignIn = ({ navigation }) => {
                 </View>
               </View>
 
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <TouchableOpacity onPress={toggleCheckbox} style={{ flexDirection: "row", alignItems: "center" }}>
                 <CheckBox
                   checked={checked}
                   onPress={toggleCheckbox}
@@ -107,12 +109,36 @@ const SignIn = ({ navigation }) => {
                   uncheckedIcon="checkbox-blank-outline"
                   checkedColor={colors.main}
                 />
-                <Text style={{ fontSize: 16, fontWeight:"400" }}>Remember me</Text>
+                <Text style={{ fontSize: 16, fontWeight:"600" }}>Remember me</Text>
+              </TouchableOpacity>
+
+              <Divider  style={{marginTop:20, marginBottom:20}} color={colors.lightGray}/>
+
+              <View style={{flexDirection:"row", alignItems:"center",justifyContent:"center"}}>
+                <View>
+                <Button title="Forgot password" color={colors.main} />
+                <View style={{flexDirection:"row", alignItems:"center", gap:15,marginTop:20, marginBottom:20}} >
+                  <Text style={{color:colors.lightGray, alignSelf:"flex-end"}}>__________________</Text>
+                  <Text style={{color:colors.gray,}}>or continue with</Text>
+                  <Text style={{color:colors.lightGray}}>__________________</Text>
+                </View>
+                </View>
               </View>
 
-              <View style={{ flexDirection: "row", justifyContent: "center" }}>
-                <Buttons title={"Connexion"} />
-              </View>
+              <View style={{flexDirection:"row", justifyContent:"space-between", marginBottom:20}}>
+                  <TouchableOpacity activeOpacity={0.5} style={{borderWidth:1, width:120, borderRadius:20, borderColor:colors.lightGray, padding:8, flexDirection:"row", justifyContent:"center"}}>
+                    <Image style={{width:30, height:30}} source={require('../../assets/images/icons/google.png')} />
+                  </TouchableOpacity>
+                  <TouchableOpacity activeOpacity={0.5} style={{borderWidth:1, width:120, borderRadius:20, borderColor:colors.lightGray, padding:8, flexDirection:"row", justifyContent:"center"}}>
+                    <Image style={{width:30, height:30}} source={require('../../assets/images/icons/apple.png')} />
+                  </TouchableOpacity>
+                  <TouchableOpacity activeOpacity={0.5} style={{borderWidth:1, width:120, borderRadius:20, borderColor:colors.lightGray, padding:8, flexDirection:"row", justifyContent:"center"}}>
+                    <Image style={{width:30, height:30}} source={require('../../assets/images/icons/facebook.png')} />
+                  </TouchableOpacity>
+                </View>
+
+                <Buttons title={"Sign In"} />
+
               <View
                 style={{
                   flexDirection: "row",
@@ -134,11 +160,10 @@ const SignIn = ({ navigation }) => {
                   </Text>
                 </TouchableOpacity>
               </View>
-            </View>
-          </View>
         </ScrollView>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
