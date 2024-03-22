@@ -12,9 +12,7 @@ const ProfileImage = ({profileImage, handleProfileImage }) => {
     <View>
          <Avatar
            rounded
-           source={{
-             uri: profileImage?profileImage:'https://randomuser.me/api/portraits/women/40.jpg',
-           }}
+           source={profileImage?{uri: profileImage} : require("../assets/images/userProfile.jpg")}
            size="xlarge"
          />
         <View style={{ position: 'absolute', top: 120, left: 100, backgroundColor:colors.main, padding:5, borderRadius:10  }}>

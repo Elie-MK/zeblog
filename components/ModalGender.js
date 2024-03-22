@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
-import { Dialog, CheckBox } from "@rneui/themed";
+import { Dialog, CheckBox, BottomSheet } from "@rneui/themed";
 import { AntDesign } from "@expo/vector-icons";
 import { colors } from "../utilities/Color";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -20,14 +20,14 @@ const ModalGender = ({ isVisible, onBackdropPress, onDismiss, selectedGender, ch
 //   }
 
   return (
-    <Dialog
+    <BottomSheet
       isVisible={isVisible}
       onBackdropPress={onBackdropPress}
       onDismiss={onDismiss}
     >
-      <SafeAreaView>
-        <View>
-          <Dialog.Title title="Choose your gender" />
+        <View style={{backgroundColor:colors.white, borderTopStartRadius:20, borderTopRightRadius:20}}>
+          <Text style={{textAlign:"center", marginTop:20, marginBottom:10, fontSize:20, fontWeight:"bold"}}>Choose your gender</Text>
+          <View style={{marginBottom:30}}>
           {["Male", "Female", "Other"].map((l, i) => (
               <CheckBox
               key={i}
@@ -47,9 +47,9 @@ const ModalGender = ({ isVisible, onBackdropPress, onDismiss, selectedGender, ch
                 onPress={() => selectedGender(l)}
               />
           ))}
+          </View>
         </View>
-      </SafeAreaView>
-    </Dialog>
+    </BottomSheet>
   );
 };
 

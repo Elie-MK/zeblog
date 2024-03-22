@@ -4,9 +4,12 @@ import { Input } from "@rneui/themed";
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from "../utilities/Color";
 
-const InputGlobal = ({rightIcon, onFocus, value, onChangeText, placeholder, secure, disabled}) => {
+const InputGlobal = ({rightIcon, title,  keyboardType, onFocus, value, onChangeText, placeholder, secure, disabled}) => {
   return (
-      <Input
+      <View>
+        <Text style={{marginLeft:16, fontSize:16, fontWeight:"bold"}}>{title}</Text>
+        <Input
+      keyboardType={keyboardType}
         placeholder={placeholder}
         inputContainerStyle={{
           width:"auto",
@@ -21,6 +24,7 @@ const InputGlobal = ({rightIcon, onFocus, value, onChangeText, placeholder, secu
         disabled={disabled}
         
       />
+      </View>
   );
 };
 

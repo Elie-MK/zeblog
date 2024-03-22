@@ -54,6 +54,7 @@ const SignIn = ({ navigation }) => {
                   style={{
                     fontSize: 18,
                     marginTop:20, 
+                    fontWeight:"500", 
                     color:colors.gray
                   }}
                 >

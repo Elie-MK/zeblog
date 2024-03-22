@@ -8,6 +8,9 @@ import { countries } from "../utilities/Countries";
 import SearchInput from "../components/SearchInput";
 import ProgressBars from "../components/ProgressBars";
 import { SafeAreaView } from "react-native";
+import ProgressBar from "../components/ProgressBar";
+import { Octicons } from "@expo/vector-icons";
+
 
 const ChooseCountry = ({navigation}) => {
   const [search, setSearch] = useState("");
@@ -26,23 +29,29 @@ const ChooseCountry = ({navigation}) => {
   return (
     <SafeAreaView style={{flex:1, backgroundColor:colors.white}} >
       <View style={{ flex: 1, marginTop: 20, marginHorizontal:20}}>
+        <View style={{flexDirection:"row", alignItems:"center", gap:20, marginBottom:20}}>
+          <TouchableOpacity onPress={()=>navigation.goBack()}>
+              <Octicons name="arrow-left" size={25} color={colors.black} />
+          </TouchableOpacity>
+          <ProgressBar step={25}/>
+        </View>
         <Text style={{ fontSize: 30, fontWeight: "bold" }}>
           Which country are you from ?
         </Text>
-        <Text style={{ fontSize: 18, marginTop: 10, color: colors.gray }}>
-          Please select your country of origin for a better recommendations.{" "}
+        <Text style={{ fontSize: 18, marginTop: 10, color: colors.gray, fontWeight:"500" }}>
+          Please select your country of origin for a better recommendations.
         </Text>
+          <View style={{marginTop:20, marginBottom:5}}>
+            <SearchInput value={search} onChangeText={(e) => setSearch(e)} />
+          </View>
 
-        <View style={{ flex: 1, marginTop: 15 }}>
-          <SearchInput value={search} onChangeText={(e) => setSearch(e)} />
-          <ScrollView showsVerticalScrollIndicator={false}>
+          <ScrollView  style={{ flex: 1, marginTop: 15 }} showsVerticalScrollIndicator={false}>
             {filteredCountry.map(({ name, code, flag }) => (
              <ListOfAllCountries setTouch={(t)=>setTouch(t)} touch={touch} name={name} code={code} flag={flag} />
             ))}
           </ScrollView>
          
           <Buttons onPress={()=>navigation.navigate("signup")} title={"Continue"} />
-        </View>
       </View>
     </SafeAreaView>
   );

@@ -20,13 +20,13 @@ const SearchInput = ({
         padding: 3,
         borderColor: colors.gray,
         borderRadius: 7,
-        backgroundColor: colors.lightGray,
+        backgroundColor: colors.subGray,
         borderBottomWidth: 0,
-        width: "90%",
+        width: "auto",
       }}
       lightTheme={true}
       showCancel={true}
-      inputContainerStyle={{backgroundColor:colors.lightGray}}
+      inputContainerStyle={{backgroundColor:colors.subGray}}
       onFocus={onFocus}
       value={value}
       onChangeText={onChangeText}
