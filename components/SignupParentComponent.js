@@ -45,7 +45,7 @@ const SignupParentComponent = ({
             marginTop: 20,
           }}
         >
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity onPress={() => navigation.replace('login')}>
             <Octicons name="arrow-left" size={25} color={colors.black} />
           </TouchableOpacity>
           <ProgressBar step={step} />

@@ -14,7 +14,7 @@ const Settings = ({navigation}) => {
 
   function handleConfirm (){
     setShowModal(!showModal)
-    navigation.navigate('login')
+    navigation.replace('login')
   }
   return (
     <SafeAreaView style={{marginHorizontal:20, flex:1}}>
