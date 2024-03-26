@@ -12,6 +12,7 @@ const SearchInput = ({
   onChangeText,
   placeholder,
   disabled,
+  onClear
 }) => {
   return (
       <SearchBar
@@ -32,8 +33,8 @@ const SearchInput = ({
       onChangeText={onChangeText}
       leftIconContainerStyle={{ marginLeft: 10 }}
       rightIconContainerStyle={{ marginRight: 10 }}
-    searchIcon={<Feather name="search" size={24} color={colors.gray} />}
-      clearIcon={<FontAwesome name="remove" size={24} color={colors.gray} />}
+      searchIcon={<Feather name="search" size={24} color={colors.gray} />}
+      clearIcon={<TouchableOpacity onPress={onClear} ><FontAwesome name="remove" size={24} color={colors.gray} /></TouchableOpacity>}
       disabled={disabled}
     />
   );

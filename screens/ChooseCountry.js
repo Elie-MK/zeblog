@@ -1,18 +1,16 @@
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
-import GlobalSteps from "../components/GlobalSteps";
 import Buttons from "../components/Buttons";
 import { colors } from "../utilities/Color";
 import ListOfAllCountries from "../components/ListOfAllCountries";
 import { countries } from "../utilities/Countries";
 import SearchInput from "../components/SearchInput";
-import ProgressBars from "../components/ProgressBars";
 import { SafeAreaView } from "react-native";
 import ProgressBar from "../components/ProgressBar";
 import { Octicons } from "@expo/vector-icons";
+import SignupParentComponent from "../components/SignupParentComponent";
 
-
-const ChooseCountry = ({navigation}) => {
+const ChooseCountry = ({ navigation }) => {
   const [search, setSearch] = useState("");
   const [filteredCountry, setFilteredCountry] = useState([]);
   const [touch, setTouch] = useState("none");
@@ -25,35 +23,36 @@ const ChooseCountry = ({navigation}) => {
     );
   }, [search]);
 
+  const handleClear = () => {
+    setSearch("");
+  };
 
   return (
-    <SafeAreaView style={{flex:1, backgroundColor:colors.white}} >
-      <View style={{ flex: 1, marginTop: 20, marginHorizontal:20}}>
-        <View style={{flexDirection:"row", alignItems:"center", gap:20, marginBottom:20}}>
-          <TouchableOpacity onPress={()=>navigation.goBack()}>
-              <Octicons name="arrow-left" size={25} color={colors.black} />
-          </TouchableOpacity>
-          <ProgressBar step={25}/>
-        </View>
-        <Text style={{ fontSize: 30, fontWeight: "bold" }}>
-          Which country are you from ?
-        </Text>
-        <Text style={{ fontSize: 18, marginTop: 10, color: colors.gray, fontWeight:"500" }}>
-          Please select your country of origin for a better recommendations.
-        </Text>
-          <View style={{marginTop:20, marginBottom:5}}>
-            <SearchInput value={search} onChangeText={(e) => setSearch(e)} />
-          </View>
-
-          <ScrollView  style={{ flex: 1, marginTop: 15 }} showsVerticalScrollIndicator={false}>
-            {filteredCountry.map(({ name, code, flag }) => (
-             <ListOfAllCountries setTouch={(t)=>setTouch(t)} touch={touch} name={name} code={code} flag={flag} />
-            ))}
-          </ScrollView>
-         
-          <Buttons onPress={()=>navigation.navigate("signup")} title={"Continue"} />
+    <SignupParentComponent
+      onClear={handleClear}
+      search={search}
+      setSearch={setSearch}
+      isCountryScreen
+      titleButton={"Continue"}
+      navigationRoute={"signup"}
+      step={25}
+      title={"Which country are you from ?"}
+      subTitle={
+        "Please select your country of origin for a better recommendations."
+      }
+    >
+      <View>
+        {filteredCountry.map(({ name, code, flag }) => (
+          <ListOfAllCountries
+            setTouch={(t) => setTouch(t)}
+            touch={touch}
+            name={name}
+            code={code}
+            flag={flag}
+          />
+        ))}
       </View>
-    </SafeAreaView>
+    </SignupParentComponent>
   );
 };
 

@@ -5,6 +5,7 @@ import Buttons from "../components/Buttons";
 import TopicItem from "../components/TopicItem";
 import { FakeTopics } from "../utilities/FakeTopics";
 import SkipAndNextButton from "../components/SkipAndNextButton";
+import SignupParentComponent from "../components/SignupParentComponent";
 
 const ChooseTopics = ({navigation}) => {
   const [select, setSelect] = useState([]);
@@ -22,15 +23,8 @@ const ChooseTopics = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.white }}>
-      <View style={{ flex: 1, marginTop: 20, marginHorizontal: 20 }}>
-        <Text style={{ fontSize: 30, fontWeight: "bold" }}>
-          Select your topic of Interest
-        </Text>
-        <Text style={{ fontSize: 18, marginTop: 10, color: colors.gray }}>
-          Select topic of interest for better recommendations or you can skip
-          it.
-        </Text>
+    <SignupParentComponent step={75} isTopic title={"Select your topic of Interest 🔖"} subTitle={"Select topic of interest for better recommendations or you can skip it."}>
+    
 
         <View style={{ flex: 1, flexDirection: "row", marginTop: 15 }}>
           <FlatList
@@ -49,9 +43,7 @@ const ChooseTopics = ({navigation}) => {
             )}
           />
         </View>
-        <SkipAndNextButton scrollSkip={()=>navigation.navigate('discoverPeople')}  scrollTo={()=>navigation.navigate('discoverPeople')}/>
-      </View>
-    </SafeAreaView>
+    </SignupParentComponent>
   );
 };
 
