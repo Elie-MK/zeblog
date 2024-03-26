@@ -138,7 +138,7 @@ const SignIn = ({ navigation }) => {
                   </TouchableOpacity>
                 </View>
 
-                <Buttons title={"Sign In"} />
+                <Buttons onPress={()=>navigation.replace('home')} title={"Sign In"} />
 
               <View
                 style={{

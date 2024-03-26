@@ -29,6 +29,7 @@ const SignupParentComponent = ({
   titleButton,
   subTitle,
   navigationRoute,
+  isFlatList
 }) => {
   const navigation = useNavigation();
 
@@ -86,12 +87,15 @@ const SignupParentComponent = ({
             </View>
           )}
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        {
+            isFlatList? <View style={{flex:1}}>{children}</View> :  
             <ScrollView
-              style={{ flex: 1 }}
-              showsVerticalScrollIndicator={false}
-            >
-              {children}
-            </ScrollView>
+            style={{ flex: 1 }}
+            showsVerticalScrollIndicator={false}
+          >
+            {children}
+          </ScrollView>
+           }
           </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
         {isTopic ? (
