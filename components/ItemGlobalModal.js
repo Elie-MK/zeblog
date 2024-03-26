@@ -4,7 +4,7 @@ import {  Button } from "@rneui/themed";
 import { colors } from '../utilities/Color';
 
 const ItemGlobalModal = ({  onPressCancel, 
-    onPressConfirm,}) => {
+    onPressConfirm, message}) => {
   return (
     <View>
       <Text
@@ -15,7 +15,7 @@ const ItemGlobalModal = ({  onPressCancel,
               lineHeight: 30,
             }}
           >
-            Are you sure you want to delete this articles?{" "}
+            {message}
           </Text>
 
           <View style={{ flexDirection: "row", gap: 10, marginTop:20 }}>
@@ -38,7 +38,7 @@ const ItemGlobalModal = ({  onPressCancel,
                 padding: 15,
                 borderRadius: 20,
               }}
-              title="Yes, delete"
+              title="Confirm"
               onPress={onPressConfirm}
             />
           </View>

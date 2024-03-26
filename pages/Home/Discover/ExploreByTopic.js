@@ -1,7 +1,6 @@
-import { View, Text, TouchableOpacity, SafeAreaView } from 'react-native'
-import React, { useState } from 'react'
-import { AntDesign } from "@expo/vector-icons";
-import SearchInput from '../../../components/SearchInput';
+import { View,  SafeAreaView } from 'react-native'
+import React from 'react'
+;
 import NavHeader from '../../../components/NavHeader';
 import CardTopics from '../../../components/CardTopics';
 

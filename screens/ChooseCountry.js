@@ -1,13 +1,7 @@
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
-import Buttons from "../components/Buttons";
-import { colors } from "../utilities/Color";
 import ListOfAllCountries from "../components/ListOfAllCountries";
 import { countries } from "../utilities/Countries";
-import SearchInput from "../components/SearchInput";
-import { SafeAreaView } from "react-native";
-import ProgressBar from "../components/ProgressBar";
-import { Octicons } from "@expo/vector-icons";
 import SignupParentComponent from "../components/SignupParentComponent";
 
 const ChooseCountry = ({ navigation }) => {

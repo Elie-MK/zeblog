@@ -23,9 +23,8 @@ const Discover = ({navigation}) => {
           </View>
                     <MaterialCommunityIcons name="dots-horizontal-circle-outline" size={24} color="black" />
                 </View>
-                <View style={{flexDirection:"row", justifyContent:"center", marginTop:20}}>
+
                     <SearchInput placeholder={"Search for article or writer"} />
-                </View>
             </View>
 
             <ScrollView style={{marginLeft:15, marginTop:15}}>

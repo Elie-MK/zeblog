@@ -32,9 +32,8 @@ const MyArticles = ({navigation}) => {
     </View>
 
     {
-        isSearch && <View style={{flexDirection:"row", justifyContent:"center"}}>
+        isSearch && 
           <SearchInput />
-        </View>
     }
        
    </View>

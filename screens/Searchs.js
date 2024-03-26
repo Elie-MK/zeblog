@@ -21,12 +21,7 @@ const Searchs = ({navigation}) => {
     <SafeAreaView style={{ flex: 1, marginTop:20 }}>
       <View style={{ flex: 1, marginHorizontal: 15 }}>
         <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            
-          }}
+        
         >
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <AntDesign name="arrowleft" size={25} color="black" />
@@ -92,7 +87,7 @@ const Searchs = ({navigation}) => {
             flex: 1
           }}>
             {
-              isFound?isSelected ==="articles" ?<SearchArticleComponent/> : <SearchWriterComponent />:<NotFoundComponent />
+              isFound?isSelected ==="articles" ?<SearchArticleComponent/> : <SearchWriterComponent  names={"Elie Mulumba"} username={"@ElieMk"} />:<NotFoundComponent />
             }
             
         </View>

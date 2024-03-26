@@ -15,7 +15,8 @@ const SearchInput = ({
   onClear
 }) => {
   return (
-      <SearchBar
+      <SearchBar 
+      
       placeholder={placeholder}
       containerStyle={{
         padding: 3,
@@ -24,6 +25,7 @@ const SearchInput = ({
         backgroundColor: colors.subGray,
         borderBottomWidth: 0,
         width: "auto",
+        marginTop:20
       }}
       lightTheme={true}
       showCancel={true}

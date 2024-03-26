@@ -26,9 +26,8 @@ const MostPopular = ({navigation}) => {
         </View>
       </View>
          {
-            isActiveSearch && <View style={{flexDirection:"row", justifyContent:"center", marginTop:20}}>
+            isActiveSearch && 
                 <SearchInput placeholder={"Search by title or author"}/>
-            </View>
          }
      </View>
      <ScrollView style={{marginTop:20}}>
