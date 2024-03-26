@@ -7,11 +7,14 @@ import React, { useState } from "react";
 import { colors } from "../../utilities/Color";
 import InputGlobal from "../../components/InputGlobal";
 import { Ionicons } from "@expo/vector-icons";
-import ModalGender from "../../components/ModalGender";
 import * as ImagePicker from "expo-image-picker";
 import ProfileImage from "../../components/ProfileImage";
 import { MaterialIcons } from "@expo/vector-icons";
 import SignupParentComponent from "../../components/SignupParentComponent";
+import BottomSheetModal from "../../components/BottomSheetModal"
+import { CheckBox } from "@rneui/themed";
+import GenderItem from "../../components/GenderItem";
+;
 
 export default function SignUp({ navigation }) {
   const [selectGender, setSelectGender] = useState("Gender");
@@ -155,12 +158,14 @@ export default function SignUp({ navigation }) {
           </Text>
         </TouchableOpacity>
       </View>
-      <ModalGender
-        checked={selectGender}
-        selectedGender={(e) => selectedGender(e)}
+      <BottomSheetModal
+      title={"Choose your gender"}
         isVisible={showModal}
         onBackdropPress={() => setShowModal(!showModal)}
-      />
+      >
+        <GenderItem checked={selectGender}
+        selectedGender={(e) => selectedGender(e)}  />
+      </BottomSheetModal>
     </SignupParentComponent>
   );
 }

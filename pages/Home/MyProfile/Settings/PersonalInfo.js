@@ -5,8 +5,9 @@ import { ScrollView } from 'react-native';
 import ProfileImage from '../../../../components/ProfileImage';
 import * as ImagePicker from 'expo-image-picker';
 import InputSettings from '../../../../components/InputSettings';
-import ModalGender from '../../../../components/ModalGender';
 import Buttons from '../../../../components/Buttons';
+import BottomSheetModal from '../../../../components/BottomSheetModal';
+import GenderItem from '../../../../components/GenderItem';
 
 
 
@@ -68,12 +69,14 @@ const PersonalInfo = ({navigation}) => {
             <Buttons title={"Save"} />
 
         </ScrollView>
-        <ModalGender
-                checked={selectGender}
-                selectedGender={(e) => selectedGender(e)}
-                isVisible={showModal}
-                onBackdropPress={() => setShowModal(!showModal)}
-              />
+        <BottomSheetModal
+      title={"Choose your gender"}
+        isVisible={showModal}
+        onBackdropPress={() => setShowModal(!showModal)}
+      >
+        <GenderItem checked={selectGender}
+        selectedGender={(e) => selectedGender(e)}  />
+      </BottomSheetModal>
     </SafeAreaView>
    </KeyboardAvoidingView>
   )
