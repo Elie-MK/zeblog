@@ -57,7 +57,8 @@ export default function SignUp({ navigation }) {
     <SignupParentComponent
       titleButton={"Continue"}
       navigationRoute={"choosetopics"}
-      step={50}
+      step={25}
+      lastStep={25}
       title={"Complete your profile 📋"}
       subTitle={
         "Don't worry, only you can see your personal data. No one else will be able to see it."

@@ -3,12 +3,12 @@ import React, { useEffect } from 'react'
 import { colors } from '../utilities/Color'
 import Animated, {useSharedValue, useAnimatedStyle, withTiming} from "react-native-reanimated"
 
-const ProgressBar = ({step}) => {
+const ProgressBar = ({lastStep, step}) => {
     const progress = useSharedValue(0);
 
     const progressStyle = useAnimatedStyle(() => {
         return {
-            width: `${progress.value}%`
+            width: `${progress.value + lastStep}%`
         };
     });
 

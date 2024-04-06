@@ -23,7 +23,7 @@ const ChooseTopics = ({navigation}) => {
   };
 
   return (
-    <SignupParentComponent step={75} isFlatList isTopic title={"Select your topic of Interest"} subTitle={"Select topic of interest for better recommendations or you can skip it."}>
+    <SignupParentComponent lastStep={50} step={25} isFlatList isTopic title={"Select your topic of Interest"} subTitle={"Select topic of interest for better recommendations or you can skip it."}>
         <View style={{ flex: 1, flexDirection: "row", marginTop: 15 }}>
           <FlatList
             data={FakeTopics}

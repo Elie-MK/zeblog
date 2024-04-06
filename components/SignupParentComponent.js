@@ -29,7 +29,8 @@ const SignupParentComponent = ({
   titleButton,
   subTitle,
   navigationRoute,
-  isFlatList
+  isFlatList, 
+  lastStep
 }) => {
   const navigation = useNavigation();
 
@@ -48,7 +49,7 @@ const SignupParentComponent = ({
           <TouchableOpacity onPress={() => navigation.replace('login')}>
             <Octicons name="arrow-left" size={25} color={colors.black} />
           </TouchableOpacity>
-          <ProgressBar step={step} />
+          <ProgressBar lastStep={lastStep} step={step} />
         </View>
 
         <KeyboardAvoidingView

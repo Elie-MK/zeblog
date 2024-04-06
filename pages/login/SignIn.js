@@ -35,7 +35,7 @@ const SignIn = ({ navigation }) => {
       behavior={Platform.OS === "ios" ? "padding" : null}
       style={{ flex: 1, marginHorizontal:20}}
     >
-       <TouchableOpacity style={{marginTop:20}} onPress={()=>navigation.goBack()}>
+       <TouchableOpacity style={{marginTop:20}} onPress={()=>navigation.replace('login')}>
                     <Octicons name="arrow-left" size={25} color={colors.black} />
                 </TouchableOpacity>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

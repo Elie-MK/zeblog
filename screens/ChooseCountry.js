@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity, FlatList } from "react-native";
 import React, { useEffect, useState } from "react";
 import ListOfAllCountries from "../components/ListOfAllCountries";
 import { countries } from "../utilities/Countries";
@@ -29,22 +29,32 @@ const ChooseCountry = ({ navigation }) => {
       isCountryScreen
       titleButton={"Continue"}
       navigationRoute={"signup"}
+      lastStep={0}
       step={25}
       title={"Which country are you from ?"}
       subTitle={
         "Please select your country of origin for a better recommendations."
       }
+      isFlatList
     >
       <View>
-        {filteredCountry.map(({ name, code, flag }) => (
-          <ListOfAllCountries
+      <FlatList
+            data={filteredCountry}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ gap: 10 }}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item, index }) => (
+              <ListOfAllCountries
+            key={index}
             setTouch={(t) => setTouch(t)}
             touch={touch}
-            name={name}
-            code={code}
-            flag={flag}
+            name={item.name}
+            code={item.code}
+            flag={item.flag}
           />
-        ))}
+            )}
+          />
+
       </View>
     </SignupParentComponent>
   );

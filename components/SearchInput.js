@@ -20,7 +20,6 @@ const SearchInput = ({
       placeholder={placeholder}
       containerStyle={{
         padding: 3,
-        borderColor: colors.gray,
         borderRadius: 7,
         backgroundColor: colors.subGray,
         borderBottomWidth: 0,
