@@ -1,12 +1,14 @@
-import { View, Text, SafeAreaView, Image, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, SafeAreaView, Image, TouchableOpacity, ScrollView, Dimensions } from "react-native";
 import React from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
 import { colors } from "../../utilities/Color";
 import { Button } from "@rneui/base";
 import CardArticles from "../../components/CardArticles";
+import { Androids, fontSizeTitleAndroid, WidthScreen } from "../../utilities/Platform";
 
 const MainHome = ({navigation}) => {
+  
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View
@@ -15,7 +17,8 @@ const MainHome = ({navigation}) => {
           flexDirection: "row",
           alignItems: "flex-end",
           justifyContent: "space-between",
-          paddingBottom:10
+          paddingBottom:10,
+          marginTop:Androids?30:null
         }}
       >
         <View>
@@ -52,7 +55,7 @@ const MainHome = ({navigation}) => {
           <View>
             <View>
               <Image
-                style={{ width: 380, height: 190, borderRadius: 22 }}
+                style={{ width: WidthScreen, height: 190, borderRadius: 22 }}
                 source={require("../../assets/images/announce.png")}
               />
             </View>
@@ -90,7 +93,7 @@ const MainHome = ({navigation}) => {
               marginRight: 20,
             }}
           >
-            <Text style={{ fontWeight: "bold", fontSize: 25 }}>
+            <Text style={{ fontWeight: "bold", fontSize: Androids?fontSizeTitleAndroid:25 }}>
               Recent Articles
             </Text>
             <Octicons name="arrow-right" size={24} color={colors.main} />
@@ -109,7 +112,7 @@ const MainHome = ({navigation}) => {
               marginRight: 20,
             }}
           >
-            <Text style={{ fontWeight: "bold", fontSize: 25 }}>
+            <Text style={{ fontWeight: "bold", fontSize: Androids?fontSizeTitleAndroid:25 }}>
               Your Articles
             </Text>
             <Octicons name="arrow-right" size={24} color={colors.main} />

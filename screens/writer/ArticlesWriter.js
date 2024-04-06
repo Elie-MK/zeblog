@@ -11,7 +11,7 @@ const ArticlesWriter = () => {
     const [isGrid, setIsGrid] = useState("nogrid")
 
   return (
-    <View style={{ backgroundColor:colors.white, flex:1}}>
+    <View style={{ flex:1}}>
         <View style={{ flex:1}}>
 
       <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center", marginTop:10}}>

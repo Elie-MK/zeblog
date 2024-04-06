@@ -7,7 +7,7 @@ const SkipAndNextButton = ({ scrollTo, scrollSkip }) => {
   // const progressAnimation = useRef(new Animated.Value(0)).current
   // const progressRef = useRef(null)
   return (
-    <View style={{ flexDirection: "row", gap: 60 }}>
+    <View style={{ flexDirection: "row", justifyContent:"space-around", gap:20 }}>
       <Button
        
         containerStyle={{ width: 150 }}

@@ -2,12 +2,13 @@ import { View, Text, TouchableOpacity, SafeAreaView } from 'react-native'
 import React, { useState } from 'react'
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
+import { Androids } from '../utilities/Platform';
 
 const NavHeader = ({children, screenTitle}) => {
     const navigation = useNavigation()
 
   return (
-    <View style={{marginHorizontal:15, flex:1, marginTop:20}}>
+    <View style={{marginHorizontal:15, flex:1, marginTop:Androids?30:20}}>
     <View>
    <View style={{flexDirection:"row", alignItems:"center",  justifyContent:"space-between"}}>
       <View style={{flexDirection:"row", alignItems:"center", gap:20}}>

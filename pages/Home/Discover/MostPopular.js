@@ -4,13 +4,14 @@ import SearchInput from '../../../components/SearchInput'
 import { AntDesign } from "@expo/vector-icons";
 import SecondCardArticles from '../../../components/SecondCardArticles';
 import { ScrollView } from 'react-native';
+import { Androids } from '../../../utilities/Platform';
 
 const MostPopular = ({navigation}) => {
     const [isActiveSearch, setIsActiveSearch] = useState(false)
 
   return (
     <SafeAreaView style={{flex:1}}>
-      <View style={{marginHorizontal:15, flex:1, marginTop:20}}>
+      <View style={{marginHorizontal:15, flex:1, marginTop:Androids?30:20}}>
       <View>
      <View style={{flexDirection:"row", alignItems:"center",  justifyContent:"space-between"}}>
         <View style={{flexDirection:"row", alignItems:"center", gap:20}}>

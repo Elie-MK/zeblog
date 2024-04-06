@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
+import { View, Text, SafeAreaView, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native'
 import React, { useState } from 'react'
 import { AntDesign, Feather } from "@expo/vector-icons";
 import { ScrollView } from 'react-native';
@@ -8,6 +8,7 @@ import InputSettings from '../../../../components/InputSettings';
 import Buttons from '../../../../components/Buttons';
 import BottomSheetModal from '../../../../components/BottomSheetModal';
 import GenderItem from '../../../../components/GenderItem';
+import { Androids } from '../../../../utilities/Platform';
 
 
 
@@ -45,7 +46,7 @@ const PersonalInfo = ({navigation}) => {
     behavior={Platform.OS === "ios" ? "padding" : "height"}
     style={{flex:1}}
    >
-     <SafeAreaView style={{flex:1, marginHorizontal:20}}>
+     <SafeAreaView style={{flex:1, marginHorizontal:20, marginTop:Androids?30:null}}>
         <View style={{flexDirection:"row", marginBottom:10, alignItems:"center", justifyContent:"space-between"}}>
         <View style={{flexDirection:"row", alignItems:"center", gap:20, marginTop:10}}>
             <TouchableOpacity onPress={() => navigation.goBack()}>

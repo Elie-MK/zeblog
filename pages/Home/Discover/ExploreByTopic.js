@@ -3,13 +3,14 @@ import React from 'react'
 ;
 import NavHeader from '../../../components/NavHeader';
 import CardTopics from '../../../components/CardTopics';
+import { Androids } from '../../../utilities/Platform';
 
 const ExploreByTopic = ({navigation}) => {
 
   return (
     <SafeAreaView style={{flex:1}}>
        <NavHeader screenTitle={"Explore by Topics"}>
-        <View style={{flexDirection:"row", gap:6, marginTop:25}}>
+        <View style={{flexDirection:"row", justifyContent:"space-around", gap:10, marginTop:25}}>
         <CardTopics onPress={()=>navigation.navigate('articlesbytopics')} />
         <CardTopics />
         </View>

@@ -18,7 +18,7 @@ const ItemGlobalModal = ({  onPressCancel,
             {message}
           </Text>
 
-          <View style={{ flexDirection: "row", gap: 10, marginTop:20 }}>
+          <View style={{ flexDirection: "row", gap: 10, marginTop:20, justifyContent:"space-around" }}>
             <Button
               containerStyle={{ width: 200 }}
               titleStyle={{ color: colors.main, fontWeight: "800" }}

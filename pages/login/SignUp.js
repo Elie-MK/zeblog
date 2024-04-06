@@ -138,7 +138,7 @@ export default function SignUp({ navigation }) {
         />
       </View>
 
-      <View
+    {/*   <View
         style={{
           flexDirection: "row",
           gap: 6,
@@ -158,7 +158,8 @@ export default function SignUp({ navigation }) {
             SignIn
           </Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
+      
       <BottomSheetModal
       title={"Choose your gender"}
         isVisible={showModal}

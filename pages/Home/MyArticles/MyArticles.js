@@ -16,8 +16,8 @@ const MyArticles = ({navigation}) => {
 
   return (
     <SafeAreaView style={{flex:1}}>
-    <View style={{flex:1, marginTop:20, marginHorizontal:15}}>
-   <View>
+    <View style={{flex:1, marginTop:20, marginHorizontal:20}}>
+   <View >
    <View style={{flexDirection:"row", alignItems:"center", gap:10,  justifyContent:"space-between"}}>
       <View>
             <Image
@@ -40,6 +40,7 @@ const MyArticles = ({navigation}) => {
 
    <Top.Navigator
    sceneContainerStyle={{backgroundColor:colors.white}}
+   
         screenOptions={({ route, navigation }) => ({
           
           tabBarLabel: ({ focused }) => {
@@ -61,8 +62,7 @@ const MyArticles = ({navigation}) => {
               </Text>
             );
           },
-          tabBarIndicatorStyle: { backgroundColor: colors.main, height: 4 },
-          tabBarStyle: { marginHorizontal: 15 },
+          tabBarIndicatorStyle: { backgroundColor: colors.main, height: 3 },
         })}
       >
         <Top.Screen name="draft" component={DraftArticles} />

@@ -9,6 +9,7 @@ import { colors } from '../../../utilities/Color'
 import ProfileItem from '../../../components/ProfileItem';
 import ArticlesWriter from '../../../screens/writer/ArticlesWriter';
 import AboutWriter from '../../../screens/writer/AboutWriter';
+import { Androids } from '../../../utilities/Platform';
 
 
 const ProfileOverallView = ({navigation}) => {
@@ -16,7 +17,7 @@ const ProfileOverallView = ({navigation}) => {
 
   return (
     <SafeAreaView style={{flex:1, marginHorizontal:20}}>
-      <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"flex-end"}}>
+      <View style={{flexDirection:"row", marginTop:Androids?20:null,  justifyContent:"space-between", alignItems:"flex-end"}}>
         <View>
             <Image
               style={{ width: 120, height: 80 }}
@@ -34,6 +35,7 @@ const ProfileOverallView = ({navigation}) => {
       </View>
       <ProfileItem onPress={()=>navigation.navigate('editprofile')} names={"Doe Kanyinda"} username={'@elie_mk'}/>
       <Top.Navigator
+      sceneContainerStyle={{backgroundColor:colors.white}}
         screenOptions={({ route, navigation }) => ({
           tabBarLabel: ({ focused }) => {
             let label;
@@ -55,7 +57,7 @@ const ProfileOverallView = ({navigation}) => {
             );
           },
           tabBarIndicatorStyle: { backgroundColor: colors.main, height: 4 },
-          tabBarStyle: { marginHorizontal: 15 },
+          
         })}
       >
         <Top.Screen name="article" component={ArticlesWriter} />

@@ -6,20 +6,39 @@ import SignupParentComponent from "../components/SignupParentComponent";
 
 const ChooseCountry = ({ navigation }) => {
   const [search, setSearch] = useState("");
-  const [filteredCountry, setFilteredCountry] = useState([]);
+  const [filteredCountries, setFilteredCountries] = useState([]);
+  const [displayedCountries, setDisplayedCountries] = useState([]);
+  const [page, setPage] = useState(1);
+  const countriesPerPage = 10;
   const [touch, setTouch] = useState("none");
 
+
   useEffect(() => {
-    setFilteredCountry(
-      countries.filter((country) => {
-        return country.name.toLowerCase().includes(search.toLowerCase());
-      })
+    const filtered = countries.filter((country) => 
+      country.name.toLowerCase().includes(search.toLowerCase())
     );
+
+    setFilteredCountries(filtered);
+    setPage(1);
+    setDisplayedCountries(filtered.slice(0, countriesPerPage));
   }, [search]);
 
   const handleClear = () => {
     setSearch("");
+    setDisplayedCountries(countries.slice(0, countriesPerPage));
+    setPage(1);
   };
+
+  //Lazy loading
+  const loadMoreCountries = () => {
+    if ((page - 1) * countriesPerPage >= filteredCountries.length) return;
+
+    const nextPage = page + 1;
+    const nextSetOfCountries = filteredCountries.slice(0, nextPage * countriesPerPage);
+    setDisplayedCountries(nextSetOfCountries);
+    setPage(nextPage);
+  };
+
 
   return (
     <SignupParentComponent
@@ -39,10 +58,12 @@ const ChooseCountry = ({ navigation }) => {
     >
       <View>
       <FlatList
-            data={filteredCountry}
+            data={displayedCountries}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{ gap: 10 }}
             keyExtractor={(item) => item.id}
+            onEndReached={loadMoreCountries}
+            onEndReachedThreshold={0.5}
             renderItem={({ item, index }) => (
               <ListOfAllCountries
             key={index}

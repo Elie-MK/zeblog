@@ -1,4 +1,4 @@
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, Dimensions } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { colors } from '../utilities/Color'
 import { TouchableOpacity } from 'react-native'
@@ -8,13 +8,15 @@ const SecondCardArticles = () => {
     const [text, setText] = useState("10 Tips Boosting your productivity and is good for your health.")
     const [isBook, setIsBook] = useState(false)
 
+    const {width} = Dimensions.get("window") 
+
     useEffect(()=>{
         if(text.length >= 34){
             setText(text.substring(0,34) + "...")
         }
     },[])
   return (
-    <View style={{width:"60%"}}>
+    <View style={{width:width/2}}>
         <View style={{flexDirection:"row", gap:15, alignItems:"center" }}>
       <View>
           <Image

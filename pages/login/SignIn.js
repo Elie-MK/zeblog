@@ -18,6 +18,7 @@ import Buttons from "../../components/Buttons";
 import { Ionicons } from "@expo/vector-icons";
 import { CheckBox, Divider } from "@rneui/themed";
 import { Octicons } from "@expo/vector-icons";
+import { Androids } from "../../utilities/Platform";
 
 
 const SignIn = ({ navigation }) => {
@@ -33,9 +34,9 @@ const SignIn = ({ navigation }) => {
     <KeyboardAvoidingView
       keyboardVerticalOffset={Platform.OS === "ios" ? 10 : 0}
       behavior={Platform.OS === "ios" ? "padding" : null}
-      style={{ flex: 1, marginHorizontal:20}}
+      style={{ flex: 1, marginHorizontal:20 }}
     >
-       <TouchableOpacity style={{marginTop:20}} onPress={()=>navigation.replace('login')}>
+       <TouchableOpacity style={{marginTop:Androids?40:20}} onPress={()=>navigation.replace('login')}>
                     <Octicons name="arrow-left" size={25} color={colors.black} />
                 </TouchableOpacity>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

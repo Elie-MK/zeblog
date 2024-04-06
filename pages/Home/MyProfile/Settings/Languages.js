@@ -3,13 +3,14 @@ import React, { useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { AntDesign } from "@expo/vector-icons";
 import LanguageItem from '../../../../components/LanguageItem';
+import { Androids } from '../../../../utilities/Platform';
 
 const Languages = ({navigation}) => {
     const [selectedLanguage, setSelectedLanguage] = useState("English (US)");
 
   return (
     <SafeAreaView style={{flex:1, marginHorizontal:20}}>
-           <View style={{flexDirection:"row", alignItems:"center", gap:20, marginTop:10}}>
+           <View style={{flexDirection:"row", alignItems:"center", gap:20, marginTop:Androids?30:10}}>
             <TouchableOpacity onPress={() => navigation.goBack()}>
                 <AntDesign name="arrowleft" size={25} color="black" />
             </TouchableOpacity>

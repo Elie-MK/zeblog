@@ -1,6 +1,7 @@
 import { View, Text, ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import { LinearGradient } from 'expo-linear-gradient';
+import { Androids } from "../utilities/Platform";
 
 
 const CardTopics = ({onPress}) => {
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
   imageBackground: {
     flexDirection: "row",
     alignSelf: "flex-start",
-    width: 190,
+    width: Androids?220:190,
     height: 120,
     justifyContent: "flex-end",
   },
@@ -34,7 +35,8 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     width: "100%",
     height: "50%",
-    padding: 10,
+    padding: Androids?null:10,
+    paddingLeft:Androids?10:null,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
   },

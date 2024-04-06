@@ -8,11 +8,12 @@ import { ScrollView } from 'react-native';
 import CardArticles from '../../../components/CardArticles';
 import { TouchableOpacity } from 'react-native';
 import CardTopics from '../../../components/CardTopics';
+import { Androids, fontSizeTitleAndroid } from '../../../utilities/Platform';
 
 const Discover = ({navigation}) => {
   return (
     <SafeAreaView style={{flex:1}}>
-        <View style={{flex:1}}>
+        <View style={{flex:1, marginTop:Androids?30:null}}>
             <View style={{marginHorizontal:15}}>
                 <View style={{flexDirection:"row", alignItems:"flex-end", justifyContent:"space-between"}}>
                 <View>
@@ -37,7 +38,7 @@ const Discover = ({navigation}) => {
                 marginRight: 20,
                 }}
             >
-                <Text style={{ fontWeight: "bold", fontSize: 25 }}>
+                <Text style={{ fontWeight: "bold", fontSize: Androids?fontSizeTitleAndroid:25 }}>
                 Most popular
                 </Text>
                 <TouchableOpacity onPress={()=>navigation.navigate('mostpopular')}>
@@ -58,7 +59,7 @@ const Discover = ({navigation}) => {
                 marginRight: 20,
                 }}
             >
-                <Text style={{ fontWeight: "bold", fontSize: 25 }}>
+                <Text style={{ fontWeight: "bold", fontSize: Androids?fontSizeTitleAndroid:25 }}>
                 Explore by Topics
                 </Text>
                 <TouchableOpacity onPress={()=>navigation.navigate('exploretopic')}>
@@ -79,7 +80,7 @@ const Discover = ({navigation}) => {
                 marginRight: 20,
                 }}
             >
-                <Text style={{ fontWeight: "bold", fontSize: 25 }}>
+                <Text style={{ fontWeight: "bold", fontSize: Androids?fontSizeTitleAndroid:25 }}>
                 Top Writers
                 </Text>
                 <TouchableOpacity onPress={()=>navigation.navigate('topwriters')}>

@@ -4,6 +4,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { ScrollView } from 'react-native';
 import SwitchInput from '../../../../components/SwitchInput';
 import { colors } from '../../../../utilities/Color';
+import { Androids } from '../../../../utilities/Platform';
 
 const Notification = ({navigation}) => {
     const [switchStates, setSwitchStates] = useState({
@@ -49,7 +50,7 @@ const Notification = ({navigation}) => {
         <SwitchInput
             key={title} 
             title={title}
-            trackColor={{ true: colors.main }}
+            
             value={switchSystem[title]}
             onValueChange={() => handleSwitchSystem(title)}
         />
@@ -58,7 +59,7 @@ const Notification = ({navigation}) => {
     
   return (
     <SafeAreaView style={{flex:1, marginHorizontal:20}}>
-        <View style={{flexDirection:"row", alignItems:"center", gap:20, marginTop:10}}>
+        <View style={{flexDirection:"row", alignItems:"center", gap:20, marginTop:Androids?30:10}}>
             <TouchableOpacity onPress={() => navigation.goBack()}>
                 <AntDesign name="arrowleft" size={25} color="black" />
             </TouchableOpacity>

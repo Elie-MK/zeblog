@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView, SafeAreaView, Platform } from 'react-native'
 import React, { useState } from 'react'
 import { AntDesign } from "@expo/vector-icons";
 import { colors } from '../../../utilities/Color';
@@ -7,6 +7,7 @@ import { Input } from '@rneui/themed';
 import Buttons from '../../../components/Buttons';
 import ProfileImage from '../../../components/ProfileImage';
 import { KeyboardAvoidingView } from 'react-native';
+import { Androids } from '../../../utilities/Platform';
 
 const EditProfile = ({navigation}) => {
     const [profileImage, setProfileImage] = useState(null)
@@ -37,7 +38,7 @@ console.log(image);
     style={{flex:1}}
    >
     
-    <SafeAreaView style={{flex:1, marginHorizontal:20, marginTop:20}}>
+    <SafeAreaView style={{flex:1, marginHorizontal:20, marginTop:Androids?30:20}}>
 
      <View style={{flexDirection:"row", alignItems:"center", gap:20, marginBottom:10}}>
         <TouchableOpacity onPress={() => navigation.goBack()}>

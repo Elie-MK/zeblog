@@ -16,6 +16,7 @@ import { colors } from "../utilities/Color";
 import { useNavigation } from "@react-navigation/native";
 import SearchInput from "./SearchInput";
 import SkipAndNextButton from "./SkipAndNextButton";
+import { Androids } from "../utilities/Platform";
 
 const SignupParentComponent = ({
   children,
@@ -99,7 +100,8 @@ const SignupParentComponent = ({
            }
           </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
-        {isTopic ? (
+       <View style={{marginBottom:Androids?20:null}}>
+       {isTopic ? (
           <View style={{ marginTop: 10 }}>
             <SkipAndNextButton
               scrollSkip={() => navigation.navigate("discoverPeople")}
@@ -112,6 +114,7 @@ const SignupParentComponent = ({
             title={titleButton}
           />
         )}
+       </View>
       </View>
     </SafeAreaView>
   );

@@ -6,8 +6,10 @@ import SkipAndNextButton from "./SkipAndNextButton";
 import { onBoardingData } from "../utilities/OnboardingDatas";
 import Buttons from "./Buttons";
 import { colors } from "../utilities/Color";
+import { Androids } from "../utilities/Platform";
 
 const Onboarding = ({navigation}) => {
+
   const [currentIndex, setCurrentIndex]=useState(0)
   const scrollX = useRef(new Animated.Value(0)).current
 
@@ -53,13 +55,15 @@ const scrollSkip = ()=>{
       </View>
 
       <Paginator  data={onBoardingData} scrollX={scrollX} />
-      {
+     <View style={{marginBottom:Androids?30:null}}>
+     {
         currentIndex === 2 ? (
           <Buttons onPress={()=>navigation.replace('login')} title={"Get Started "}    />
           ):(
             <SkipAndNextButton  scrollSkip={scrollSkip} scrollTo={scrollTo} />
         )
       }
+     </View>
     </View>
   );
 };

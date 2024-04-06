@@ -4,6 +4,7 @@ import { AntDesign } from "@expo/vector-icons";
 import SwitchInput from '../../../../components/SwitchInput';
 import { colors } from '../../../../utilities/Color';
 import { Button } from "@rneui/base";
+import { Androids } from '../../../../utilities/Platform';
 
 
 const Security = ({navigation}) => {
@@ -34,7 +35,7 @@ const Security = ({navigation}) => {
         )
   return (
     <SafeAreaView style={{flex:1, marginHorizontal:20}}>
-         <View style={{flexDirection:"row", alignItems:"center", gap:20, marginTop:10}}>
+         <View style={{flexDirection:"row", alignItems:"center", gap:20, marginTop:Androids?30:10}}>
             <TouchableOpacity onPress={() => navigation.goBack()}>
                 <AntDesign name="arrowleft" size={25} color="black" />
             </TouchableOpacity>

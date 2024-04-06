@@ -6,6 +6,7 @@ import SettingsItem from '../../../../components/SettingsItem';
 import { MaterialIcons, FontAwesome5, FontAwesome, MaterialCommunityIcons, Entypo, Ionicons } from '@expo/vector-icons';
 import BottomSheetModal from '../../../../components/BottomSheetModal';
 import ItemGlobalModal from '../../../../components/ItemGlobalModal';
+import { Androids } from '../../../../utilities/Platform';
 
 
 const Settings = ({navigation}) => {
@@ -18,7 +19,7 @@ const Settings = ({navigation}) => {
   }
   return (
     <SafeAreaView style={{marginHorizontal:20, flex:1}}>
-       <View style={{flexDirection:"row", alignItems:"center", gap:20, marginBottom:10}}>
+       <View style={{flexDirection:"row", alignItems:"center", gap:20, marginTop:Androids?30:null, marginBottom:10}}>
             <TouchableOpacity onPress={() => navigation.goBack()}>
                 <AntDesign name="arrowleft" size={25} color="black" />
             </TouchableOpacity>

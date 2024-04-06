@@ -2,6 +2,7 @@ import { View, Text } from "react-native";
 import React from "react";
 import { Button } from "@rneui/base";
 import { colors } from "../utilities/Color";
+import { Androids } from "../utilities/Platform";
 
 const Buttons = ({ title, onPress, disabled }) => {
   return (
@@ -14,6 +15,7 @@ const Buttons = ({ title, onPress, disabled }) => {
       buttonStyle={{
         backgroundColor: colors.main,
         padding: 15,
+        marginBottom:Androids?20:null,
         borderRadius: 7,
       }}
       style={{
