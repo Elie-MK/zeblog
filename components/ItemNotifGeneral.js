@@ -6,8 +6,8 @@ import { Avatar, Badge } from '@rneui/themed';
 
 const ItemNotifGeneral = () => {
   return (
-  <View style={{flexDirection:"row", justifyContent:"center"}}>
-      <View style={{flexDirection:"row", alignItems:"center",  gap:15 }}>
+  <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center",}}>
+      <View style={{flexDirection:"row", alignItems:"center", justifyContent:"space-between",  gap:15 }}>
       <Avatar
           size="medium"
           rounded
@@ -24,9 +24,9 @@ const ItemNotifGeneral = () => {
         <Text style={{fontSize:16, fontWeight:"bold"}}>Jane Cooper has published a new article</Text>
         <Text style={{marginTop:10, color:colors.gray, fontWeight:"600"}}>Today | 09:24 AM</Text>
     </View>
+    </View>
     <View>
       <Image style={{width:75, height:75, borderRadius:10}} source={require('../assets/images/exemple.jpg')} />
-    </View>
     </View>
   </View>
   )

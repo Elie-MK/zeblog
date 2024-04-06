@@ -6,13 +6,14 @@ import { colors } from "../../../utilities/Color";
 import { FakeTopics } from "../../../utilities/FakeTopics";
 import CardArticles from "../../../components/CardArticles";
 import SecondCardArticles from "../../../components/SecondCardArticles";
+import { Androids } from "../../../utilities/Platform";
 
 const MyBookMark = ({navigation}) => {
     const [isGrid, setIsGrid] = useState("nogrid")
     
   return (
     <SafeAreaView style={{flex:1, marginHorizontal:15 }}>
-      <View style={{flex:1, marginTop:20,}}>
+      <View style={{flex:1, marginTop:Androids?30:20,}}>
      <View>
      <View style={{flexDirection:"row", alignItems:"center",  justifyContent:"space-between"}}>
         <View style={{flexDirection:"row", alignItems:"center", gap:20}}>

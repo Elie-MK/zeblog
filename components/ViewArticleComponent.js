@@ -7,6 +7,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import FollowersItem from './FollowersItem';
 import { CardDivider } from '@rneui/base/dist/Card/Card.Divider';
 import { Fontisto } from '@expo/vector-icons';
+import { Androids } from '../utilities/Platform';
 
 
 
@@ -16,7 +17,7 @@ const ViewArticleComponent = ({navigation}) => {
   return (
     <View style={{flex:1, backgroundColor:colors.white}}>
         <ImageBackground style={{width:"100%",height:300}}  source={require('../assets/images/exemple.jpg')}>
-            <SafeAreaView style={{marginHorizontal:15, }}>
+            <SafeAreaView style={{marginHorizontal:15, marginTop:Androids?30:null }}>
                 <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center"}}>
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                 <AntDesign name="arrowleft" size={30} color={colors.white} />

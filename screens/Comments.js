@@ -7,6 +7,7 @@ import { ScrollView } from 'react-native';
 import { colors } from '../utilities/Color';
 import CommentItem from '../components/CommentItem'
 import CommentInput from '../components/CommentInput';
+import { Androids } from '../utilities/Platform';
 
 
 const Comments = ({navigation}) => {
@@ -36,7 +37,7 @@ const Comments = ({navigation}) => {
     behavior={Platform.select({ ios: 'padding', android: null })}
     style={{ flex: 1 }}
   >
-      <View style={{flex:1, marginHorizontal:20, marginTop:20 }}>
+      <View style={{flex:1, marginHorizontal:20, marginTop:Androids?30:20 }}>
         <View style={{flexDirection:"row", justifyContent:"space-between"}}>
           <TouchableOpacity onPress={()=>navigation.goBack()}>
             <AntDesign name="arrowleft" size={25} color={colors.black} />

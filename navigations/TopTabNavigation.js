@@ -6,6 +6,7 @@ import NotifSystem from "../pages/Home/Notifications/NotifSystem";
 import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { colors } from "../utilities/Color";
+import { Androids } from "../utilities/Platform";
 
 const TopTabNavigation = ({ navigation }) => {
   const Top = createMaterialTopTabNavigator();
@@ -18,6 +19,7 @@ const TopTabNavigation = ({ navigation }) => {
             flexDirection: "row",
             justifyContent: "space-between",
             marginHorizontal: 15,
+            marginTop:Androids?30:null
           }}
         >
           <View style={{ flexDirection: "row", alignItems: "center", gap: 15 }}>
@@ -57,7 +59,6 @@ const TopTabNavigation = ({ navigation }) => {
               );
             },
             tabBarIndicatorStyle: { backgroundColor: colors.main, height: 4 },
-            tabBarStyle: { marginHorizontal: 15 },
           })}
         >
           <Top.Screen name="general" component={NotifGeneral} />
