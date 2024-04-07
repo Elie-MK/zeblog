@@ -2,17 +2,12 @@ import { View, Text } from "react-native";
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MainHome from "../pages/Home/MainHome";
-import { Octicons } from "@expo/vector-icons";
-import { FontAwesome5 } from "@expo/vector-icons";
-import { Entypo } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, Entypo } from "@expo/vector-icons";
 import { colors } from "../utilities/Color";
 import Discover from "../pages/Home/Discover/Discover";
-import WriterDetail from "../screens/writer/WriterDetail";
 import CreateArticles from "../pages/Home/CreateArticles/CreateArticles";
 import MyArticles from "../pages/Home/MyArticles/MyArticles";
 import ProfileOverallView from "../pages/Home/MyProfile/ProfileOverallView";
-import { Androids } from "../utilities/Platform";
 
 const HomeBottomNavigation = () => {
   const Tab = createBottomTabNavigator();

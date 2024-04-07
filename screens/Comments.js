@@ -15,9 +15,6 @@ const Comments = ({navigation}) => {
   const [valueComments, setValueComments]=useState("")
   const [listOfComments, setListOfComments]=useState([1])
 
-  
-
-
   const handleComments = ()=>{
     if(valueComments.length>0){
       setIsCommented(true)

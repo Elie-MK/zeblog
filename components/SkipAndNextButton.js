@@ -1,5 +1,5 @@
-import { View, Animated } from "react-native";
-import React, { useRef } from "react";
+import { View} from "react-native";
+import React from "react";
 import { Button } from "@rneui/base";
 import { colors } from "../utilities/Color";
 

@@ -2,7 +2,6 @@ import { View, Text, TouchableOpacity, FlatList } from 'react-native'
 import React, { useState } from 'react'
 import { colors } from '../../../utilities/Color'
 import { FakeTopics } from '../../../utilities/FakeTopics'
-import DraftArticle from '../../../components/DraftArticle'
 import { Entypo } from '@expo/vector-icons';
 import SecondCardArticles from '../../../components/SecondCardArticles'
 import CardArticles from '../../../components/CardArticles'

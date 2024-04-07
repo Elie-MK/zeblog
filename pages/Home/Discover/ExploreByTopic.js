@@ -3,7 +3,6 @@ import React from 'react'
 ;
 import NavHeader from '../../../components/NavHeader';
 import CardTopics from '../../../components/CardTopics';
-import { Androids } from '../../../utilities/Platform';
 
 const ExploreByTopic = ({navigation}) => {
 

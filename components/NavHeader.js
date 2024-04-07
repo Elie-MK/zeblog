@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, SafeAreaView } from 'react-native'
-import React, { useState } from 'react'
+import React from 'react'
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
 import { Androids } from '../utilities/Platform';

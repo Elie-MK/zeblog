@@ -1,8 +1,6 @@
 import { View, Text } from "react-native";
 import React from "react";
 import { Input } from "@rneui/themed";
-import { Ionicons } from '@expo/vector-icons';
-import { colors } from "../utilities/Color";
 
 const InputGlobal = ({rightIcon, title,  keyboardType, onFocus, value, onChangeText, placeholder, secure, disabled}) => {
   return (

@@ -1,5 +1,5 @@
 import { View, Text } from 'react-native'
-import React, { useState } from 'react'
+import React from 'react'
 import { CheckBox } from '@rneui/themed';
 import { FontAwesome } from '@expo/vector-icons';
 import { colors } from '../utilities/Color';

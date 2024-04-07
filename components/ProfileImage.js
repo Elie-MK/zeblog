@@ -1,9 +1,8 @@
-import { View, Text } from 'react-native'
-import React, { useState } from 'react'
+import { View } from 'react-native'
+import React from 'react'
 import { TouchableOpacity } from 'react-native';
 import { Avatar, Icon } from '@rneui/themed';
 import { colors } from '../utilities/Color';
-
 
 const ProfileImage = ({profileImage, handleProfileImage }) => {
 

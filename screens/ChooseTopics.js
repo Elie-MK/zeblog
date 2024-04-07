@@ -1,10 +1,7 @@
-import { View, Text, SafeAreaView, FlatList } from "react-native";
+import { View, FlatList } from "react-native";
 import React, { useState } from "react";
-import { colors } from "../utilities/Color";
-import Buttons from "../components/Buttons";
 import TopicItem from "../components/TopicItem";
 import { FakeTopics } from "../utilities/FakeTopics";
-import SkipAndNextButton from "../components/SkipAndNextButton";
 import SignupParentComponent from "../components/SignupParentComponent";
 
 const ChooseTopics = ({navigation}) => {

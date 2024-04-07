@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, Image, ImageBackground, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, SafeAreaView, ImageBackground, TouchableOpacity, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import { colors } from '../utilities/Color'
 import { AntDesign } from "@expo/vector-icons";
@@ -8,8 +8,6 @@ import FollowersItem from './FollowersItem';
 import { CardDivider } from '@rneui/base/dist/Card/Card.Divider';
 import { Fontisto } from '@expo/vector-icons';
 import { Androids } from '../utilities/Platform';
-
-
 
 const ViewArticleComponent = ({navigation}) => {
   const [isLiked, setIsLiked]=useState(false)

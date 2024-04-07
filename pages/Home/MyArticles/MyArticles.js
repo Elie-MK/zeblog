@@ -13,7 +13,6 @@ const MyArticles = ({navigation}) => {
 
     const Top = createMaterialTopTabNavigator();
 
-
   return (
     <SafeAreaView style={{flex:1}}>
     <View style={{flex:1, marginTop:20, marginHorizontal:20}}>

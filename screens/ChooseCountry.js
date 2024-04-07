@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TouchableOpacity, FlatList } from "react-native";
+import { View, FlatList } from "react-native";
 import React, { useEffect, useState } from "react";
 import ListOfAllCountries from "../components/ListOfAllCountries";
 import { countries } from "../utilities/Countries";

@@ -12,7 +12,6 @@ import ProfileImage from "../../components/ProfileImage";
 import { MaterialIcons } from "@expo/vector-icons";
 import SignupParentComponent from "../../components/SignupParentComponent";
 import BottomSheetModal from "../../components/BottomSheetModal"
-import { CheckBox } from "@rneui/themed";
 import GenderItem from "../../components/GenderItem";
 ;
 

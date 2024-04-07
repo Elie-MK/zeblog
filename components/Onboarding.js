@@ -1,11 +1,10 @@
-import { View, Text, FlatList, Animated } from "react-native";
+import { View, FlatList, Animated } from "react-native";
 import React, { useRef, useState } from "react";
 import OnboardingItem from "./OnboardingItem";
 import Paginator from "./Paginator";
 import SkipAndNextButton from "./SkipAndNextButton";
 import { onBoardingData } from "../utilities/OnboardingDatas";
 import Buttons from "./Buttons";
-import { colors } from "../utilities/Color";
 import { Androids } from "../utilities/Platform";
 
 const Onboarding = ({navigation}) => {

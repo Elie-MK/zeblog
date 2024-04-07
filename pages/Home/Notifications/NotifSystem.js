@@ -1,7 +1,6 @@
 import { View, Text, Image } from 'react-native'
 import React from 'react'
 import { colors } from '../../../utilities/Color'
-import EmptyNotification from '../../../components/EmptyNotification'
 import ItemNotifSystem from '../../../components/ItemNotifSystem'
 
 const NotifSystem = () => {

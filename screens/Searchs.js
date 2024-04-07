@@ -3,8 +3,6 @@ import {
   Text,
   SafeAreaView,
   TouchableOpacity,
-  Image,
-  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import SearchInput from "../components/SearchInput";

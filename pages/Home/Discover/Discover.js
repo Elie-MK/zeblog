@@ -1,8 +1,7 @@
 import { View, Text, SafeAreaView, Image } from 'react-native'
 import React from 'react'
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, Octicons } from '@expo/vector-icons';
 import SearchInput from '../../../components/SearchInput';
-import { Octicons } from "@expo/vector-icons";
 import { colors } from '../../../utilities/Color';
 import { ScrollView } from 'react-native';
 import CardArticles from '../../../components/CardArticles';

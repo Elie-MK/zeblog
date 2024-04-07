@@ -6,7 +6,6 @@ import { FakeTopics } from '../utilities/FakeTopics';
 import SecondCardArticles from './SecondCardArticles';
 import CardArticles from './CardArticles';
 
-
 const SearchArticleComponent = () => {
     const [isGrid, setIsGrid] = useState("nogrid")
 

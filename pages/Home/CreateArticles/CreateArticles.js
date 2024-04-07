@@ -6,21 +6,17 @@ import {
   Platform,
   TextInput,
   KeyboardAvoidingView,
-  TouchableWithoutFeedback,
-  Keyboard,
   Dimensions,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { colors } from "../../../utilities/Color";
 import { TouchableOpacity } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { MaterialIcons } from "@expo/vector-icons";
 import { ScrollView } from "react-native";
-import Buttons from "../../../components/Buttons";
 import { Androids } from "../../../utilities/Platform";
 import { Button, Divider } from "@rneui/themed";
 import { Ionicons } from '@expo/vector-icons';
-
 
 const CreateArticles = ({ navigation }) => {
   const [image, setImage] = useState(null);
@@ -28,7 +24,6 @@ const CreateArticles = ({ navigation }) => {
   const [selection, setSelection] = useState({ start: 0, end: 0 });
   const [text, setText]=useState('')
   const [uppercase, setUppercase] = useState(false);
-
 
   const handleSelectionChange = (event) => {
     const { start, end } = event.nativeEvent.selection;

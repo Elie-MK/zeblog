@@ -7,7 +7,6 @@ const PeopleFollowItem = ({ followers,  names, username, items, onPress }) => {
 
   const isFollow = followers.includes(items.username);
 
-
   return (
     <View
       style={{

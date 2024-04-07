@@ -1,6 +1,5 @@
-import { View, Text, SafeAreaView, Image, ImageBackground } from "react-native";
+import { View, ImageBackground } from "react-native";
 import React, { useEffect, useRef } from "react";
-import LottieView from "lottie-react-native";
 import Loading from "../components/Loading";
 
 const Welcome = ({ navigation }) => {

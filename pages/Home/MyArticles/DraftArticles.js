@@ -1,6 +1,5 @@
-import { View, Text, TouchableOpacity, FlatList } from 'react-native'
-import React, { useState } from 'react'
-import { colors } from '../../../utilities/Color'
+import { View, Text, FlatList } from 'react-native'
+import React from 'react'
 import { FakeTopics } from '../../../utilities/FakeTopics'
 import DraftArticle from '../../../components/DraftArticle'
 

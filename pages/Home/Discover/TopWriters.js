@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, FlatList, TouchableOpacity } from 'react-native'
+import { SafeAreaView, FlatList, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import NavHeader from '../../../components/NavHeader'
 import PeopleFollowItem from '../../../components/PeopleFollowItem'
