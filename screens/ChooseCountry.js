@@ -32,7 +32,6 @@ const ChooseCountry = ({ navigation }) => {
   //Lazy loading
   const loadMoreCountries = () => {
     if ((page - 1) * countriesPerPage >= filteredCountries.length) return;
-
     const nextPage = page + 1;
     const nextSetOfCountries = filteredCountries.slice(0, nextPage * countriesPerPage);
     setDisplayedCountries(nextSetOfCountries);

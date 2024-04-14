@@ -100,65 +100,7 @@ export default function SignUp({ navigation }) {
           placeholder={"MM/DD/YYYY"}
           rightIcon={<Ionicons name="calendar" size={24} color={colors.main} />}
         />
-
-        <InputGlobal
-          onChangeText={(password) =>
-            setSignupData({ ...signupData, password })
-          }
-          value={signupData.password}
-          secure={showPassword}
-          placeholder={"Password"}
-          rightIcon={
-            <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-              {showPassword ? (
-                <Ionicons name="eye-off-sharp" size={24} color={colors.main} />
-              ) : (
-                <Ionicons name="eye-sharp" size={24} color={colors.main} />
-              )}
-            </TouchableOpacity>
-          }
-        />
-        <InputGlobal
-          onChangeText={(confirmPassword) =>
-            setSignupData({ ...signupData, confirmPassword })
-          }
-          value={signupData.confirmPassword}
-          secure={showPassword}
-          placeholder={"Confirm Password"}
-          rightIcon={
-            <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-              {showPassword ? (
-                <Ionicons name="eye-off-sharp" size={24} color={colors.main} />
-              ) : (
-                <Ionicons name="eye-sharp" size={24} color={colors.main} />
-              )}
-            </TouchableOpacity>
-          }
-        />
       </View>
-
-    {/*   <View
-        style={{
-          flexDirection: "row",
-          gap: 6,
-          justifyContent: "center",
-          marginTop: 20,
-        }}
-      >
-        <Text style={{ fontSize: 15 }}>Do you have an account?</Text>
-        <TouchableOpacity onPress={() => navigation.replace("signin")}>
-          <Text
-            style={{
-              fontSize: 15,
-              color: colors.main,
-              fontWeight: "bold",
-            }}
-          >
-            SignIn
-          </Text>
-        </TouchableOpacity>
-      </View> */}
-      
       <BottomSheetModal
       title={"Choose your gender"}
         isVisible={showModal}

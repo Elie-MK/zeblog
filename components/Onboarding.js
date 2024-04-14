@@ -6,6 +6,7 @@ import SkipAndNextButton from "./SkipAndNextButton";
 import { onBoardingData } from "../utilities/OnboardingDatas";
 import Buttons from "./Buttons";
 import { Androids } from "../utilities/Platform";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Onboarding = ({navigation}) => {
 
@@ -29,6 +30,12 @@ const scrollSkip = ()=>{
   if(currentIndex < onBoardingData.length - 1  ){
     slidesRef.current.scrollToIndex({index: currentIndex ?  currentIndex + 1 : currentIndex + 2 })
   }
+}
+
+function handleOnboardingGetStarted (){
+  AsyncStorage.setItem('alreadyLaunched', 'true').then(()=>{
+    navigation.replace('login')
+  })
 }
 
 
@@ -57,7 +64,7 @@ const scrollSkip = ()=>{
      <View style={{marginBottom:Androids?30:null}}>
      {
         currentIndex === 2 ? (
-          <Buttons onPress={()=>navigation.replace('login')} title={"Get Started "}    />
+          <Buttons onPress={handleOnboardingGetStarted} title={"Get Started "}    />
           ):(
             <SkipAndNextButton  scrollSkip={scrollSkip} scrollTo={scrollTo} />
         )
