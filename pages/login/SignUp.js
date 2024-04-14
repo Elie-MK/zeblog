@@ -55,7 +55,7 @@ export default function SignUp({ navigation }) {
   return (
     <SignupParentComponent
       titleButton={"Continue"}
-      navigationRoute={"choosetopics"}
+      navigationRoute={"createAccount"}
       step={25}
       lastStep={25}
       title={"Complete your profile 📋"}
@@ -67,7 +67,7 @@ export default function SignUp({ navigation }) {
         profileImage={profileImage}
         handleProfileImage={handleProfileImage}
       />
-      <View style={{ marginTop: 30 }}>
+      <View style={{ marginTop: 30, marginHorizontal:-15}}>
         <InputGlobal
           title={"Full Name"}
           onChangeText={(username) =>

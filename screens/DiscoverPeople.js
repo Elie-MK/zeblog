@@ -43,7 +43,7 @@ const DiscoverPeople = ({ navigation }) => {
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Octicons name="arrow-left" size={25} color={colors.black} />
           </TouchableOpacity>
-          <ProgressBar lastStep={75} step={25} />
+          <ProgressBar lastStep={90} step={10} />
         </View>
         <Text style={{ fontSize: 30, fontWeight: "bold" }}>
           Discover People
