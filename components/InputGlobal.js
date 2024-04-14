@@ -3,13 +3,7 @@ import React, { useState } from "react";
 import { Input } from "@rneui/themed";
 import { colors } from "../utilities/Color";
 
-const InputGlobal = ({rightIcon, title,  keyboardType, nameInput, value, onChangeText, placeholder, secure, disabled}) => {
-  const [isFocused, setIsFocused] = useState("");
-  
-  const handleOnFocus = ()=>{
-    setIsFocused(nameInput)
-  }
-  console.log(isFocused, nameInput);
+const InputGlobal = ({rightIcon, title,  keyboardType, focus, value, onChangeText, placeholder, secure, disabled}) => {
 
   return (
       <View>
@@ -23,7 +17,7 @@ const InputGlobal = ({rightIcon, title,  keyboardType, nameInput, value, onChang
           borderBottomColor: colors.main, 
           borderBottomWidth:1.5,
         }}
-        onFocus={handleOnFocus}
+        onFocus={focus}
         value={value}
         onChangeText={onChangeText}
         inputStyle={{ paddingLeft: 7, paddingRight: 7 }}

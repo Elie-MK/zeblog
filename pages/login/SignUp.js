@@ -1,8 +1,4 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { colors } from "../../utilities/Color";
 import InputGlobal from "../../components/InputGlobal";
@@ -11,12 +7,14 @@ import * as ImagePicker from "expo-image-picker";
 import ProfileImage from "../../components/ProfileImage";
 import { MaterialIcons } from "@expo/vector-icons";
 import SignupParentComponent from "../../components/SignupParentComponent";
-import BottomSheetModal from "../../components/BottomSheetModal"
+import BottomSheetModal from "../../components/BottomSheetModal";
 import GenderItem from "../../components/GenderItem";
-;
-
+import BottomSheetDatePicker from "../../components/BottomSheetDatePicker";
+import { useEffect } from "react";
 export default function SignUp({ navigation }) {
   const [selectGender, setSelectGender] = useState("Gender");
+  const [date, setDate] = useState(new Date());
+  const [isNotAdult, setIsNotAdult] = useState(false);
   const [signupData, setSignupData] = useState({
     username: "",
     email: "",
@@ -24,8 +22,9 @@ export default function SignUp({ navigation }) {
     confirmPassword: "",
     gender: selectGender,
   });
-  const [showPassword, setShowPassword] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [showModalDate, setShowModalDate] = useState(false);
+
   const [profileImage, setProfileImage] = useState(null);
 
   const selectedGender = (gender) => {
@@ -51,6 +50,16 @@ export default function SignUp({ navigation }) {
       alert("Permission to access Library is required!");
     }
   };
+  function handleDatePicker(e, selectedDate) {
+    setDate(selectedDate || date);
+    return new Date().getFullYear() - date.getFullYear() >= 18
+      ? setIsNotAdult(false)
+      : setIsNotAdult(true);
+  }
+
+  useEffect(() => {
+    handleDatePicker();
+  }, [date]);
 
   return (
     <SignupParentComponent
@@ -58,6 +67,7 @@ export default function SignUp({ navigation }) {
       navigationRoute={"createAccount"}
       step={25}
       lastStep={25}
+      disableBtn={isNotAdult}
       title={"Complete your profile 📋"}
       subTitle={
         "Don't worry, only you can see your personal data. No one else will be able to see it."
@@ -67,12 +77,19 @@ export default function SignUp({ navigation }) {
         profileImage={profileImage}
         handleProfileImage={handleProfileImage}
       />
-      <View style={{ marginTop: 30, marginHorizontal:-15}}>
+      <View>
+        {
+          isNotAdult&&
+          <Text style={{ color: "red", fontSize: 16, marginTop:15 }}>You must be at least 18 years old to use this app. </Text>
+        }
+      </View>
+      <View style={{ marginTop: 30, marginHorizontal: -15 }}>
         <InputGlobal
           title={"Full Name"}
           onChangeText={(username) =>
             setSignupData({ ...signupData, username })
           }
+          disabled={isNotAdult}
           value={signupData.username}
           placeholder={"Full Name"}
         />
@@ -80,11 +97,13 @@ export default function SignUp({ navigation }) {
           title={"Phone Number"}
           keyboardType={"phone-pad"}
           value={signupData.email}
+          disabled={isNotAdult}
           onChangeText={(email) => setSignupData({ ...signupData, email })}
           placeholder={"+1 000 0000 000 "}
         />
         <InputGlobal
           title={"Gender"}
+          disabled={isNotAdult}
           value={selectGender}
           rightIcon={
             <MaterialIcons
@@ -93,22 +112,36 @@ export default function SignUp({ navigation }) {
               color={colors.main}
             />
           }
-          onFocus={() => setShowModal(!showModal)}
+          focus={() => setShowModal(!showModal)}
         />
         <InputGlobal
           title={"Date of Birth"}
           placeholder={"MM/DD/YYYY"}
-          rightIcon={<Ionicons name="calendar" size={24} color={colors.main} />}
+          focus={() => setShowModalDate(!showModalDate)}
+          value={date.toLocaleDateString()}
+          rightIcon={
+            <TouchableOpacity onPress={() => setShowModalDate(true)}>
+              <Ionicons name="calendar" size={24} color={colors.main} />
+            </TouchableOpacity>
+          }
         />
       </View>
       <BottomSheetModal
-      title={"Choose your gender"}
+        title={"Choose your gender"}
         isVisible={showModal}
         onBackdropPress={() => setShowModal(!showModal)}
       >
-        <GenderItem checked={selectGender}
-        selectedGender={(e) => selectedGender(e)}  />
+        <GenderItem
+          checked={selectGender}
+          selectedGender={(e) => selectedGender(e)}
+        />
       </BottomSheetModal>
+      <BottomSheetDatePicker
+        date={date}
+        handleDatePicker={handleDatePicker}
+        isVisible={showModalDate}
+        onBackdropPress={() => setShowModalDate(!showModalDate)}
+      />
     </SignupParentComponent>
   );
 }

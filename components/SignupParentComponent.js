@@ -31,7 +31,8 @@ const SignupParentComponent = ({
   subTitle,
   navigationRoute,
   isFlatList, 
-  lastStep
+  lastStep, 
+  disableBtn
 }) => {
   const navigation = useNavigation();
 
@@ -110,6 +111,7 @@ const SignupParentComponent = ({
           </View>
         ) : (
           <Buttons
+            disabled={disableBtn}
             onPress={() => navigation.navigate(navigationRoute)}
             title={titleButton}
           />
