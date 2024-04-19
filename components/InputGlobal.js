@@ -7,7 +7,7 @@ const InputGlobal = ({rightIcon, title,  keyboardType, focus, value, onChangeTex
 
   return (
       <View>
-        <Text style={{marginLeft:16, fontSize:16, fontWeight:"bold"}}>{title}</Text>
+        <Text style={{marginLeft:16, fontSize:14, fontWeight:"bold"}}>{title}</Text>
         <Input
       keyboardType={keyboardType}
         placeholder={placeholder}
@@ -20,7 +20,7 @@ const InputGlobal = ({rightIcon, title,  keyboardType, focus, value, onChangeTex
         onFocus={focus}
         value={value}
         onChangeText={onChangeText}
-        inputStyle={{ paddingLeft: 7, paddingRight: 7 }}
+        inputStyle={{ paddingLeft: 7, paddingRight: 7, fontSize:14 }}
         rightIcon={rightIcon}
         secureTextEntry={secure}
         disabled={disabled}

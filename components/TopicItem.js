@@ -20,7 +20,7 @@ const TopicItem = ({ select, onPress, names, items }) => {
       }}
     >
       <Text
-        style={{ fontSize: 16, fontWeight:isSelected?"bold":"normal", color: isSelected ? colors.white : colors.main }}
+        style={{ fontSize: 14, fontWeight:isSelected?"bold":"normal", color: isSelected ? colors.white : colors.main }}
       >
         {names}
       </Text>

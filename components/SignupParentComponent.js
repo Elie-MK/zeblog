@@ -62,7 +62,7 @@ const SignupParentComponent = ({
           <View style={{ marginBottom: 15 }}>
             <Text
               style={{
-                fontSize: 30,
+                fontSize:25,
                 fontWeight: "bold",
               }}
             >
@@ -71,7 +71,7 @@ const SignupParentComponent = ({
 
             <Text
               style={{
-                fontSize: 18,
+                fontSize: 16,
                 marginTop: 10,
                 color: colors.gray,
                 fontWeight: "500",

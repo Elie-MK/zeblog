@@ -24,7 +24,7 @@ const ChooseTopics = ({navigation}) => {
         <View style={{ flex: 1, flexDirection: "row", marginTop: 15 }}>
           <FlatList
             data={FakeTopics}
-            numColumns={3}
+            numColumns={2}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{ gap: 10 }}
             keyExtractor={(item) => item.id}

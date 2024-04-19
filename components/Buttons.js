@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 import React from "react";
-import { Button } from "@rneui/base";
+import { Button } from "@rneui/themed";
 import { colors } from "../utilities/Color";
 import { Androids } from "../utilities/Platform";
 
@@ -10,7 +10,7 @@ const Buttons = ({ title, onPress, disabled }) => {
       onPress={onPress}
       title={title}
       activeOpacity={0.8}
-      titleStyle={{ fontWeight: "800" }}
+      titleStyle={{ fontWeight: "800", fontSize:15 }}
       disabled={disabled}
       buttonStyle={{
         backgroundColor: colors.main,

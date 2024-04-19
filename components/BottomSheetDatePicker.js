@@ -24,7 +24,7 @@ const BottomSheetDatePicker = ({date, handleDatePicker, isVisible, onBackdropPre
           <View
             style={{
               backgroundColor: colors.white,
-              height: height / 2.6,
+              height: 350,
               bottom: 0,
               position: "absolute",
               flexDirection: "row",
@@ -41,7 +41,7 @@ const BottomSheetDatePicker = ({date, handleDatePicker, isVisible, onBackdropPre
               >
                 <Text
                   style={{
-                    fontSize: 20,
+                    fontSize: 18,
                     paddingTop: 10,
                     marginBottom: -5,
                     fontWeight: "900",
@@ -52,9 +52,9 @@ const BottomSheetDatePicker = ({date, handleDatePicker, isVisible, onBackdropPre
                 </Text>
               </TouchableOpacity>
               <DatePicker
-                style={{}}
                 testID="dateTimePicker"
                 display="inline"
+                themeVariant="light"
                 value={date}
                 maximumDate={new Date()}
                 minimumDate={new Date(1980, 0, 1)}

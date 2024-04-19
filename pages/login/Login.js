@@ -4,6 +4,7 @@ import {
   SafeAreaView,
   Image,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import React from "react";
 import { colors } from "../../utilities/Color";
@@ -13,42 +14,50 @@ import Buttons from "../../components/Buttons";
 const Login = ({navigation}) => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.white }}>
+      <ScrollView style={{flex:1}} showsVerticalScrollIndicator={false}>
       <View
         style={{
           flex: 1,
           flexDirection: "row",
           justifyContent: "center",
+          alignItems: "center",
           marginTop: 30,
         }}
       >
         <View>
+          <View style={{flexDirection:"row", justifyContent:"center"}}>
           <Image
-            style={{ width: 300, height: 300 }}
+            style={{ width: 250, height: 250 }}
             source={require("../../assets/images/signin.png")}
           />
+          </View>
 
           <View>
             <Text
-              style={{ fontSize: 40, fontWeight: "bold", textAlign: "center" }}
+              style={{ fontSize: 25, fontWeight: "bold", textAlign: "center" }}
             >
               Let's you in
             </Text>
-            <View style={{ marginTop: 25 }}>
+            <View style={{ marginTop: 25, flexDirection:"row", justifyContent:"center"  }}>
+              <View>
               <ButtonWithIcon
                 img={require("../../assets/images/icons/google.png")}
-                title={"Coninue with Google"}
+                title={"Continue with Google"}
               />
               <ButtonWithIcon
                 img={require("../../assets/images/icons/facebook.png")}
-                title={"Coninue with Facebook"}
+                title={"Continue with Facebook"}
               />
               <ButtonWithIcon
               
                 img={require("../../assets/images/icons/apple.png")}
-                title={"Coninue with Apple"}
+                title={"Continue with Apple"}
                 
               />
+              </View>
             </View>
+            <View style={{flexDirection:"row", justifyContent:"center"}}>
+
             <View
               style={{
                 flexDirection: "row",
@@ -57,14 +66,15 @@ const Login = ({navigation}) => {
                 marginTop: 15,
               }}
             >
-              <Text style={{ color: "gray" }}>__________________</Text>
+              <Text style={{ color: "gray" }}>________________</Text>
               <Text style={{ fontWeight: "bold", fontSize: 20, color: "gray" }}>
                 or
               </Text>
-              <Text style={{ color: "gray" }}>___________________</Text>
+              <Text style={{ color: "gray" }}>_________________</Text>
+            </View>
             </View>
 
-            <View style={{ marginTop: 20 }}>
+            <View style={{ marginTop: 20, marginBottom:10 }}>
               <Buttons title={"Sign in with  password"} onPress={()=>navigation.replace('signin')} />
 
               <View
@@ -92,6 +102,7 @@ const Login = ({navigation}) => {
           </View>
         </View>
       </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

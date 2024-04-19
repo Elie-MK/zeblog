@@ -59,7 +59,6 @@ const ChooseCountry = ({ navigation }) => {
       <FlatList
             data={displayedCountries}
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ gap: 10 }}
             keyExtractor={(item) => item.id}
             onEndReached={loadMoreCountries}
             onEndReachedThreshold={0.5}

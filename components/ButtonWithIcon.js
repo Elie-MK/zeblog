@@ -3,7 +3,6 @@ import React from 'react'
 import { Button } from "@rneui/base";
 import { colors } from '../utilities/Color';
 
-
 const ButtonWithIcon = ({title, img, onPress}) => {
   return (
     <Button
@@ -15,7 +14,7 @@ const ButtonWithIcon = ({title, img, onPress}) => {
     //   iconContainerStyle={{ background: "#000" }}
     style={{marginTop:5}}
       title={title}
-      titleStyle={{ marginHorizontal: 10, color:colors.black, fontWeight:"bold" }}
+      titleStyle={{ marginHorizontal: 10, color:colors.black, fontWeight:"bold", fontSize:15 }}
     />
 
   )
