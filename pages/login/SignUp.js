@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Platform } from "react-native";
 import React, { useState } from "react";
 import { colors } from "../../utilities/Color";
 import InputGlobal from "../../components/InputGlobal";
@@ -52,6 +52,9 @@ export default function SignUp({ navigation }) {
   };
   function handleDatePicker(e, selectedDate) {
     setDate(selectedDate || date);
+    if (Platform.OS === "android") {
+      setShowModalDate(false);
+    } 
     return new Date().getFullYear() - date.getFullYear() >= 18
       ? setIsNotAdult(false)
       : setIsNotAdult(true);
@@ -78,10 +81,11 @@ export default function SignUp({ navigation }) {
         handleProfileImage={handleProfileImage}
       />
       <View>
-        {
-          isNotAdult&&
-          <Text style={{ color: "red", fontSize: 16, marginTop:15 }}>You must be at least 18 years old to use this app. </Text>
-        }
+        {isNotAdult && (
+          <Text style={{ color: "red", fontSize: 16, marginTop: 15 }}>
+            You must be at least 18 years old to use this app.{" "}
+          </Text>
+        )}
       </View>
       <View style={{ marginTop: 30, marginHorizontal: -15 }}>
         <InputGlobal
@@ -140,7 +144,7 @@ export default function SignUp({ navigation }) {
         date={date}
         handleDatePicker={handleDatePicker}
         isVisible={showModalDate}
-        onBackdropPress={() => setShowModalDate(!showModalDate)}
+        onBackdropPress={() => setShowModalDate(false)}
       />
     </SignupParentComponent>
   );
