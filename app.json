@@ -14,11 +14,11 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "plugins":[
+    "plugins": [
       [
-        "expo-image-picker", 
+        "expo-image-picker",
         {
-          "photosPermission":"The app access your photos to let you share them with your friends"
+          "photosPermission": "The app access your photos to let you share them with your friends"
         }
       ]
     ],
@@ -29,10 +29,21 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/splash.png",
         "backgroundColor": "#ffffff"
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "9aec7d6a-62ac-429b-8ec8-40546dcaa2cd"
       }
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
+    "updates": {
+      "url": "https://u.expo.dev/9aec7d6a-62ac-429b-8ec8-40546dcaa2cd"
     }
   }
 }
