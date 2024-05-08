@@ -11,21 +11,23 @@ import BottomSheetModal from "../../components/BottomSheetModal";
 import GenderItem from "../../components/GenderItem";
 import BottomSheetDatePicker from "../../components/BottomSheetDatePicker";
 import { useEffect } from "react";
-export default function SignUp({ navigation }) {
+export default function SignUp({ route }) {
+   const { datas } = route.params
+   const [profileImage, setProfileImage] = useState(null);
   const [selectGender, setSelectGender] = useState("Gender");
   const [date, setDate] = useState(new Date());
-  const [isNotAdult, setIsNotAdult] = useState(false);
+  const [isNotAdult, setIsNotAdult] = useState(true);
   const [signupData, setSignupData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
+    fullName: "",
+    phoneNumber: "",
     gender: selectGender,
+    dateOfBirth:date,
+    picture: profileImage, 
+    country : datas
   });
   const [showModal, setShowModal] = useState(false);
   const [showModalDate, setShowModalDate] = useState(false);
 
-  const [profileImage, setProfileImage] = useState(null);
 
   const selectedGender = (gender) => {
     setSelectGender(gender);
@@ -60,9 +62,11 @@ export default function SignUp({ navigation }) {
       : setIsNotAdult(true);
   }
 
-  useEffect(() => {
-    handleDatePicker();
-  }, [date]);
+  function handleInputsChange(name){
+    setSignupData({...signupData, [name]: name})
+  }
+
+  
 
   return (
     <SignupParentComponent
@@ -90,19 +94,19 @@ export default function SignUp({ navigation }) {
       <View style={{ marginTop: 30, marginHorizontal: -15 }}>
         <InputGlobal
           title={"Full Name"}
-          onChangeText={(username) =>
-            setSignupData({ ...signupData, username })
+          onChangeText={(fullName) =>
+            handleInputsChange(fullName)
           }
           disabled={isNotAdult}
-          value={signupData.username}
+          value={signupData.fullName}
           placeholder={"Full Name"}
         />
         <InputGlobal
           title={"Phone Number"}
           keyboardType={"phone-pad"}
-          value={signupData.email}
+          value={signupData.phoneNumber}
           disabled={isNotAdult}
-          onChangeText={(email) => setSignupData({ ...signupData, email })}
+          onChangeText={(phoneNumber) => handleInputsChange(phoneNumber)}
           placeholder={"+1 000 0000 000 "}
         />
         <InputGlobal

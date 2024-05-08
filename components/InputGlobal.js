@@ -3,12 +3,13 @@ import React, { useState } from "react";
 import { Input } from "@rneui/themed";
 import { colors } from "../utilities/Color";
 
-const InputGlobal = ({rightIcon, title,  keyboardType, focus, value, onChangeText, placeholder, secure, disabled}) => {
+const InputGlobal = ({rightIcon, title, onBlur,  keyboardType, focus, value, onChangeText, placeholder, secure, disabled}) => {
 
   return (
       <View>
         <Text style={{marginLeft:16, fontSize:14, fontWeight:"bold"}}>{title}</Text>
         <Input
+        onBlur={onBlur}
       keyboardType={keyboardType}
         placeholder={placeholder}
         inputContainerStyle={{

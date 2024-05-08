@@ -5,7 +5,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import DatePicker from "@react-native-community/datetimepicker";
 import { BottomSheet } from "@rneui/themed";
 import { BlurView } from "expo-blur";
@@ -14,7 +14,6 @@ import { Androids } from "../utilities/Platform";
 
 const BottomSheetDatePicker = ({date, handleDatePicker, isVisible, onBackdropPress}) => {
   const { height } = Dimensions.get("window");
-  console.log(isVisible);
   return (
      <BottomSheet isVisible={isVisible} onBackdropPress={onBackdropPress}>
       <TouchableWithoutFeedback onPress={onBackdropPress}>

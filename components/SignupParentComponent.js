@@ -7,6 +7,7 @@ import {
   TouchableWithoutFeedback,
   ScrollView,
   Keyboard,
+  Platform,
 } from "react-native";
 import React from "react";
 import { Octicons } from "@expo/vector-icons";
@@ -32,7 +33,8 @@ const SignupParentComponent = ({
   navigationRoute,
   isFlatList, 
   lastStep, 
-  disableBtn
+  disableBtn, 
+  sharedData
 }) => {
   const navigation = useNavigation();
 
@@ -112,7 +114,7 @@ const SignupParentComponent = ({
         ) : (
           <Buttons
             disabled={disableBtn}
-            onPress={() => navigation.navigate(navigationRoute)}
+            onPress={() => navigation.navigate(navigationRoute, {datas:sharedData} )}
             title={titleButton}
           />
         )}

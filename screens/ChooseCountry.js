@@ -44,6 +44,7 @@ const ChooseCountry = ({ navigation }) => {
       onClear={handleClear}
       search={search}
       setSearch={setSearch}
+      sharedData={touch}
       isCountryScreen
       titleButton={"Continue"}
       navigationRoute={"signup"}
