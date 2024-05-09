@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Input } from "@rneui/themed";
 import { colors } from "../utilities/Color";
 
-const InputGlobal = ({rightIcon, title, onBlur,  keyboardType, focus, value, onChangeText, placeholder, secure, disabled}) => {
+const InputGlobal = ({rightIcon, isError, title, onBlur,  keyboardType, focus, errorMessage, value, onChangeText, placeholder, secure, disabled}) => {
 
   return (
       <View>
@@ -26,6 +26,7 @@ const InputGlobal = ({rightIcon, title, onBlur,  keyboardType, focus, value, onC
         secureTextEntry={secure}
         disabled={disabled}
       />
+      {isError && <Text style={{marginLeft:16, fontSize:14, marginTop:-16, marginBottom:15, color:'red'}}>{errorMessage}</Text>}
       </View>
   );
 };
