@@ -30,7 +30,7 @@ const CreateAccount = ({route}) => {
 
   function handleInputChanges(name, value){
     if(name === "username"){
-      value = value.replace(/\s/g, '' )
+      value = value.replace(" ", '' )
     }
     setSignupData(prevValues => ({
       ...prevValues,
