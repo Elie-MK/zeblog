@@ -58,7 +58,8 @@ const ModalGlobal = ({isVisible,  onBackdropPress}) => {
               preparing for you.
             </Text>
             <View style={{ flexDirection: "row", justifyContent: "center" }}>
-              <Loading animationRef={animation} styles={{ width: 150 }} />
+              <Loading animationRef={animation} styles={{ width: 170,
+                height: 180}} />
             </View>
           </View>
         </View>

@@ -8,10 +8,10 @@ const GenderItem = ({checked, selectedGender}) => {
   return (
      <View>
           <View style={{marginBottom:30}}>
-          {["Male", "Female", "Other"].map((l, i) => (
+          {["MALE", "FEMALE"].map((gender, i) => (
               <CheckBox
               key={i}
-                title={l}
+                title={gender}
                 containerStyle={{ backgroundColor: "white", borderWidth: 0 }}
                 checkedIcon={
                   <AntDesign name="checkcircle" size={24} color={colors.main} />
@@ -23,8 +23,8 @@ const GenderItem = ({checked, selectedGender}) => {
                     color={colors.main}
                   />
                 }
-                checked={checked === l }
-                onPress={() => selectedGender(l)}
+                checked={checked === gender }
+                onPress={()=>selectedGender(gender)}
               />
           ))}
           </View>
