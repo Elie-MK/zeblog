@@ -4,13 +4,14 @@ import ListOfAllCountries from "../components/ListOfAllCountries";
 import { countries } from "../utilities/Countries";
 import SignupParentComponent from "../components/SignupParentComponent";
 
-const ChooseCountry = ({ navigation }) => {
+const ChooseCountry = () => {
   const [search, setSearch] = useState("");
   const [filteredCountries, setFilteredCountries] = useState([]);
   const [displayedCountries, setDisplayedCountries] = useState([]);
   const [page, setPage] = useState(1);
   const countriesPerPage = 10;
   const [touch, setTouch] = useState("none");
+  const [invalidData, setInvildData]=useState(true)
 
 
   useEffect(() => {
@@ -38,10 +39,16 @@ const ChooseCountry = ({ navigation }) => {
     setPage(nextPage);
   };
 
+  function handleSelectCountry(nameCountry){
+    setInvildData(false)
+    setTouch(nameCountry);
+  }
+
 
   return (
     <SignupParentComponent
       onClear={handleClear}
+      disableBtn={invalidData}
       search={search}
       setSearch={setSearch}
       sharedData={touch}
@@ -60,13 +67,13 @@ const ChooseCountry = ({ navigation }) => {
       <FlatList
             data={displayedCountries}
             showsVerticalScrollIndicator={false}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item.code}
             onEndReached={loadMoreCountries}
             onEndReachedThreshold={0.5}
-            renderItem={({ item, index }) => (
+            renderItem={({ item }) => (
               <ListOfAllCountries
-            key={index}
-            setTouch={(t) => setTouch(t)}
+            key={item.code}
+            setTouch={(countryName) => handleSelectCountry(countryName)}
             touch={touch}
             name={item.name}
             code={item.code}

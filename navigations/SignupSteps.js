@@ -14,10 +14,10 @@ const SignupSteps = () => {
         headerShown:false
     }} initialRouteName='choosecountry'>
                 <Stack.Screen name='choosecountry' component={ChooseCountry} />
-                <Stack.Screen  name="choosetopics" component={ChooseTopics} />
-                <Stack.Screen  name="discoverPeople" component={DiscoverPeople} />
                 <Stack.Screen  name="signup" component={SignUp} />
                 <Stack.Screen  name="createAccount" component={CreateAccount} />
+                <Stack.Screen  name="choosetopics" component={ChooseTopics} />
+                <Stack.Screen  name="discoverPeople" component={DiscoverPeople} />
     </Stack.Navigator>
   )
 }

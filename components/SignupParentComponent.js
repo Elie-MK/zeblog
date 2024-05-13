@@ -107,8 +107,8 @@ const SignupParentComponent = ({
        {isTopic ? (
           <View style={{ marginTop: 10 }}>
             <SkipAndNextButton
-              scrollSkip={() => navigation.navigate("discoverPeople")}
-              scrollTo={() => navigation.navigate("discoverPeople")}
+              scrollSkip={() => navigation.navigate("discoverPeople",  sharedData)}
+              scrollTo={() => navigation.navigate("discoverPeople",  sharedData)}
             />
           </View>
         ) : (

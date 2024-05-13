@@ -1,27 +1,44 @@
 import { View, Text, TouchableOpacity, Platform } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import * as ImagePicker from "expo-image-picker";
+import { Ionicons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
+import moment from "moment";
+
 import { colors } from "../../utilities/Color";
 import InputGlobal from "../../components/InputGlobal";
-import { Ionicons } from "@expo/vector-icons";
-import * as ImagePicker from "expo-image-picker";
 import ProfileImage from "../../components/ProfileImage";
-import { MaterialIcons } from "@expo/vector-icons";
 import SignupParentComponent from "../../components/SignupParentComponent";
 import BottomSheetModal from "../../components/BottomSheetModal";
 import GenderItem from "../../components/GenderItem";
 import BottomSheetDatePicker from "../../components/BottomSheetDatePicker";
 
+function handleValidData(signupData, isNotAdult) {
+  if (
+    signupData.fullName === "" ||
+    signupData.gender === "Gender" ||
+    signupData.streetAdress === "" ||
+    signupData.picture === null ||
+    isNotAdult
+  ) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
 export default function SignUp({ route }) {
   const { datas } = route.params;
-  const [isNotAdult, setIsNotAdult] = useState(false);
-  const formatDate = new Date("1980-01-01").toLocaleDateString();
+  const [isNotAdult, setIsNotAdult] = useState(true);
+  const [date, setDate] = useState(new Date());
+  const formatDate = moment(date).format("YYYY-MM-DD");
 
   const [signupData, setSignupData] = useState({
     fullName: "",
-    phoneNumber: "",
     gender: "Gender",
-    dateOfBirth: formatDate,
     picture: null,
+    streetAdress:"",
+    dateOfBirth: formatDate,
     country: datas,
   });
 
@@ -29,6 +46,9 @@ export default function SignUp({ route }) {
   const [showModalDate, setShowModalDate] = useState(false);
 
   function handleInputsChange(name, value) {
+    if(name === "gender"){
+      setShowModal(false)
+    }
     setSignupData((prevValues) => ({
       ...prevValues,
       [name]: value,
@@ -46,8 +66,8 @@ export default function SignUp({ route }) {
         aspect: [4, 3],
       });
       if (!image.canceled) {
-        const result = image.assets[0].uri
-       handleInputsChange('picture', result) 
+        const result = image.assets[0].uri;
+        handleInputsChange("picture", result);
       }
     } else {
       alert("Permission to access Library is required!");
@@ -55,15 +75,21 @@ export default function SignUp({ route }) {
   };
 
   function handleDatePicker(e, selectedDate) {
-    const dateSelected = selectedDate.toLocaleDateString() || formatDate
-    handleInputsChange('dateOfBirth', dateSelected)
+    setDate(selectedDate);
+
+    const formatDate = moment(selectedDate).format("YYYY-MM-DD");
+
+    handleInputsChange("dateOfBirth", formatDate);
     if (Platform.OS === "android") {
       setShowModalDate(false);
     }
-    const getYear = signupData.dateOfBirth.slice(6)
-    return new Date().getFullYear() - getYear  >= 18 ? setIsNotAdult(false) : setIsNotAdult(true);
+    const getYear = selectedDate.getFullYear();
+    const age = new Date().getFullYear() - getYear;
+    return age >= 18 ? setIsNotAdult(false) : setIsNotAdult(true);
   }
- 
+
+  const isValidData = handleValidData(signupData, isNotAdult);
+
   return (
     <SignupParentComponent
       titleButton={"Continue"}
@@ -71,7 +97,7 @@ export default function SignUp({ route }) {
       sharedData={signupData}
       step={25}
       lastStep={25}
-      disableBtn={isNotAdult}
+      disableBtn={isNotAdult || !isValidData}
       title={"Complete your profile 📋"}
       subTitle={
         "Don't worry, only you can see your personal data. No one else will be able to see it."
@@ -96,15 +122,12 @@ export default function SignUp({ route }) {
           value={signupData.fullName}
           placeholder={"Full Name"}
         />
-        <InputGlobal
-          title={"Phone Number"}
-          keyboardType={"phone-pad"}
-          value={signupData.phoneNumber}
+          <InputGlobal
+          title={"Street Adress"}
+          onChangeText={(streetAdress) => handleInputsChange("streetAdress", streetAdress)}
           disabled={isNotAdult}
-          onChangeText={(phoneNumber) =>
-            handleInputsChange("phoneNumber", phoneNumber)
-          }
-          placeholder={"+1 000 0000 000 "}
+          value={signupData.streetAdress}
+          placeholder={"Street Adress"}
         />
         <InputGlobal
           title={"Gender"}
@@ -121,7 +144,7 @@ export default function SignUp({ route }) {
         />
         <InputGlobal
           title={"Date of Birth"}
-          placeholder={"MM/DD/YYYY"}
+          placeholder={"YYYY/MM/DD"}
           focus={() => setShowModalDate(!showModalDate)}
           value={signupData.dateOfBirth}
           rightIcon={
@@ -137,12 +160,13 @@ export default function SignUp({ route }) {
         onBackdropPress={() => setShowModal(!showModal)}
       >
         <GenderItem
+        onPress={setShowModal}
           checked={signupData.gender}
-          selectedGender={(gender) => handleInputsChange('gender', gender)}
+          selectedGender={(gender) => handleInputsChange("gender", gender)}
         />
       </BottomSheetModal>
       <BottomSheetDatePicker
-        date={new Date("1980-01-01")}
+        date={date}
         handleDatePicker={handleDatePicker}
         isVisible={showModalDate}
         onBackdropPress={() => setShowModalDate(false)}

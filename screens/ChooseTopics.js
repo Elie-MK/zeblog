@@ -4,7 +4,9 @@ import TopicItem from "../components/TopicItem";
 import { FakeTopics } from "../utilities/FakeTopics";
 import SignupParentComponent from "../components/SignupParentComponent";
 
-const ChooseTopics = ({navigation}) => {
+const ChooseTopics = ({route}) => {
+  const { datas }= route.params
+
   const [select, setSelect] = useState([]);
 
   const selectedItem = (idItem) => {
@@ -20,7 +22,7 @@ const ChooseTopics = ({navigation}) => {
   };
 
   return (
-    <SignupParentComponent lastStep={75} step={15} isFlatList isTopic title={"Select your topic of Interest"} subTitle={"Select topic of interest for better recommendations or you can skip it."}>
+    <SignupParentComponent sharedData={datas} lastStep={75} step={15} isFlatList isTopic title={"Select your topic of Interest"} subTitle={"Select topic of interest for better recommendations or you can skip it."}>
         <View style={{ flex: 1, flexDirection: "row", marginTop: 15 }}>
           <FlatList
             data={FakeTopics}

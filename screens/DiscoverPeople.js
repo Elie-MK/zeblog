@@ -1,4 +1,10 @@
-import { View, Text, SafeAreaView, FlatList, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 import React, { useState } from "react";
 import { colors } from "../utilities/Color";
 import Buttons from "../components/Buttons";
@@ -7,10 +13,23 @@ import { FakeFollowers } from "../utilities/FakeFollowers";
 import ModalGlobal from "../components/ModalGlobal";
 import ProgressBar from "../components/ProgressBar";
 import { Octicons } from "@expo/vector-icons";
+import axios from "axios";
 
-const DiscoverPeople = ({ navigation }) => {
+const API_URL = "http://192.168.1.114:3000/api/auth/register";
+const instance = axios.create({
+  baseURL: API_URL,
+  headers: {
+    "Content-Type": "multipart/form-data",
+    Accept: "application/json",
+  },
+});
+
+const DiscoverPeople = ({ navigation, route }) => {
+  const datas = route.params;
+
   const [follow, setFollow] = useState([]);
-  const [validate, setValidate] = useState(false);
+  const [inProgress, setInProgress] = useState(false);
+  const [isError, setIsError]= useState(false)
 
   const handleFollow = (username) => {
     const isFollow = follow.includes(username);
@@ -21,18 +40,40 @@ const DiscoverPeople = ({ navigation }) => {
     }
   };
 
-  const handleFinish = () => {
-    setValidate(!validate)
-   setTimeout(()=>{
-    navigation.replace("signin")
-    setValidate(false)
-  }, 3000)
-  }
+  const handleFinish = async () => {
+    setInProgress(true);
+    const registerUser = new FormData();
+    registerUser.append("fullName", datas.fullName);
+    registerUser.append("dateOfBirth", datas.dateOfBirth);
+    registerUser.append("username", datas.username);
+    registerUser.append("email", datas.email);
+    registerUser.append("countryName", datas.country);
+    registerUser.append("streetAdress", datas.streetAdress);
+    registerUser.append("password", datas.password);
+    registerUser.append("gender", datas.gender);
+    const picture = datas.picture;
+    registerUser.append("pictureProfile", {
+      uri: picture,
+      type: "image/jpg",
+      name: "profile",
+    });
+    try {
+      const response = await instance.post(API_URL, registerUser);
+      if (response.status === 201) {
+        setInProgress(false);
+        navigation.replace("signin");
+      }
+    } catch (error) {
+      console.log("Error occurred:", error.message);
+      setInProgress(false);
+      setIsError(true)
+    }
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.white }}>
       <View style={{ flex: 1, marginTop: 20, marginHorizontal: 20 }}>
-      <View
+        <View
           style={{
             flexDirection: "row",
             alignItems: "center",
@@ -67,12 +108,13 @@ const DiscoverPeople = ({ navigation }) => {
             )}
           />
           <Buttons
+            disabled={inProgress}
             onPress={handleFinish}
             title={"Finish"}
           />
         </View>
       </View>
-      <ModalGlobal isVisible={validate}  />
+      <ModalGlobal isVisible={inProgress} />
     </SafeAreaView>
   );
 };
