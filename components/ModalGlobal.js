@@ -4,8 +4,9 @@ import { Dialog } from "@rneui/themed";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { colors } from "../utilities/Color";
 import Loading from "./Loading";
+import ErrorItem from "./ErrorItem";
 
-const ModalGlobal = ({isVisible,  onBackdropPress}) => {
+const ModalGlobal = ({isVisible,  onBackdropPress, isError}) => {
   const animation = useRef(null);
   useEffect(() => {
     animation.current?.play();
@@ -17,6 +18,10 @@ const ModalGlobal = ({isVisible,  onBackdropPress}) => {
   return (
     <Dialog isVisible={isVisible} onBackdropPress={onBackdropPress} overlayStyle={{ borderRadius: 22 }}>
       <View  style={{padding:20}}>
+      {
+        isError ? <ErrorItem />
+        : 
+        <View>
         <View style={{ flexDirection: "row", justifyContent: "center" }}>
           <View
             style={{
@@ -63,6 +68,8 @@ const ModalGlobal = ({isVisible,  onBackdropPress}) => {
             </View>
           </View>
         </View>
+      </View> 
+      }
       </View>
     </Dialog>
   );
