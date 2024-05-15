@@ -8,26 +8,95 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Button,
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
-import { colors } from "../../utilities/Color";
-import { Image } from "react-native";
-import InputGlobal from "../../components/InputGlobal";
-import { KeyboardAvoidingView } from "react-native";
-import Buttons from "../../components/Buttons";
 import { Ionicons } from "@expo/vector-icons";
 import { CheckBox, Divider } from "@rneui/themed";
+import { KeyboardAvoidingView } from "react-native";
 import { Octicons } from "@expo/vector-icons";
+import { Image } from "react-native";
+
+import { colors } from "../../utilities/Color";
+import InputGlobal from "../../components/InputGlobal";
+import Buttons from "../../components/Buttons";
 import { Androids } from "../../utilities/Platform";
+import { loginUser } from "../../utilities/ApiRequestsService";
+import { emailRegex, passwordRegEx } from "../../utilities/AllRegex";
+import { CommonActions } from "@react-navigation/native";
+import AlertModal from "../../components/AlertModal";
 
 const SignIn = ({ navigation }) => {
   const [signupData, setSignupData] = useState({
-    name: "",
+    userNameOrEmail: "",
     password: "",
   });
   const [showPassword, setShowPassword] = useState(true);
-  const [checked, setChecked] = useState(true);
+  const [checked, setChecked] = useState(false);
+  const [isConnecting, setIsConnecting] = useState(false);
+  const [alertModal, setAlertModal] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertTitle, setAlertTitle] = useState("");
+  const [typeAlert, setTypeAlert] = useState(null);
+
   const toggleCheckbox = () => setChecked(!checked);
+
+  function handleInputChange(name, value) {
+    setSignupData((prevValue) => ({
+      ...prevValue,
+      [name]: value,
+    }));
+  }
+
+  function handlePasswordBlur() {
+    const passwordValid = passwordRegEx.test(signupData.password);
+    if (!passwordValid) {
+      setAlertModal(true)
+      setTypeAlert("error")
+      setAlertTitle("Invalid Password")
+      setAlertMessage("Password must contain at least 8 characters, 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character.")
+    }
+  }
+
+  async function handleSignIn() {
+    setIsConnecting(true);
+    const signupDataToSend = {
+      password: signupData.password,
+    };
+    const email = emailRegex.exec(signupData.userNameOrEmail);
+    if (email) {
+      signupDataToSend.email = signupData.userNameOrEmail.toLowerCase();
+    } else {
+      signupDataToSend.username = signupData.userNameOrEmail.toLowerCase();
+    }
+    try {
+      if (
+        signupData.userNameOrEmail !== "" &&
+        signupDataToSend.password !== ""
+      ) {
+        const response = await loginUser(signupDataToSend);
+        if (response.status === 201) {
+          setIsConnecting(false);
+          navigation.dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [{ name: "home" }],
+            })
+          );
+        }
+      } else {
+        setIsConnecting(false);
+        setAlertModal(true)
+        setTypeAlert("error")
+        setAlertTitle("Invalid Credentials")
+        setAlertMessage("Username/Email and Password are required.")
+      }
+    } catch (error) {
+      setIsConnecting(false);
+      console.log(error);
+    }
+  }
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <KeyboardAvoidingView
@@ -67,8 +136,8 @@ const SignIn = ({ navigation }) => {
 
               <View style={{ marginTop: 20 }}>
                 <InputGlobal
-                  onChangeText={(name) =>
-                    setSignupData({ ...signupData, name })
+                  onChangeText={(userNameOrEmail) =>
+                    handleInputChange("userNameOrEmail", userNameOrEmail)
                   }
                   value={signupData.name}
                   placeholder={"Username / Email"}
@@ -76,10 +145,11 @@ const SignIn = ({ navigation }) => {
 
                 <InputGlobal
                   onChangeText={(password) =>
-                    setSignupData({ ...signupData, password })
+                    handleInputChange("password", password)
                   }
                   value={signupData.password}
                   secure={showPassword}
+                  onBlur={handlePasswordBlur}
                   placeholder={"Password"}
                   rightIcon={
                     <TouchableOpacity
@@ -218,7 +288,9 @@ const SignIn = ({ navigation }) => {
             </View>
 
             <Buttons
-              onPress={() => navigation.replace("home")}
+              isLoading={isConnecting}
+              disabled={isConnecting}
+              onPress={handleSignIn}
               title={"Sign In"}
             />
 
@@ -245,6 +317,13 @@ const SignIn = ({ navigation }) => {
                 </Text>
               </TouchableOpacity>
             </View>
+            <AlertModal
+              isVisible={alertModal}
+              onDismiss={()=>setAlertModal(false)}
+              alertType={typeAlert}
+              message={alertMessage}
+              title={alertTitle}
+            />
           </ScrollView>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
