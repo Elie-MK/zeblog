@@ -3,8 +3,9 @@ import React from "react";
 import { Button } from "@rneui/themed";
 import { colors } from "../utilities/Color";
 import { Androids } from "../utilities/Platform";
+import ActivityIndicatorGlobal from "./ActivityIndicatorGlobal";
 
-const Buttons = ({ title, onPress, disabled }) => {
+const Buttons = ({ title, onPress, disabled, isLoading }) => {
   return (
     <Button
       onPress={onPress}
@@ -26,6 +27,8 @@ const Buttons = ({ title, onPress, disabled }) => {
         shadowRadius: 2,
         elevation: 2,
       }}
+      loading={isLoading}
+      disabledStyle={{backgroundColor:colors.mainSecond}}
     />
   );
 };

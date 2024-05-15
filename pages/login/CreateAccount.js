@@ -4,6 +4,7 @@ import SignupParentComponent from "../../components/SignupParentComponent";
 import InputGlobal from "../../components/InputGlobal";
 import { Ionicons } from "@expo/vector-icons";
 import { colors } from "../../utilities/Color";
+import { emailRegex, passwordRegEx } from "../../utilities/AllRegex";
 
 const CreateAccount = ({ route }) => {
   const { datas } = route.params;
@@ -11,8 +12,6 @@ const CreateAccount = ({ route }) => {
   const [invalideEmail, setInvalideEmail] = useState(false);
   const [passwordMatch, setPassWordMatch] = useState(false);
   const [passwordInvalid, setPassWordInvalid] = useState(false);
-  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-  const passwordRegEx = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\W_]).{8,20}$/;
   const [signupData, setSignupData] = useState({
     username: "",
     email: "",
