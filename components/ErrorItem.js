@@ -50,7 +50,7 @@ const ErrorItem = () => {
             An error occurred while signing up. Please try again later.
           </Text>
           <View style={{ flexDirection: "row", justifyContent: "center" }}>
-            <Buttons title={"Try again"} onPress={()=>navigation.replace("login")} />
+            <Buttons title={"Try again"} onPress={()=>navigation.replace("register")} />
           </View>
         </View>
       </View>
