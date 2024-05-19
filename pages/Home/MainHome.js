@@ -3,9 +3,9 @@ import React from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
 import { colors } from "../../utilities/Color";
-import { Button } from "@rneui/base";
 import CardArticles from "../../components/CardArticles";
-import { Androids, fontSizeTitleAndroid, WidthScreen } from "../../utilities/Platform";
+import { Androids, fontSizeTitleAndroid } from "../../utilities/Platform";
+import AnnounceHome from "../../components/AnnounceHome";
 
 const MainHome = ({navigation}) => {
   
@@ -45,46 +45,9 @@ const MainHome = ({navigation}) => {
 
       <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
         {/* Announce */}
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            marginTop: 30,
-          }}
-        >
-          <View>
-            <View>
-              <Image
-                style={{ width: WidthScreen, height: 190, borderRadius: 22 }}
-                source={require("../../assets/images/announce.png")}
-              />
-            </View>
-            <View
-              style={{
-                position: "absolute",
-                marginTop: 145,
-                flexDirection: "row",
-                marginLeft: 10,
-              }}
-            >
-              <Button
-                buttonStyle={{
-                  backgroundColor: colors.white,
-                  padding: 5,
-                  borderRadius: 7,
-                }}
-                titleStyle={{
-                  color: colors.main,
-                  fontSize: 12,
-                }}
-                title="Read more"
-              />
-            </View>
-          </View>
-        </View>
+       <AnnounceHome />
 
         {/* Recent Articles */}
-
         <View style={{ flex: 1, marginLeft: 20, marginTop: 20 }}>
           <View
             style={{
