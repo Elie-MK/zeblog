@@ -25,6 +25,7 @@ import { loginUser } from "../../utilities/ApiRequestsService";
 import { emailRegex, passwordRegEx } from "../../utilities/AllRegex";
 import { CommonActions } from "@react-navigation/native";
 import AlertModal from "../../components/AlertModal";
+import SignInSocialMedia from "../../components/SignInSocialMedia";
 
 const SignIn = ({ navigation }) => {
   const [signupData, setSignupData] = useState({
@@ -55,6 +56,15 @@ const SignIn = ({ navigation }) => {
       setTypeAlert("error")
       setAlertTitle("Invalid Password")
       setAlertMessage("Password must contain at least 8 characters, 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character.")
+    }
+  }
+
+  function handleEmailAndUsernameBlur() {
+    if (!signupData.userNameOrEmail) {
+      setAlertModal(true)
+      setTypeAlert("error")
+      setAlertTitle("Username or Email field")
+      setAlertMessage("This field must not be empty")
     }
   }
 
@@ -93,7 +103,10 @@ const SignIn = ({ navigation }) => {
       }
     } catch (error) {
       setIsConnecting(false);
-      console.log(error);
+      setAlertModal(true)
+        setTypeAlert("error")
+        setAlertTitle("Invalid Credentials")
+        setAlertMessage("Your username/email or password are wrongs.")
     }
   }
 
@@ -136,6 +149,7 @@ const SignIn = ({ navigation }) => {
 
               <View style={{ marginTop: 20 }}>
                 <InputGlobal
+                onBlur={handleEmailAndUsernameBlur}
                   onChangeText={(userNameOrEmail) =>
                     handleInputChange("userNameOrEmail", userNameOrEmail)
                   }
@@ -196,6 +210,10 @@ const SignIn = ({ navigation }) => {
               color={colors.lightGray}
             />
 
+            <View style={{flexDirection:"row", justifyContent:"center"}}>
+              <Button title="Forgot password" color={colors.main} />
+            </View>
+
             <View
               style={{
                 flexDirection: "row",
@@ -204,7 +222,6 @@ const SignIn = ({ navigation }) => {
               }}
             >
               <View>
-                <Button title="Forgot password" color={colors.main} />
                 <View
                   style={{
                     flexDirection: "row",
@@ -227,65 +244,7 @@ const SignIn = ({ navigation }) => {
               </View>
             </View>
 
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                marginBottom: 20,
-              }}
-            >
-              <TouchableOpacity
-                activeOpacity={0.5}
-                style={{
-                  borderWidth: 1,
-                  width: 120,
-                  borderRadius: 20,
-                  borderColor: colors.lightGray,
-                  padding: 8,
-                  flexDirection: "row",
-                  justifyContent: "center",
-                }}
-              >
-                <Image
-                  style={{ width: 30, height: 30 }}
-                  source={require("../../assets/images/icons/google.png")}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-                activeOpacity={0.5}
-                style={{
-                  borderWidth: 1,
-                  width: 120,
-                  borderRadius: 20,
-                  borderColor: colors.lightGray,
-                  padding: 8,
-                  flexDirection: "row",
-                  justifyContent: "center",
-                }}
-              >
-                <Image
-                  style={{ width: 30, height: 30 }}
-                  source={require("../../assets/images/icons/apple.png")}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-                activeOpacity={0.5}
-                style={{
-                  borderWidth: 1,
-                  width: 120,
-                  borderRadius: 20,
-                  borderColor: colors.lightGray,
-                  padding: 8,
-                  flexDirection: "row",
-                  justifyContent: "center",
-                }}
-              >
-                <Image
-                  style={{ width: 30, height: 30 }}
-                  source={require("../../assets/images/icons/facebook.png")}
-                />
-              </TouchableOpacity>
-            </View>
+            <SignInSocialMedia />
 
             <Buttons
               isLoading={isConnecting}
