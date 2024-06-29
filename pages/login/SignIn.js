@@ -21,7 +21,7 @@ import { colors } from "../../utilities/Color";
 import InputGlobal from "../../components/InputGlobal";
 import Buttons from "../../components/Buttons";
 import { Androids } from "../../utilities/Platform";
-import { loginUser } from "../../utilities/ApiRequestsService";
+import { handleSaveJwtTokenAsyncStorage, loginUser } from "../../utilities/ApiRequestsService";
 import { emailRegex, passwordRegEx } from "../../utilities/AllRegex";
 import { CommonActions } from "@react-navigation/native";
 import AlertModal from "../../components/AlertModal";
@@ -86,6 +86,7 @@ const SignIn = ({ navigation }) => {
       ) {
         const response = await loginUser(signupDataToSend);
         if (response.status === 201) {
+          handleSaveJwtTokenAsyncStorage(response.data)
           setIsConnecting(false);
           navigation.dispatch(
             CommonActions.reset({

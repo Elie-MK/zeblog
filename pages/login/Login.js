@@ -6,12 +6,27 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { colors } from "../../utilities/Color";
 import ButtonWithIcon from "../../components/ButtonWithIcon";
 import Buttons from "../../components/Buttons";
+import { useAuth } from "../../context/AuthContext";
+import { CommonActions } from "@react-navigation/native";
 
 const Login = ({navigation}) => {
+  const { isConnected } = useAuth()
+
+  useEffect(()=>{
+    if(isConnected){
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: "home" }],
+        })
+      );
+    }
+  },[isConnected])
+  
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.white }}>
       <ScrollView style={{flex:1}} showsVerticalScrollIndicator={false}>
