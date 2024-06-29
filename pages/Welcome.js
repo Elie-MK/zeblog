@@ -4,18 +4,18 @@ import Loading from "../components/Loading";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Welcome = ({ navigation }) => {
-
   const animation = useRef(null);
   useEffect(() => {
     animation.current?.play()
     setTimeout(() => {
-      AsyncStorage.getItem("alreadyLaunched").then((value) => {
-        if (value !== null) {
-          navigation.replace("login");
-        } else {
-          navigation.replace("onboarding");
-        }
-      });
+        AsyncStorage.getItem("alreadyLaunched").then((value) => {
+          if (value !== null) {
+            navigation.replace("login");
+          } else {
+            navigation.replace("onboarding");
+          }
+        });
+        
       animation.current?.pause()
     }, 3000);
   }, []);

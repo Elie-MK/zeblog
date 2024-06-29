@@ -1,14 +1,50 @@
-import { View, Text, SafeAreaView, Image, TouchableOpacity, ScrollView, Dimensions } from "react-native";
-import React from "react";
+import { View, Text, SafeAreaView, Image, TouchableOpacity, ScrollView, Dimensions, FlatList } from "react-native";
+import React, { useEffect, useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
 import { colors } from "../../utilities/Color";
 import CardArticles from "../../components/CardArticles";
 import { Androids, fontSizeTitleAndroid } from "../../utilities/Platform";
 import AnnounceHome from "../../components/AnnounceHome";
+import { handleGetAllArticles, handleGetArticlesByUser, source } from "../../utilities/ApiRequestsService";
 
 const MainHome = ({navigation}) => {
-  
+  const [articles, setArticles] = useState({
+    userArticle:[], 
+    recentArticle:[]
+  });
+
+  async function fetchUserArticle(){
+    try {
+     const response = await handleGetArticlesByUser()
+     if(response.status === 200){
+       setArticles((prevArticle)=>
+         ({...prevArticle, userArticle:response.data})
+       )
+     }
+    } catch (error) {
+     console.log(error);
+    }
+   }
+
+   async function fetchAllArticle(){
+    try {
+     const response = await handleGetAllArticles()
+     if(response.status === 200){
+       setArticles((prevArticle)=>
+         ({...prevArticle, recentArticle:response.data})
+       )
+     }
+    } catch (error) {
+     console.log(error);
+    }
+   }
+
+  useEffect(()=>{
+    fetchAllArticle()
+    fetchUserArticle()
+  },[])
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View
@@ -62,7 +98,17 @@ const MainHome = ({navigation}) => {
             <Octicons name="arrow-right" size={24} color={colors.main} />
           </View>
           <View style={{ marginTop: 15 }}>
-            <CardArticles onPress={()=>navigation.navigate('viewArticle')} />
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={articles.recentArticle}
+            keyExtractor={(item)=>item.idArticles}
+            renderItem={({item})=>(
+              <View style={{marginLeft:15}} key={item.idArticles}>
+                <CardArticles datas={item} onPress={()=>navigation.navigate('viewArticle', {datas:item})} />
+              </View>
+            )}
+            />
           </View>
         </View>
 
@@ -81,7 +127,17 @@ const MainHome = ({navigation}) => {
             <Octicons name="arrow-right" size={24} color={colors.main} />
           </View>
           <View style={{ marginTop: 15 }}>
-            <CardArticles />
+            <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={articles.userArticle}
+            keyExtractor={(item)=>item.idArticles}
+            renderItem={({item})=>(
+              <View style={{marginLeft:15}} key={item.idArticles}>
+                <CardArticles datas={item} onPress={()=>navigation.navigate('viewArticle', {datas:item})}  />
+              </View>
+            )}
+            />
           </View>
         </View>
       </ScrollView>
