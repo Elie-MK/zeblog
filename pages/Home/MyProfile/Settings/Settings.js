@@ -7,13 +7,15 @@ import { MaterialIcons, FontAwesome5, FontAwesome, MaterialCommunityIcons, Entyp
 import BottomSheetModal from '../../../../components/BottomSheetModal';
 import ItemGlobalModal from '../../../../components/ItemGlobalModal';
 import { Androids } from '../../../../utilities/Platform';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 const Settings = ({navigation}) => {
 
   const [showModal, setShowModal] = useState(false);
 
-  function handleConfirm (){
+ function handleConfirm (){
+    AsyncStorage.removeItem("jwtToken")
     setShowModal(!showModal)
     navigation.replace('login')
   }
@@ -38,10 +40,10 @@ const Settings = ({navigation}) => {
             <SettingsItem onPress={()=>setShowModal(!showModal)} IconRight={Ionicons} titleIcon={"log-out"} title={"Logout"} />
         </ScrollView>
         <BottomSheetModal
-      title={"Logout"}
-        isVisible={showModal}
-        onBackdropPress={() => setShowModal(!showModal)}
-      >
+          title={"Logout"}
+          isVisible={showModal}
+          onBackdropPress={() => setShowModal(!showModal)}
+        >
         <ItemGlobalModal onPressCancel={() => setShowModal(!showModal)} onPressConfirm={handleConfirm} message={"Are you sure you want to logout?"}  />
       </BottomSheetModal>
     </SafeAreaView>
