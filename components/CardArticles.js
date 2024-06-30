@@ -1,20 +1,13 @@
 import { View, Text, Image, TouchableOpacity, Dimensions } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { colors } from "../utilities/Color";
 import { Androids } from "../utilities/Platform";
+import { formatDistanceToNow, parseISO } from "date-fns";
 
-const CardArticles = ({ onPress }) => {
-  const [text, setText] = useState(
-    "10 Tips Boosting your productivity and is good for your health."
-  );
+const CardArticles = ({ onPress, datas }) => {
   const [isBook, setIsBook] = useState(false);
-
-  useEffect(() => {
-    if (text.length >= 34) {
-      setText(text.substring(0, 34) + "...");
-    }
-  }, []);
+  const text = datas?.Title.substring(0, 35) + "..."
 
   return (
     <>
@@ -23,7 +16,7 @@ const CardArticles = ({ onPress }) => {
           <View>
             <Image
               style={{ width: 170, height: 160, borderRadius: 22 }}
-              source={require("../assets/images/exemple.jpg")}
+              source={datas?.pictures?{uri:datas?.pictures}:require("../assets/images/exemple.jpg")}
             />
           </View>
           <TouchableOpacity
@@ -49,7 +42,6 @@ const CardArticles = ({ onPress }) => {
             {text}
           </Text>
         </View>
-      </TouchableOpacity>
       <View style={{ width: 170 }}>
         <View
           style={{
@@ -61,24 +53,25 @@ const CardArticles = ({ onPress }) => {
         >
           <Image
             style={{ width: 30, height: 30, borderRadius: 22 }}
-            source={require("../assets/images/vectorPeople.jpg")}
+            source={datas?.user?.pictureProfile? {uri:datas?.user?.pictureProfile}:require("../assets/images/vectorPeople.jpg")}
           />
-          <View style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
+          <View>
             <View>
               <Text
                 style={{ fontSize: 16, fontWeight: "600", color: colors.main }}
               >
-                Doe
+                {datas?.user?.username}
               </Text>
             </View>
             <View>
               <Text style={{ fontSize: 14, color: colors.gray }}>
-                . 5 days ago
+              {formatDistanceToNow(parseISO(datas?.CreateAt))} ago
               </Text>
             </View>
           </View>
         </View>
       </View>
+      </TouchableOpacity>
     </>
   );
 };

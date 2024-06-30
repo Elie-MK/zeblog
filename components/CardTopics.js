@@ -4,7 +4,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Androids } from "../utilities/Platform";
 
 
-const CardTopics = ({onPress}) => {
+const CardTopics = ({onPress, catTitle, data}) => {
+  const catCount = data?.[catTitle]?.length || 0;
   return (
    <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
      <ImageBackground
@@ -14,8 +15,8 @@ const CardTopics = ({onPress}) => {
     >
       <LinearGradient style={styles.overlay} colors={[ 'rgba(0,0,0,0.2)', 'rgba(0,0,0,1)']}>
         <View>
-          <Text style={styles.textTitle}>Travel</Text>
-          <Text style={styles.text}>2.000 articles</Text>
+          <Text style={styles.textTitle}>{catTitle}</Text>
+          <Text style={styles.text}>{catCount} articles</Text>
         </View>
       </LinearGradient>
     </ImageBackground>

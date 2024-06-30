@@ -8,7 +8,7 @@ const NavHeader = ({children, screenTitle}) => {
     const navigation = useNavigation()
 
   return (
-    <View style={{marginHorizontal:15, flex:1, marginTop:Androids?30:20}}>
+    <View style={{marginHorizontal:10, flex:1, marginTop:Androids?30:20}}>
     <View>
    <View style={{flexDirection:"row", alignItems:"center",  justifyContent:"space-between"}}>
       <View style={{flexDirection:"row", alignItems:"center", gap:20}}>

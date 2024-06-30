@@ -3,7 +3,7 @@ import React from 'react'
 import { LinearGradient } from 'expo-linear-gradient';
 
 
-const CardByTopicArticles = () => {
+const CardByTopicArticles = ({title, countArticle}) => {
   return (
      <ImageBackground
       source={require("../assets/images/exemple.jpg")}
@@ -12,8 +12,8 @@ const CardByTopicArticles = () => {
     >
       <LinearGradient style={styles.overlay} colors={[ 'rgba(0,0,0,0.2)', 'rgba(0,0,0,1)']}>
         <View>
-          <Text style={styles.textTitle}>Travel</Text>
-          <Text style={styles.text}>2.000 articles</Text>
+          <Text style={styles.textTitle}>{title}</Text>
+          <Text style={styles.text}>{countArticle} articles</Text>
         </View>
       </LinearGradient>
     </ImageBackground>

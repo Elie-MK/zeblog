@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView } from 'react-native'
+import { View, Text, SafeAreaView, FlatList } from 'react-native'
 import React from 'react'
 import NavHeader from './NavHeader'
 import CardByTopicArticles from './CardByTopicArticles'
@@ -8,13 +8,16 @@ import { colors } from '../utilities/Color';
 import SecondCardArticles from './SecondCardArticles';
 
 
-const DetailArticlesByTopics = () => {
+const DetailArticlesByTopics = ({route}) => {
+  const { data } = route.params
+  const datas = data.datas.datas[data.item]
+  
   return (
    <SafeAreaView style={{flex:1}}>
-    <NavHeader screenTitle={"Travel"}>
-      <View style={{marginTop:20}}>
-        <CardByTopicArticles />
-        <View style={{marginTop:15}}>
+    <NavHeader screenTitle={data.item}>
+      <View style={{marginTop:20, flex:1}}>
+        <CardByTopicArticles title={data.item} countArticle={datas.length}  />
+        <View style={{marginTop:15, flex:1}}>
           <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center"}}>
             <Text style={{fontSize:20, fontWeight:"bold"}}>Sort by</Text>
             <View style={{flexDirection:"row", alignItems:"center", gap:20}}>
@@ -22,9 +25,16 @@ const DetailArticlesByTopics = () => {
               <MaterialCommunityIcons name="sort" size={30} color={colors.main} />
             </View>
           </View>
-          <View style={{marginTop:15}}>
-            <SecondCardArticles />
-          </View>
+          <FlatList
+          data={datas}
+          keyExtractor={(item)=>item.idArticles}
+          renderItem={({item})=>(
+            <View style={{marginTop:15}}>
+              <SecondCardArticles datas={item} />
+            </View>
+          )}
+          />
+         
         </View>
       </View>
     </NavHeader>

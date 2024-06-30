@@ -1,5 +1,5 @@
-import { View, Text, SafeAreaView, Image } from 'react-native'
-import React from 'react'
+import { View, Text, SafeAreaView, Image, FlatList } from 'react-native'
+import React, { useEffect, useMemo, useState } from 'react'
 import { MaterialCommunityIcons, Octicons } from '@expo/vector-icons';
 import SearchInput from '../../../components/SearchInput';
 import { colors } from '../../../utilities/Color';
@@ -8,8 +8,24 @@ import CardArticles from '../../../components/CardArticles';
 import { TouchableOpacity } from 'react-native';
 import CardTopics from '../../../components/CardTopics';
 import { Androids, fontSizeTitleAndroid } from '../../../utilities/Platform';
+import { Categories } from '../../../utilities/Categories';
+import useGetRequestApi from '../../../hooks/useGetRequestApi';
+import { handleGetAllArticlesByCategory } from '../../../utilities/ApiRequestsService';
 
 const Discover = ({navigation}) => {
+const [catDatas, setCatDatas]=useState(null)
+    const url = 'articles/category'
+  
+    const {datas, error, loading} = useGetRequestApi(url)
+
+    useEffect(()=>{
+        if(datas){
+            const catData =  Categories.filter((item)=>datas[item])
+            setCatDatas(catData)
+        }
+    },[datas])
+    
+
   return (
     <SafeAreaView style={{flex:1}}>
         <View style={{flex:1, marginTop:Androids?30:null}}>
@@ -27,9 +43,9 @@ const Discover = ({navigation}) => {
                     <SearchInput placeholder={"Search for article or writer"} />
             </View>
 
-            <ScrollView style={{marginLeft:15, marginTop:15}}>
+            <ScrollView style={{flex:1, marginLeft:15, marginTop:15}}>
             {/* Most popular */}
-            <View>
+            <View style={{flex:1}}>
                 <View
                 style={{
                 flexDirection: "row",
@@ -45,12 +61,12 @@ const Discover = ({navigation}) => {
                 </TouchableOpacity>
             </View>
                 <View style={{ marginTop: 15 }}>
-                    <CardArticles />
+                    {/* <CardArticles /> */}
                 </View>
             </View>
 
             {/* Explore by Topics */}
-            <View style={{marginTop:20}}>
+            <View style={{marginTop:20, flex:1}}>
                 <View
                 style={{
                 flexDirection: "row",
@@ -61,13 +77,21 @@ const Discover = ({navigation}) => {
                 <Text style={{ fontWeight: "bold", fontSize: Androids?fontSizeTitleAndroid:25 }}>
                 Explore by Topics
                 </Text>
-                <TouchableOpacity onPress={()=>navigation.navigate('exploretopic')}>
+                <TouchableOpacity onPress={()=>navigation.navigate('exploretopic', {datas : {catDatas, datas}})}>
                     <Octicons name="arrow-right" size={24} color={colors.main} />
                 </TouchableOpacity>
             </View>
-                <View style={{ marginTop: 15 }}>
-                    <CardTopics />
+            <FlatList 
+                horizontal
+                showsHorizontalScrollIndicator = {false}
+                data={catDatas}
+                renderItem={({item})=>(
+                    <View key={item} style={{ marginTop: 15, marginRight:10 }}>
+                    <CardTopics catTitle={item} data={datas}   />
                 </View>
+                )}
+            />
+               
             </View>
 
             {/* Top Writers */}

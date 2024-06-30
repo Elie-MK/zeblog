@@ -8,13 +8,20 @@ import FollowersItem from './FollowersItem';
 import { CardDivider } from '@rneui/base/dist/Card/Card.Divider';
 import { Fontisto } from '@expo/vector-icons';
 import { Androids } from '../utilities/Platform';
+import { formatDistanceToNow, parseISO } from 'date-fns';
 
-const ViewArticleComponent = ({navigation}) => {
+const ViewArticleComponent = ({navigation, route}) => {
+  const { datas } =  route.params;
+
   const [isLiked, setIsLiked]=useState(false)
+
+  const distance = formatDistanceToNow(parseISO(datas.CreateAt));
+  const createAt = distance.replace(/^about /, '');
+  
 
   return (
     <View style={{flex:1, backgroundColor:colors.white}}>
-        <ImageBackground style={{width:"100%",height:300}}  source={require('../assets/images/exemple.jpg')}>
+        <ImageBackground style={{width:"100%",height:300}}  source={datas?{uri:datas.pictures}:require('../assets/images/exemple.jpg')}>
             <SafeAreaView style={{marginHorizontal:15, marginTop:Androids?30:null }}>
                 <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center"}}>
                 <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -42,23 +49,20 @@ const ViewArticleComponent = ({navigation}) => {
 
 
       <View style={{flex:1, marginHorizontal:15 }}>
-        <Text style={{fontSize:35, fontWeight:"bold", lineHeight:50, marginBottom:20}}>The Top Travel Destination for 2024!</Text>
+        <Text style={{fontSize:25, fontWeight:"bold", marginBottom:20}}>{datas?.Title}</Text>
         <ScrollView showsVerticalScrollIndicator={false} >
         <View style={{borderTopWidth:1, borderBottomWidth:1, padding:10, borderColor:colors.lightGray}}>
-            <FollowersItem names={"Elie Mulumba"} username={"@ElieMk"} />
+            <FollowersItem names={datas?.user?.username} username={`@${datas?.user?.username}`} />
         </View>
         <View style={{flexDirection:"row", alignItems:"center", gap:20, marginTop:15}}>
             <View style={{borderWidth:1, padding:10, borderRadius:5, borderColor:colors.main}}>
-                <Text style={{color:colors.main, fontWeight:"bold"}}>Travel</Text>
+                <Text style={{color:colors.main, fontWeight:"bold"}}>{datas?.category}</Text>
             </View>
-            <Text>3 days ago</Text>
+            <Text style={{fontWeight:600}}>{createAt} ago</Text>
         </View>
 
         <Text style={{textAlign:"justify", color:colors.gray, marginTop:15, fontSize:18, paddingBottom:25, lineHeight:30}}>
-        Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          {datas?.Content}
         </Text>
 
         <View style={{flexDirection:"row", alignItems:"center", marginBottom:15, justifyContent:"space-between"}}>
@@ -66,10 +70,10 @@ const ViewArticleComponent = ({navigation}) => {
             <View style={{backgroundColor:colors.main, padding:5, borderRadius:22}}>
               <AntDesign name="like1" size={10} color={colors.white} />
             </View>
-          <Text style={{fontSize:16}}>0</Text>
+          <Text style={{fontSize:16}}>{datas?.likes?.length}</Text>
           </View>
           <View style={{flexDirection:"row", alignItems:"center", gap:10}}>
-          <Text style={{fontSize:16}}>0</Text>
+          <Text style={{fontSize:16}}>{datas?.comments?.length}</Text>
           <Text style={{fontSize:16}}>comments</Text>
           </View>
         </View>
