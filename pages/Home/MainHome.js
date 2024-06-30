@@ -6,7 +6,7 @@ import { colors } from "../../utilities/Color";
 import CardArticles from "../../components/CardArticles";
 import { Androids, fontSizeTitleAndroid } from "../../utilities/Platform";
 import AnnounceHome from "../../components/AnnounceHome";
-import { handleGetAllArticles, handleGetArticlesByUser, source } from "../../utilities/ApiRequestsService";
+import useGetRequestApi from "../../hooks/useGetRequestApi";
 
 const MainHome = ({navigation}) => {
   const [articles, setArticles] = useState({
@@ -14,36 +14,24 @@ const MainHome = ({navigation}) => {
     recentArticle:[]
   });
 
-  async function fetchUserArticle(){
-    try {
-     const response = await handleGetArticlesByUser()
-     if(response.status === 200){
-       setArticles((prevArticle)=>
-         ({...prevArticle, userArticle:response.data})
-       )
-     }
-    } catch (error) {
-     console.log(error);
-    }
-   }
+  const urlGetArticleByUser = 'articles/user/articles'
+  const getAllArticle = 'articles/all'
 
-   async function fetchAllArticle(){
-    try {
-     const response = await handleGetAllArticles()
-     if(response.status === 200){
-       setArticles((prevArticle)=>
-         ({...prevArticle, recentArticle:response.data})
-       )
-     }
-    } catch (error) {
-     console.log(error);
-    }
-   }
+  const {datas, error, loading} = useGetRequestApi(urlGetArticleByUser)
+  const AllArticles = useGetRequestApi(getAllArticle)
 
   useEffect(()=>{
-    fetchAllArticle()
-    fetchUserArticle()
-  },[])
+    if(datas){
+      setArticles((prevArticle)=>
+        ({...prevArticle, userArticle:datas})
+      )
+    }
+    if(AllArticles){
+      setArticles((prevArticle)=>
+        ({...prevArticle, recentArticle:AllArticles.datas})
+      )
+    }
+  },[datas, AllArticles.datas])
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
