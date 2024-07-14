@@ -1,33 +1,32 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { handleGetJwtTokenAsyncStorage } from "../utilities/ApiRequestsService";
 
-const AuthContext = createContext({isConnected : false})
+const AuthContext = createContext({ isConnected: false });
 
+const AuthProvider = ({ children }) => {
+  const [isConnected, setIsConnected] = useState(false);
+  async function handleAuth() {
+    const token = await handleGetJwtTokenAsyncStorage();
+    if (token) {
+      setIsConnected(true);
+    } else {
+      setIsConnected(false);
+    }
+  }
 
-const AuthProvider  =  ({children}) =>{
-    const [isConnected, setIsConnected] = useState(false)
+  useEffect(() => {
+    handleAuth();
+  }, [isConnected]);
 
-    useEffect(()=>{
-        async function handleAuth() {
-            const token = await handleGetJwtTokenAsyncStorage()
-            if(token){
-                setIsConnected(true)
-            }else{
-                setIsConnected(false)
-            }
-        }
-        handleAuth()
-    },[])
-    
-    return (
-        <AuthContext.Provider value={{isConnected : isConnected}}>
-            {children}
-        </AuthContext.Provider>
-    )
-}
+  return (
+    <AuthContext.Provider value={{ isConnected: isConnected, setIsConnected }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
 
-const useAuth = ()=>{
-    return useContext(AuthContext)
-}
+const useAuth = () => {
+  return useContext(AuthContext);
+};
 
-export {AuthProvider, useAuth}
+export { AuthProvider, useAuth };

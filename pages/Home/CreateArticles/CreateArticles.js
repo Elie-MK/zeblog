@@ -96,7 +96,7 @@ const CreateArticles = ({ navigation }) => {
 
   const formData = new FormData();
 
-  const imageLink = datas.pictures.split('.');
+  const imageLink = datas?.pictures?.split('.');
   const image = imageLink[imageLink.length - 1];
 
   async function handleSubmitCreateArticle() {
