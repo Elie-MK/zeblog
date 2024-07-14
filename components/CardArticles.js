@@ -7,7 +7,7 @@ import { formatDistanceToNow, parseISO } from "date-fns";
 
 const CardArticles = ({ onPress, datas }) => {
   const [isBook, setIsBook] = useState(false);
-  const text = datas?.Title.substring(0, 35) + "..."
+  const text = datas?.Title?.substring(0, 35) + "...";
 
   return (
     <>
@@ -16,7 +16,11 @@ const CardArticles = ({ onPress, datas }) => {
           <View>
             <Image
               style={{ width: 170, height: 160, borderRadius: 22 }}
-              source={datas?.pictures?{uri:datas?.pictures}:require("../assets/images/exemple.jpg")}
+              source={
+                datas?.pictures
+                  ? { uri: datas?.pictures }
+                  : require("../assets/images/exemple.jpg")
+              }
             />
           </View>
           <TouchableOpacity
@@ -42,35 +46,43 @@ const CardArticles = ({ onPress, datas }) => {
             {text}
           </Text>
         </View>
-      <View style={{ width: 170 }}>
-        <View
-          style={{
-            marginTop: 10,
-            flexDirection: "row",
-            alignItems: "center",
-            gap: 5,
-          }}
-        >
-          <Image
-            style={{ width: 30, height: 30, borderRadius: 22 }}
-            source={datas?.user?.pictureProfile? {uri:datas?.user?.pictureProfile}:require("../assets/images/vectorPeople.jpg")}
-          />
-          <View>
+        <View style={{ width: 170 }}>
+          <View
+            style={{
+              marginTop: 10,
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 5,
+            }}
+          >
+            <Image
+              style={{ width: 30, height: 30, borderRadius: 22 }}
+              source={
+                datas?.user?.pictureProfile
+                  ? { uri: datas?.user?.pictureProfile }
+                  : require("../assets/images/vectorPeople.jpg")
+              }
+            />
             <View>
-              <Text
-                style={{ fontSize: 16, fontWeight: "600", color: colors.main }}
-              >
-                {datas?.user?.username}
-              </Text>
-            </View>
-            <View>
-              <Text style={{ fontSize: 14, color: colors.gray }}>
-              {formatDistanceToNow(parseISO(datas?.CreateAt))} ago
-              </Text>
+              <View>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: "600",
+                    color: colors.main,
+                  }}
+                >
+                  {datas?.user?.username}
+                </Text>
+              </View>
+              <View>
+                <Text style={{ fontSize: 14, color: colors.gray }}>
+                  {formatDistanceToNow(parseISO(datas?.CreateAt))} ago
+                </Text>
+              </View>
             </View>
           </View>
         </View>
-      </View>
       </TouchableOpacity>
     </>
   );
