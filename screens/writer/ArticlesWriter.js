@@ -37,7 +37,7 @@ const ArticlesWriter = () => {
         key={isGrid === 'nogrid' ? 'oneColumn' : 'twoColumns'} 
         renderItem={({item}) => <View style={{marginRight:isGrid==='nogrid'? 0 : 20, marginTop: 20 }}>
             {
-                isGrid === 'nogrid' ? <SecondCardArticles /> : <CardArticles />
+                isGrid === 'nogrid' ? null: <CardArticles />
             }
         </View>
     }
