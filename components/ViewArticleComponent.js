@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { colors } from "../utilities/Color";
 import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
@@ -16,14 +16,56 @@ import { CardDivider } from "@rneui/base/dist/Card/Card.Divider";
 import { Fontisto } from "@expo/vector-icons";
 import { Androids } from "../utilities/Platform";
 import { formatDistanceToNow, parseISO } from "date-fns";
+import useGetRequestApi from "../hooks/useGetRequestApi";
+import usePostRequestApi from "../hooks/usePostRequestApi";
+import { getCurrentUser } from "../utilities/ApiRequestsService";
 
 const ViewArticleComponent = ({ navigation, route }) => {
-  const { datas } = route.params;
+  const { idArticle } = route.params;
+  const findArticle = `articles/${idArticle}`;
 
-  const [isLiked, setIsLiked] = useState(false);
+  const [isLiked, setIsLiked] = useState(0);
+  const { datas } = useGetRequestApi(findArticle, isLiked);
 
-  const distance = formatDistanceToNow(parseISO(datas.CreateAt));
-  const createAt = distance.replace(/^about /, "");
+  const likeUrl = `createLike/${idArticle}`;
+  const likeData = {
+    likeStatus: "LIKE",
+  };
+  const { postSendRequest, error, data } = usePostRequestApi(likeUrl, likeData);
+  const [createAt, setCreateAt] = useState("");
+
+  useEffect(() => {
+    if (datas) {
+      const distance = formatDistanceToNow(parseISO(datas.CreateAt));
+      const createAt = distance.replace(/^about /, "");
+      setCreateAt(createAt);
+    }
+  }, [datas]);
+
+  useEffect(() => {
+    async function currentUser() {
+      const currentUser = await getCurrentUser();
+      if (currentUser.status === 200) {
+        const findLike = currentUser?.data?.likes?.find(
+          (like) => like.idArticles === idArticle
+        );
+        if (findLike) {
+          setIsLiked(true);
+        }
+      }
+    }
+    currentUser();
+  }, []);
+
+  const likeArticle = () => {
+    if (isLiked) {
+      setIsLiked(0);
+      postSendRequest();
+    } else {
+      setIsLiked(1);
+      postSendRequest();
+    }
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.white }}>
@@ -169,7 +211,7 @@ const ViewArticleComponent = ({ navigation, route }) => {
             style={{ flexDirection: "row", justifyContent: "space-around" }}
           >
             <TouchableOpacity
-              onPress={() => setIsLiked(!isLiked)}
+              onPress={likeArticle}
               style={{ flexDirection: "row", alignItems: "flex-end", gap: 10 }}
             >
               <AntDesign

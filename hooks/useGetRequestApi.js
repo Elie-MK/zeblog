@@ -1,38 +1,41 @@
-import { useEffect, useState } from "react"
-import { API_BASE_URL, handleGetJwtTokenAsyncStorage, source } from "../utilities/ApiRequestsService"
-import axios from "axios"
+import { useEffect, useState } from "react";
+import {
+  API_BASE_URL,
+  handleGetJwtTokenAsyncStorage,
+  source,
+} from "../utilities/ApiRequestsService";
+import axios from "axios";
 
-const useGetRequestApi = (url) => {
-  const [datas, setDatas]=useState(null)
-  const [error, setError]=useState(null)
-  const [loading, setLoading]=useState(true)
+const useGetRequestApi = (url, refresh) => {
+  const [datas, setDatas] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  
-  useEffect(()=>{
-    const fetchDatas = async ()=>{
-      setLoading(true)
-      const tokens = await handleGetJwtTokenAsyncStorage()
+  useEffect(() => {
+    const fetchDatas = async () => {
+      setLoading(true);
+      const tokens = await handleGetJwtTokenAsyncStorage();
       try {
         const response = await axios.get(`${API_BASE_URL}/${url}`, {
-          cancelToken :source.token,
-          timeout:10000, 
+          cancelToken: source.token,
+          timeout: 10000,
           headers: {
-            "Authorization": `Bearer ${tokens.token}`,
+            Authorization: `Bearer ${tokens.token}`,
           },
-        })
-        if(response.status === 200){
-          setDatas(response.data)
-          setLoading(false)
+        });
+        if (response.status === 200) {
+          setDatas(response.data);
+          setLoading(false);
         }
       } catch (error) {
-        setError(error)
-        setLoading(false)
+        setError(error);
+        setLoading(false);
       }
-    }
-    fetchDatas()
-  },[url])
+    };
+    fetchDatas();
+  }, [url, refresh]);
 
-  return {datas, error, loading}
-}
+  return { datas, error, loading };
+};
 
-export default useGetRequestApi; 
+export default useGetRequestApi;

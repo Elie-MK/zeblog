@@ -2,16 +2,16 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
 export const API_BASE_URL = "http://192.168.1.114:3000/api";
-export const source = axios.CancelToken.source()
+export const source = axios.CancelToken.source();
 const tokens = handleGetJwtTokenAsyncStorage();
 
-const option =   {
-  cancelToken :source.token,
-  timeout:10000, 
+const option = {
+  cancelToken: source.token,
+  timeout: 10000,
   headers: {
-    "Authorization": `Bearer ${tokens.token}`,
+    Authorization: `Bearer ${tokens.token}`,
   },
-}
+};
 
 // LocalStorage
 
@@ -63,14 +63,28 @@ export async function handleCreateArticle(datas) {
       datas,
       {
         headers: {
-          "Authorization": `Bearer ${tokens.token}`,
+          Authorization: `Bearer ${tokens.token}`,
           "Content-Type": "multipart/form-data",
-          "Accept": "application/json",
+          Accept: "application/json",
         },
       }
     );
     return response;
   } catch (error) {
     throw error;
+  }
+}
+
+export async function getCurrentUser() {
+  const tokens = await handleGetJwtTokenAsyncStorage();
+  try {
+    const response = await axios.get(`${API_BASE_URL}/profile`, {
+      headers: {
+        Authorization: `Bearer ${tokens.token}`,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.log(error);
   }
 }

@@ -1,4 +1,13 @@
-import { View, Text, SafeAreaView, Image, TouchableOpacity, ScrollView, Dimensions, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  Dimensions,
+  FlatList,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
@@ -8,30 +17,29 @@ import { Androids, fontSizeTitleAndroid } from "../../utilities/Platform";
 import AnnounceHome from "../../components/AnnounceHome";
 import useGetRequestApi from "../../hooks/useGetRequestApi";
 
-const MainHome = ({navigation}) => {
+const MainHome = ({ navigation }) => {
   const [articles, setArticles] = useState({
-    userArticle:[], 
-    recentArticle:[]
+    userArticle: [],
+    recentArticle: [],
   });
 
-  const urlGetArticleByUser = 'articles/user/articles'
-  const getAllArticle = 'articles/all'
+  const urlGetArticleByUser = "articles/user/articles";
+  const getAllArticle = "articles/all";
 
-  const {datas, error, loading} = useGetRequestApi(urlGetArticleByUser)
-  const AllArticles = useGetRequestApi(getAllArticle)
+  const { datas, error, loading } = useGetRequestApi(urlGetArticleByUser);
+  const AllArticles = useGetRequestApi(getAllArticle);
 
-  useEffect(()=>{
-    if(datas){
-      setArticles((prevArticle)=>
-        ({...prevArticle, userArticle:datas})
-      )
+  useEffect(() => {
+    if (datas) {
+      setArticles((prevArticle) => ({ ...prevArticle, userArticle: datas }));
     }
-    if(AllArticles){
-      setArticles((prevArticle)=>
-        ({...prevArticle, recentArticle:AllArticles.datas})
-      )
+    if (AllArticles) {
+      setArticles((prevArticle) => ({
+        ...prevArticle,
+        recentArticle: AllArticles.datas,
+      }));
     }
-  },[datas, AllArticles.datas])
+  }, [datas, AllArticles.datas]);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -41,8 +49,8 @@ const MainHome = ({navigation}) => {
           flexDirection: "row",
           alignItems: "flex-end",
           justifyContent: "space-between",
-          paddingBottom:10,
-          marginTop:Androids?30:null
+          paddingBottom: 10,
+          marginTop: Androids ? 30 : null,
         }}
       >
         <View>
@@ -54,22 +62,22 @@ const MainHome = ({navigation}) => {
           </View>
         </View>
         <View style={{ flexDirection: "row", alignItems: "center", gap: 20 }}>
-          <TouchableOpacity onPress={()=>navigation.navigate('notification')} >
-          <Octicons name="bell" size={24} color={colors.gray} />
+          <TouchableOpacity onPress={() => navigation.navigate("notification")}>
+            <Octicons name="bell" size={24} color={colors.gray} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={()=>navigation.navigate('bookmark')}>
-          <MaterialCommunityIcons
-            name="bookmark-minus-outline"
-            size={30}
-            color={colors.gray}
-          />
+          <TouchableOpacity onPress={() => navigation.navigate("bookmark")}>
+            <MaterialCommunityIcons
+              name="bookmark-minus-outline"
+              size={30}
+              color={colors.gray}
+            />
           </TouchableOpacity>
         </View>
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
         {/* Announce */}
-       <AnnounceHome />
+        <AnnounceHome />
 
         {/* Recent Articles */}
         <View style={{ flex: 1, marginLeft: 20, marginTop: 20 }}>
@@ -80,22 +88,34 @@ const MainHome = ({navigation}) => {
               marginRight: 20,
             }}
           >
-            <Text style={{ fontWeight: "bold", fontSize: Androids?fontSizeTitleAndroid:25 }}>
+            <Text
+              style={{
+                fontWeight: "bold",
+                fontSize: Androids ? fontSizeTitleAndroid : 25,
+              }}
+            >
               Recent Articles
             </Text>
             <Octicons name="arrow-right" size={24} color={colors.main} />
           </View>
           <View style={{ marginTop: 15 }}>
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={articles.recentArticle}
-            keyExtractor={(item)=>item.idArticles}
-            renderItem={({item})=>(
-              <View style={{marginLeft:15}} key={item.idArticles}>
-                <CardArticles datas={item} onPress={()=>navigation.navigate('viewArticle', {datas:item})} />
-              </View>
-            )}
+            <FlatList
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              data={articles.recentArticle}
+              keyExtractor={(item) => item.idArticles}
+              renderItem={({ item }) => (
+                <View style={{ marginLeft: 15 }} key={item.idArticles}>
+                  <CardArticles
+                    datas={item}
+                    onPress={() =>
+                      navigation.navigate("viewArticle", {
+                        idArticle: item.idArticles,
+                      })
+                    }
+                  />
+                </View>
+              )}
             />
           </View>
         </View>
@@ -109,22 +129,34 @@ const MainHome = ({navigation}) => {
               marginRight: 20,
             }}
           >
-            <Text style={{ fontWeight: "bold", fontSize: Androids?fontSizeTitleAndroid:25 }}>
+            <Text
+              style={{
+                fontWeight: "bold",
+                fontSize: Androids ? fontSizeTitleAndroid : 25,
+              }}
+            >
               Your Articles
             </Text>
             <Octicons name="arrow-right" size={24} color={colors.main} />
           </View>
           <View style={{ marginTop: 15 }}>
             <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={articles.userArticle}
-            keyExtractor={(item)=>item.idArticles}
-            renderItem={({item})=>(
-              <View style={{marginLeft:15}} key={item.idArticles}>
-                <CardArticles datas={item} onPress={()=>navigation.navigate('viewArticle', {datas:item})}  />
-              </View>
-            )}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              data={articles.userArticle}
+              keyExtractor={(item) => item.idArticles}
+              renderItem={({ item }) => (
+                <View style={{ marginLeft: 15 }} key={item.idArticles}>
+                  <CardArticles
+                    datas={item}
+                    onPress={() =>
+                      navigation.navigate("viewArticle", {
+                        idArticle: item.idArticles,
+                      })
+                    }
+                  />
+                </View>
+              )}
             />
           </View>
         </View>
