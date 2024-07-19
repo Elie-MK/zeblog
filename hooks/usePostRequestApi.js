@@ -15,17 +15,13 @@ const usePostRequestApi = (url, datas) => {
     setLoading(true);
     const tokens = await handleGetJwtTokenAsyncStorage();
     try {
-      const response = await axios.post(
-        `${API_BASE_URL}/${url}`,
-        { datas },
-        {
-          cancelToken: source.token,
-          timeout: 10000,
-          headers: {
-            Authorization: `Bearer ${tokens.token}`,
-          },
-        }
-      );
+      const response = await axios.post(`${API_BASE_URL}/${url}`, datas, {
+        cancelToken: source.token,
+        timeout: 10000,
+        headers: {
+          Authorization: `Bearer ${tokens.token}`,
+        },
+      });
       if (response.status === 200) {
         setDatas(response.data);
         setLoading(false);
@@ -36,7 +32,7 @@ const usePostRequestApi = (url, datas) => {
     }
   };
 
-  return { postSendRequest, error, data };
+  return { postSendRequest, error, data, loading };
 };
 
 export default usePostRequestApi;

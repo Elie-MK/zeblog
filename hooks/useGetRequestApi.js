@@ -6,36 +6,36 @@ import {
 } from "../utilities/ApiRequestsService";
 import axios from "axios";
 
-const useGetRequestApi = (url, refresh) => {
+const useGetRequestApi = (url) => {
   const [datas, setDatas] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchDatas = async () => {
-      setLoading(true);
-      const tokens = await handleGetJwtTokenAsyncStorage();
-      try {
-        const response = await axios.get(`${API_BASE_URL}/${url}`, {
-          cancelToken: source.token,
-          timeout: 10000,
-          headers: {
-            Authorization: `Bearer ${tokens.token}`,
-          },
-        });
-        if (response.status === 200) {
-          setDatas(response.data);
-          setLoading(false);
-        }
-      } catch (error) {
-        setError(error);
+  const fetchDatas = async () => {
+    setLoading(true);
+    const tokens = await handleGetJwtTokenAsyncStorage();
+    try {
+      const response = await axios.get(`${API_BASE_URL}/${url}`, {
+        cancelToken: source.token,
+        timeout: 10000,
+        headers: {
+          Authorization: `Bearer ${tokens.token}`,
+        },
+      });
+      if (response.status === 200) {
+        setDatas(response.data);
         setLoading(false);
       }
-    };
-    fetchDatas();
-  }, [url, refresh]);
+    } catch (error) {
+      setError(error);
+      setLoading(false);
+    }
+  };
 
-  return { datas, error, loading };
+  useEffect(() => {
+    fetchDatas();
+  }, [url]);
+
+  return { datas, error, loading, fetchDatas };
 };
 
 export default useGetRequestApi;

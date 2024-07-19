@@ -5,22 +5,22 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Welcome = ({ navigation }) => {
   const animation = useRef(null);
+
   useEffect(() => {
-    animation.current?.play()
+    animation.current?.play();
     setTimeout(() => {
-        AsyncStorage.getItem("alreadyLaunched").then((value) => {
-          if (value !== null) {
-            navigation.replace("login");
-          } else {
-            navigation.replace("onboarding");
-          }
-        });
-        
-      animation.current?.pause()
+      AsyncStorage.getItem("alreadyLaunched").then((value) => {
+        if (value !== null) {
+          navigation.replace("login");
+        } else {
+          navigation.replace("onboarding");
+        }
+      });
+
+      animation.current?.pause();
     }, 3000);
   }, []);
 
-  
   return (
     <View>
       <ImageBackground
@@ -35,12 +35,10 @@ const Welcome = ({ navigation }) => {
             justifyContent: "center",
           }}
         >
-            <Loading 
+          <Loading
             animationRef={animation}
-            styles={{ width: 170,
-                height: 170,}}
-            />
-       
+            styles={{ width: 170, height: 170 }}
+          />
         </View>
       </ImageBackground>
     </View>

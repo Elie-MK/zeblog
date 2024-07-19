@@ -21,7 +21,10 @@ import { colors } from "../../utilities/Color";
 import InputGlobal from "../../components/InputGlobal";
 import Buttons from "../../components/Buttons";
 import { Androids } from "../../utilities/Platform";
-import { handleSaveJwtTokenAsyncStorage, loginUser } from "../../utilities/ApiRequestsService";
+import {
+  handleSaveJwtTokenAsyncStorage,
+  loginUser,
+} from "../../utilities/ApiRequestsService";
 import { emailRegex, passwordRegEx } from "../../utilities/AllRegex";
 import { CommonActions } from "@react-navigation/native";
 import AlertModal from "../../components/AlertModal";
@@ -43,6 +46,9 @@ const SignIn = ({ navigation }) => {
   const toggleCheckbox = () => setChecked(!checked);
 
   function handleInputChange(name, value) {
+    if (name === "userNameOrEmail") {
+      value = value.replace(" ", "").toLowerCase();
+    }
     setSignupData((prevValue) => ({
       ...prevValue,
       [name]: value,
@@ -52,19 +58,21 @@ const SignIn = ({ navigation }) => {
   function handlePasswordBlur() {
     const passwordValid = passwordRegEx.test(signupData.password);
     if (!passwordValid) {
-      setAlertModal(true)
-      setTypeAlert("error")
-      setAlertTitle("Invalid Password")
-      setAlertMessage("Password must contain at least 8 characters, 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character.")
+      setAlertModal(true);
+      setTypeAlert("error");
+      setAlertTitle("Invalid Password");
+      setAlertMessage(
+        "Password must contain at least 8 characters, 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character."
+      );
     }
   }
 
   function handleEmailAndUsernameBlur() {
     if (!signupData.userNameOrEmail) {
-      setAlertModal(true)
-      setTypeAlert("error")
-      setAlertTitle("Username or Email field")
-      setAlertMessage("This field must not be empty")
+      setAlertModal(true);
+      setTypeAlert("error");
+      setAlertTitle("Username or Email field");
+      setAlertMessage("This field must not be empty");
     }
   }
 
@@ -75,9 +83,9 @@ const SignIn = ({ navigation }) => {
     };
     const email = emailRegex.exec(signupData.userNameOrEmail);
     if (email) {
-      signupDataToSend.email = signupData.userNameOrEmail.toLowerCase();
+      signupDataToSend.email = signupData.userNameOrEmail;
     } else {
-      signupDataToSend.username = signupData.userNameOrEmail.toLowerCase();
+      signupDataToSend.username = signupData.userNameOrEmail;
     }
     try {
       if (
@@ -86,7 +94,7 @@ const SignIn = ({ navigation }) => {
       ) {
         const response = await loginUser(signupDataToSend);
         if (response.status === 201) {
-          handleSaveJwtTokenAsyncStorage(response.data)
+          handleSaveJwtTokenAsyncStorage(response.data);
           setIsConnecting(false);
           navigation.dispatch(
             CommonActions.reset({
@@ -97,17 +105,17 @@ const SignIn = ({ navigation }) => {
         }
       } else {
         setIsConnecting(false);
-        setAlertModal(true)
-        setTypeAlert("error")
-        setAlertTitle("Invalid Credentials")
-        setAlertMessage("Username/Email and Password are required.")
+        setAlertModal(true);
+        setTypeAlert("error");
+        setAlertTitle("Invalid Credentials");
+        setAlertMessage("Username/Email and Password are required.");
       }
     } catch (error) {
       setIsConnecting(false);
-      setAlertModal(true)
-        setTypeAlert("error")
-        setAlertTitle("Invalid Credentials")
-        setAlertMessage("Your username/email or password are wrongs.")
+      setAlertModal(true);
+      setTypeAlert("error");
+      setAlertTitle("Invalid Credentials");
+      setAlertMessage("Your username/email or password are wrongs.");
     }
   }
 
@@ -150,11 +158,11 @@ const SignIn = ({ navigation }) => {
 
               <View style={{ marginTop: 20 }}>
                 <InputGlobal
-                onBlur={handleEmailAndUsernameBlur}
+                  onBlur={handleEmailAndUsernameBlur}
                   onChangeText={(userNameOrEmail) =>
                     handleInputChange("userNameOrEmail", userNameOrEmail)
                   }
-                  value={signupData.name}
+                  value={signupData.userNameOrEmail}
                   placeholder={"Username / Email"}
                 />
 
@@ -211,7 +219,7 @@ const SignIn = ({ navigation }) => {
               color={colors.lightGray}
             />
 
-            <View style={{flexDirection:"row", justifyContent:"center"}}>
+            <View style={{ flexDirection: "row", justifyContent: "center" }}>
               <Button title="Forgot password" color={colors.main} />
             </View>
 
@@ -279,7 +287,7 @@ const SignIn = ({ navigation }) => {
             </View>
             <AlertModal
               isVisible={alertModal}
-              onDismiss={()=>setAlertModal(false)}
+              onDismiss={() => setAlertModal(false)}
               alertType={typeAlert}
               message={alertMessage}
               title={alertTitle}
