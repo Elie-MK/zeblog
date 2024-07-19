@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { colors } from "../utilities/Color";
 import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
@@ -19,19 +19,24 @@ import { formatDistanceToNow, parseISO } from "date-fns";
 import useGetRequestApi from "../hooks/useGetRequestApi";
 import usePostRequestApi from "../hooks/usePostRequestApi";
 import { getCurrentUser } from "../utilities/ApiRequestsService";
+import Loading from "./Loading";
+import Buttons from "./Buttons";
+import { CommonActions } from "@react-navigation/native";
 
 const ViewArticleComponent = ({ navigation, route }) => {
+  const animation = useRef(null);
+
   const { idArticle } = route.params;
   const findArticle = `articles/${idArticle}`;
 
   const [isLiked, setIsLiked] = useState(0);
-  const { datas } = useGetRequestApi(findArticle, isLiked);
+  const { datas, error, fetchDatas } = useGetRequestApi(findArticle);
 
   const likeUrl = `createLike/${idArticle}`;
   const likeData = {
     likeStatus: "LIKE",
   };
-  const { postSendRequest, error, data } = usePostRequestApi(likeUrl, likeData);
+  const { postSendRequest, data } = usePostRequestApi(likeUrl, likeData);
   const [createAt, setCreateAt] = useState("");
 
   useEffect(() => {
@@ -59,13 +64,59 @@ const ViewArticleComponent = ({ navigation, route }) => {
 
   const likeArticle = () => {
     if (isLiked) {
-      setIsLiked(0);
       postSendRequest();
     } else {
-      setIsLiked(1);
       postSendRequest();
     }
   };
+  if (!datas && !error) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Loading
+          animationRef={animation}
+          styles={{ width: 170, height: 170 }}
+        />
+      </View>
+    );
+  }
+
+  if (error && !datas) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <View>
+          <Text style={{ fontSize: 16, textAlign: "center", marginBottom: 15 }}>
+            Problem with your network please verify that and try again !
+          </Text>
+          <Buttons title={"Try Again"} onPress={fetchDatas} />
+          <Buttons
+            title={"Home"}
+            onPress={() =>
+              navigation.dispatch(
+                CommonActions.reset({
+                  index: 0,
+                  routes: [{ name: "home" }],
+                })
+              )
+            }
+          />
+        </View>
+      </View>
+    );
+  }
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.white }}>
@@ -225,7 +276,9 @@ const ViewArticleComponent = ({ navigation, route }) => {
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => navigation.navigate("comments")}
+              onPress={() =>
+                navigation.navigate("comments", { articleId: idArticle })
+              }
               style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
             >
               <Fontisto name="comment" size={24} color="black" />

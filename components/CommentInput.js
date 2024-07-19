@@ -6,7 +6,12 @@ import { TouchableOpacity } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import ActivityIndicatorGlobal from "./ActivityIndicatorGlobal";
 
-const CommentInput = ({ isCommented, setIsCommented, valueComments, onChangeText }) => {
+const CommentInput = ({
+  isCommented,
+  setIsCommented,
+  valueComments,
+  onChangeText,
+}) => {
   return (
     <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
       <Image
@@ -28,7 +33,7 @@ const CommentInput = ({ isCommented, setIsCommented, valueComments, onChangeText
             paddingRight: 38,
           }}
           value={valueComments}
-          onChangeText={(text)=>onChangeText(text)}
+          onChangeText={(text) => onChangeText({ contents: text })}
           multiline
           placeholder="Add a comment..."
         />
