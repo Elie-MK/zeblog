@@ -9,22 +9,34 @@ import CardTopics from "../../../components/CardTopics";
 import { Androids, fontSizeTitleAndroid } from "../../../utilities/Platform";
 import { Categories } from "../../../utilities/Categories";
 import useGetRequestApi from "../../../hooks/useGetRequestApi";
+import CardArticles from "../../../components/CardArticles";
 
 const Discover = ({ navigation }) => {
   const [catDatas, setCatDatas] = useState(null);
+  const [mostPopular, setMostPopular] = useState(null);
   const url = "articles/category";
+  const getAllArticle = "articles/all";
   const getWritersUrl = "writers";
   const getWriters = useGetRequestApi(getWritersUrl);
   const sliceWriter = getWriters.datas && getWriters.datas.slice(0, 5);
 
   const { datas, error, loading } = useGetRequestApi(url);
+  const AllArticles = useGetRequestApi(getAllArticle);
 
   useEffect(() => {
     if (datas) {
       const catData = Categories.filter((item) => datas[item]);
       setCatDatas(catData);
     }
-  }, [datas]);
+    if (AllArticles.datas) {
+      const sliceAllArticles =
+        AllArticles?.datas && AllArticles?.datas?.slice(0, 5);
+      const mostPopular = sliceAllArticles?.filter(
+        (article) => article?.likes?.length >= 1
+      );
+      setMostPopular(mostPopular);
+    }
+  }, [datas, AllArticles.datas]);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -77,7 +89,26 @@ const Discover = ({ navigation }) => {
                 <Octicons name="arrow-right" size={24} color={colors.main} />
               </TouchableOpacity>
             </View>
-            <View style={{ marginTop: 15 }}>{/* <CardArticles /> */}</View>
+            <View style={{ marginTop: 15 }}>
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={mostPopular}
+                keyExtractor={(item) => item.idArticles}
+                renderItem={({ item }) => (
+                  <View style={{ marginLeft: 15 }} key={item.idArticles}>
+                    <CardArticles
+                      datas={item}
+                      onPress={() =>
+                        navigation.navigate("viewArticle", {
+                          idArticle: item.idArticles,
+                        })
+                      }
+                    />
+                  </View>
+                )}
+              />
+            </View>
           </View>
 
           {/* Explore by Topics */}
