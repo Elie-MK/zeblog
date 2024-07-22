@@ -23,9 +23,9 @@ const CommentItem = ({ datas }) => {
     };
 
     updateTimeAgo();
-    const intervalId = setInterval(updateTimeAgo, 1000); // Update every second
+    const intervalId = setInterval(updateTimeAgo, 1000);
 
-    return () => clearInterval(intervalId); // Cleanup interval on component unmount
+    return () => clearInterval(intervalId);
   }, [datas, timeZone]);
 
   const progress = useSharedValue(0);
