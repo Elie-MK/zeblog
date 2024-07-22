@@ -16,6 +16,8 @@ import CardArticles from "../../components/CardArticles";
 import { Androids, fontSizeTitleAndroid } from "../../utilities/Platform";
 import AnnounceHome from "../../components/AnnounceHome";
 import useGetRequestApi from "../../hooks/useGetRequestApi";
+import ActivityIndicatorGlobal from "../../components/ActivityIndicatorGlobal";
+import ErrorFetching from "../../components/ErrorFetching";
 
 const MainHome = ({ navigation }) => {
   const [articles, setArticles] = useState({
@@ -25,8 +27,8 @@ const MainHome = ({ navigation }) => {
 
   const urlGetArticleByUser = "articles/user/articles";
   const getAllArticle = "articles/all";
-
-  const { datas, error, loading } = useGetRequestApi(urlGetArticleByUser);
+  const { datas, error, loading, fetchDatas } =
+    useGetRequestApi(urlGetArticleByUser);
   const AllArticles = useGetRequestApi(getAllArticle);
 
   useEffect(() => {
@@ -40,6 +42,16 @@ const MainHome = ({ navigation }) => {
       }));
     }
   }, [datas, AllArticles.datas]);
+
+  if (error && AllArticles.error) {
+    let errorOccured;
+    if (error) {
+      errorOccured = fetchDatas;
+    } else {
+      errorOccured = AllArticles.fetchDatas;
+    }
+    return <ErrorFetching data={errorOccured} navigation={navigation} />;
+  }
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -98,26 +110,29 @@ const MainHome = ({ navigation }) => {
             </Text>
             <Octicons name="arrow-right" size={24} color={colors.main} />
           </View>
-          <View style={{ marginTop: 15 }}>
-            <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={articles.recentArticle}
-              keyExtractor={(item) => item.idArticles}
-              renderItem={({ item }) => (
-                <View style={{ marginLeft: 15 }} key={item.idArticles}>
-                  <CardArticles
-                    datas={item}
-                    onPress={() =>
-                      navigation.navigate("viewArticle", {
-                        idArticle: item.idArticles,
-                      })
-                    }
-                  />
-                </View>
-              )}
-            />
-          </View>
+          {AllArticles.loading && <ActivityIndicatorGlobal />}
+          {!AllArticles.loading && AllArticles.datas && (
+            <View style={{ marginTop: 15 }}>
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={articles.recentArticle}
+                keyExtractor={(item) => item.idArticles}
+                renderItem={({ item }) => (
+                  <View style={{ marginLeft: 15 }} key={item.idArticles}>
+                    <CardArticles
+                      datas={item}
+                      onPress={() =>
+                        navigation.navigate("viewArticle", {
+                          idArticle: item.idArticles,
+                        })
+                      }
+                    />
+                  </View>
+                )}
+              />
+            </View>
+          )}
         </View>
 
         {/* Your Article */}
@@ -139,25 +154,28 @@ const MainHome = ({ navigation }) => {
             </Text>
             <Octicons name="arrow-right" size={24} color={colors.main} />
           </View>
+          {loading && <ActivityIndicatorGlobal />}
           <View style={{ marginTop: 15 }}>
-            <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={articles.userArticle}
-              keyExtractor={(item) => item.idArticles}
-              renderItem={({ item }) => (
-                <View style={{ marginLeft: 15 }} key={item.idArticles}>
-                  <CardArticles
-                    datas={item}
-                    onPress={() =>
-                      navigation.navigate("viewArticle", {
-                        idArticle: item.idArticles,
-                      })
-                    }
-                  />
-                </View>
-              )}
-            />
+            {!loading && datas && (
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={articles.userArticle}
+                keyExtractor={(item) => item.idArticles}
+                renderItem={({ item }) => (
+                  <View style={{ marginLeft: 15 }} key={item.idArticles}>
+                    <CardArticles
+                      datas={item}
+                      onPress={() =>
+                        navigation.navigate("viewArticle", {
+                          idArticle: item.idArticles,
+                        })
+                      }
+                    />
+                  </View>
+                )}
+              />
+            )}
           </View>
         </View>
       </ScrollView>

@@ -10,6 +10,8 @@ import { Androids, fontSizeTitleAndroid } from "../../../utilities/Platform";
 import { Categories } from "../../../utilities/Categories";
 import useGetRequestApi from "../../../hooks/useGetRequestApi";
 import CardArticles from "../../../components/CardArticles";
+import ActivityIndicatorGlobal from "../../../components/ActivityIndicatorGlobal";
+import ErrorFetching from "../../../components/ErrorFetching";
 
 const Discover = ({ navigation }) => {
   const [catDatas, setCatDatas] = useState(null);
@@ -17,11 +19,12 @@ const Discover = ({ navigation }) => {
   const url = "articles/category";
   const getAllArticle = "articles/all";
   const getWritersUrl = "writers";
-  const getWriters = useGetRequestApi(getWritersUrl);
-  const sliceWriter = getWriters.datas && getWriters.datas.slice(0, 5);
 
   const { datas, error, loading } = useGetRequestApi(url);
+  const getWriters = useGetRequestApi(getWritersUrl);
   const AllArticles = useGetRequestApi(getAllArticle);
+
+  const sliceWriter = getWriters.datas && getWriters.datas.slice(0, 5);
 
   useEffect(() => {
     if (datas) {
@@ -37,6 +40,18 @@ const Discover = ({ navigation }) => {
       setMostPopular(mostPopular);
     }
   }, [datas, AllArticles.datas]);
+
+  if (error && AllArticles.error && getWriters.error) {
+    let errorOccured;
+    if (error) {
+      errorOccured = fetchDatas;
+    } else if (AllArticles.error) {
+      errorOccured = AllArticles.fetchDatas;
+    } else {
+      errorOccured = getWriters.fetchDatas;
+    }
+    return <ErrorFetching data={errorOccured} navigation={navigation} />;
+  }
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -89,25 +104,28 @@ const Discover = ({ navigation }) => {
                 <Octicons name="arrow-right" size={24} color={colors.main} />
               </TouchableOpacity>
             </View>
+            {getAllArticle.loading && <ActivityIndicatorGlobal />}
             <View style={{ marginTop: 15 }}>
-              <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                data={mostPopular}
-                keyExtractor={(item) => item.idArticles}
-                renderItem={({ item }) => (
-                  <View style={{ marginLeft: 15 }} key={item.idArticles}>
-                    <CardArticles
-                      datas={item}
-                      onPress={() =>
-                        navigation.navigate("viewArticle", {
-                          idArticle: item.idArticles,
-                        })
-                      }
-                    />
-                  </View>
-                )}
-              />
+              {!getAllArticle.loading && getAllArticle.datas && (
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={mostPopular}
+                  keyExtractor={(item) => item.idArticles}
+                  renderItem={({ item }) => (
+                    <View style={{ marginLeft: 15 }} key={item.idArticles}>
+                      <CardArticles
+                        datas={item}
+                        onPress={() =>
+                          navigation.navigate("viewArticle", {
+                            idArticle: item.idArticles,
+                          })
+                        }
+                      />
+                    </View>
+                  )}
+                />
+              )}
             </View>
           </View>
 
@@ -138,24 +156,27 @@ const Discover = ({ navigation }) => {
                 <Octicons name="arrow-right" size={24} color={colors.main} />
               </TouchableOpacity>
             </View>
-            <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={catDatas}
-              renderItem={({ item }) => (
-                <View key={item} style={{ marginTop: 15, marginRight: 10 }}>
-                  <CardTopics
-                    catTitle={item}
-                    data={datas}
-                    onPress={() =>
-                      navigation.navigate("articlesbytopics", {
-                        data: { item, datas },
-                      })
-                    }
-                  />
-                </View>
-              )}
-            />
+            {loading && <ActivityIndicatorGlobal />}
+            {!loading && datas && (
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={catDatas}
+                renderItem={({ item }) => (
+                  <View key={item} style={{ marginTop: 15, marginRight: 10 }}>
+                    <CardTopics
+                      catTitle={item}
+                      data={datas}
+                      onPress={() =>
+                        navigation.navigate("articlesbytopics", {
+                          data: { item, datas },
+                        })
+                      }
+                    />
+                  </View>
+                )}
+              />
+            )}
           </View>
 
           {/* Top Writers */}
@@ -183,46 +204,49 @@ const Discover = ({ navigation }) => {
                 <Octicons name="arrow-right" size={24} color={colors.main} />
               </TouchableOpacity>
             </View>
-            <FlatList
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={sliceWriter}
-              keyExtractor={(item) => item.idUser.toString()}
-              renderItem={({ item }) => (
-                <View style={{ flex: 1, marginTop: 15 }}>
-                  <View
-                    style={{ flexDirection: "row", justifyContent: "center" }}
-                  >
-                    <Image
+            {getWriters.loading && <ActivityIndicatorGlobal />}
+            {!getWriters.loading && getWriters.datas && (
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={sliceWriter}
+                keyExtractor={(item) => item.idUser.toString()}
+                renderItem={({ item }) => (
+                  <View style={{ flex: 1, marginTop: 15 }}>
+                    <View
+                      style={{ flexDirection: "row", justifyContent: "center" }}
+                    >
+                      <Image
+                        style={{
+                          width: 100,
+                          height: 100,
+                          borderRadius: 50,
+                          marginRight: 20,
+                        }}
+                        source={{ uri: item?.pictureProfile }}
+                      />
+                    </View>
+                    <Text
                       style={{
-                        width: 100,
-                        height: 100,
-                        borderRadius: 50,
-                        marginRight: 20,
+                        fontSize: 15,
+                        fontWeight: "bold",
+                        textAlign: "center",
                       }}
-                      source={{ uri: item?.pictureProfile }}
-                    />
+                    >
+                      {item?.fullName}
+                    </Text>
+                    <Text
+                      style={{
+                        fontSize: 12,
+                        textAlign: "center",
+                      }}
+                    >
+                      @{item?.username}
+                    </Text>
                   </View>
-                  <Text
-                    style={{
-                      fontSize: 15,
-                      fontWeight: "bold",
-                      textAlign: "center",
-                    }}
-                  >
-                    {item?.fullName}
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      textAlign: "center",
-                    }}
-                  >
-                    @{item?.username}
-                  </Text>
-                </View>
-              )}
-            />
+                )}
+              />
+            )}
           </View>
         </ScrollView>
       </View>

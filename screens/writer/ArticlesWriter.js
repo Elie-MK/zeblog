@@ -5,11 +5,13 @@ import { Entypo } from "@expo/vector-icons";
 import SecondCardArticles from "../../components/SecondCardArticles";
 import CardArticles from "../../components/CardArticles";
 import useGetRequestApi from "../../hooks/useGetRequestApi";
+import ActivityIndicatorGlobal from "../../components/ActivityIndicatorGlobal";
 
 const ArticlesWriter = ({ navigation }) => {
   const [isGrid, setIsGrid] = useState("nogrid");
   const urlGetArticleByUser = "articles/user/articles";
-  const { datas, error, loading } = useGetRequestApi(urlGetArticleByUser);
+  const { datas, error, loading, fetchDatas } =
+    useGetRequestApi(urlGetArticleByUser);
 
   return (
     <View style={{ flex: 1 }}>
@@ -42,52 +44,55 @@ const ArticlesWriter = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         </View>
+        {loading && <ActivityIndicatorGlobal />}
 
-        <FlatList
-          data={datas}
-          keyExtractor={(item) => item.idArticles.toString()}
-          numColumns={isGrid === "nogrid" ? 1 : 2}
-          showsVerticalScrollIndicator={false}
-          {...(isGrid === "nogrid"
-            ? null
-            : {
-                columnWrapperStyle: {
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  marginLeft: 10,
-                },
-              })}
-          style={{ flex: 1, marginTop: 5 }}
-          key={isGrid === "nogrid" ? "oneColumn" : "twoColumns"}
-          renderItem={({ item }) => (
-            <View
-              style={{
-                marginRight: isGrid === "nogrid" ? 0 : 20,
-                marginTop: 20,
-              }}
-            >
-              {isGrid === "nogrid" ? (
-                <SecondCardArticles
-                  datas={item}
-                  onPress={() =>
-                    navigation.navigate("viewArticle", {
-                      idArticle: item.idArticles,
-                    })
-                  }
-                />
-              ) : (
-                <CardArticles
-                  datas={item}
-                  onPress={() =>
-                    navigation.navigate("viewArticle", {
-                      idArticle: item.idArticles,
-                    })
-                  }
-                />
-              )}
-            </View>
-          )}
-        />
+        {!loading && datas && (
+          <FlatList
+            data={datas}
+            keyExtractor={(item) => item.idArticles.toString()}
+            numColumns={isGrid === "nogrid" ? 1 : 2}
+            showsVerticalScrollIndicator={false}
+            {...(isGrid === "nogrid"
+              ? null
+              : {
+                  columnWrapperStyle: {
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    marginLeft: 10,
+                  },
+                })}
+            style={{ flex: 1, marginTop: 5 }}
+            key={isGrid === "nogrid" ? "oneColumn" : "twoColumns"}
+            renderItem={({ item }) => (
+              <View
+                style={{
+                  marginRight: isGrid === "nogrid" ? 0 : 20,
+                  marginTop: 20,
+                }}
+              >
+                {isGrid === "nogrid" ? (
+                  <SecondCardArticles
+                    datas={item}
+                    onPress={() =>
+                      navigation.navigate("viewArticle", {
+                        idArticle: item.idArticles,
+                      })
+                    }
+                  />
+                ) : (
+                  <CardArticles
+                    datas={item}
+                    onPress={() =>
+                      navigation.navigate("viewArticle", {
+                        idArticle: item.idArticles,
+                      })
+                    }
+                  />
+                )}
+              </View>
+            )}
+          />
+        )}
       </View>
     </View>
   );
