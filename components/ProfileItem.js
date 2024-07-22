@@ -3,9 +3,9 @@ import React from "react";
 import { Button } from "@rneui/base";
 import { colors } from "../utilities/Color";
 import InfosWriter from "./InfosWriter";
+import useGetRequestApi from "../hooks/useGetRequestApi";
 
-const ProfileItem = ({ names, username, onPress }) => {
-  
+const ProfileItem = ({ datas, onPress }) => {
   return (
     <View style={{ marginTop: 30 }}>
       <View
@@ -20,12 +20,18 @@ const ProfileItem = ({ names, username, onPress }) => {
           <Image
             resizeMode="contain"
             style={{ width: 80, height: 80, borderRadius: 50 }}
-            source={require("../assets/images/vectorPeople.jpg")}
+            source={
+              datas
+                ? { uri: datas?.pictureProfile }
+                : require("../assets/images/vectorPeople.jpg")
+            }
           />
           <View>
-            <Text style={{ fontSize: 18, fontWeight: "bold" }}>{names}</Text>
+            <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+              {datas?.fullName}
+            </Text>
             <Text style={{ fontSize: 16, color: "gray", marginTop: 5 }}>
-              {username}
+              {datas?.username}
             </Text>
           </View>
         </View>
@@ -60,7 +66,7 @@ const ProfileItem = ({ names, username, onPress }) => {
           }}
         >
           <View>
-            <InfosWriter numbers={"364"} texts={"articles"} />
+            <InfosWriter numbers={datas?.articles?.length} texts={"articles"} />
           </View>
           <View
             style={{

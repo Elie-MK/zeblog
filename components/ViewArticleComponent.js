@@ -25,12 +25,15 @@ import { CommonActions } from "@react-navigation/native";
 
 const ViewArticleComponent = ({ navigation, route }) => {
   const animation = useRef(null);
+  const [isLiked, setIsLiked] = useState(0);
 
   const { idArticle } = route.params;
   const findArticle = `articles/${idArticle}`;
-
-  const [isLiked, setIsLiked] = useState(0);
+  const currentuser = "profile";
   const { datas, error, fetchDatas } = useGetRequestApi(findArticle);
+  const currentUser = useGetRequestApi(currentuser);
+
+  const isACurrentUser = datas?.user?.idUser === currentUser?.datas?.idUser;
 
   const likeUrl = `createLike/${idArticle}`;
   const likeData = {
@@ -171,19 +174,21 @@ const ViewArticleComponent = ({ navigation, route }) => {
           {datas?.Title}
         </Text>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View
-            style={{
-              borderTopWidth: 1,
-              borderBottomWidth: 1,
-              padding: 10,
-              borderColor: colors.lightGray,
-            }}
-          >
-            <FollowersItem
-              names={datas?.user?.username}
-              username={`@${datas?.user?.username}`}
-            />
-          </View>
+          {!isACurrentUser && (
+            <View
+              style={{
+                borderTopWidth: 1,
+                borderBottomWidth: 1,
+                padding: 10,
+                borderColor: colors.lightGray,
+              }}
+            >
+              <FollowersItem
+                names={datas?.user?.username}
+                username={`@${datas?.user?.username}`}
+              />
+            </View>
+          )}
           <View
             style={{
               flexDirection: "row",
