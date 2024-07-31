@@ -3,7 +3,6 @@ import React from "react";
 import { Button } from "@rneui/base";
 import { colors } from "../utilities/Color";
 import InfosWriter from "./InfosWriter";
-import useGetRequestApi from "../hooks/useGetRequestApi";
 
 const ProfileItem = ({ datas, onPress }) => {
   return (
@@ -76,11 +75,11 @@ const ProfileItem = ({ datas, onPress }) => {
             }}
           >
             <View style={{ marginLeft: 30, marginRight: 30 }}>
-              <InfosWriter numbers={"146"} texts={"following"} />
+              <InfosWriter numbers={"0"} texts={"following"} />
             </View>
           </View>
           <View>
-            <InfosWriter numbers={"129,5K"} texts={"followers"} />
+            <InfosWriter numbers={"0"} texts={"followers"} />
           </View>
         </View>
       </View>
