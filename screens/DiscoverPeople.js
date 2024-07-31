@@ -14,22 +14,21 @@ import ModalGlobal from "../components/ModalGlobal";
 import ProgressBar from "../components/ProgressBar";
 import { Octicons } from "@expo/vector-icons";
 import axios from "axios";
+import usePostRequestApi from "../hooks/usePostRequestApi";
+import useGetRequestApi from "../hooks/useGetRequestApi";
+import ActivityIndicatorGlobal from "../components/ActivityIndicatorGlobal";
+import EmptyData from "../components/EmptyData";
 
-const API_URL = "http://192.168.1.114:3000/api/auth/register";
-const instance = axios.create({
-  baseURL: API_URL,
-  headers: {
-    "Content-Type": "multipart/form-data",
-    Accept: "application/json",
-  },
-});
+const getWritersUrl = "writers";
+const RegisterUrl = "auth/register";
 
 const DiscoverPeople = ({ navigation, route }) => {
-  const datas = route.params;
+  const data = route.params;
+  const { datas, loading, error } = useGetRequestApi(getWritersUrl, true);
 
   const [follow, setFollow] = useState([]);
   const [inProgress, setInProgress] = useState(false);
-  const [isError, setIsError]= useState(false)
+  const [isError, setIsError] = useState(false);
 
   const handleFollow = (username) => {
     const isFollow = follow.includes(username);
@@ -40,25 +39,31 @@ const DiscoverPeople = ({ navigation, route }) => {
     }
   };
 
+  const registerUser = new FormData();
+  registerUser.append("fullName", data.fullName);
+  registerUser.append("dateOfBirth", data.dateOfBirth);
+  registerUser.append("username", data.username);
+  registerUser.append("email", data.email);
+  registerUser.append("countryName", data.country);
+  registerUser.append("streetAdress", data.streetAdress);
+  registerUser.append("password", data.password);
+  registerUser.append("gender", data.gender);
+  const picture = data.picture;
+  registerUser.append("pictureProfile", {
+    uri: picture,
+    type: "image/jpg",
+    name: "profile",
+  });
+
+  const { postSendRequest } = usePostRequestApi(
+    RegisterUrl,
+    registerUser,
+    true
+  );
   const handleFinish = async () => {
     setInProgress(true);
-    const registerUser = new FormData();
-    registerUser.append("fullName", datas.fullName);
-    registerUser.append("dateOfBirth", datas.dateOfBirth);
-    registerUser.append("username", datas.username);
-    registerUser.append("email", datas.email);
-    registerUser.append("countryName", datas.country);
-    registerUser.append("streetAdress", datas.streetAdress);
-    registerUser.append("password", datas.password);
-    registerUser.append("gender", datas.gender);
-    const picture = datas.picture;
-    registerUser.append("pictureProfile", {
-      uri: picture,
-      type: "image/jpg",
-      name: "profile",
-    });
     try {
-      const response = await instance.post(API_URL, registerUser);
+      const response = await postSendRequest();
       if (response.status === 201) {
         setInProgress(false);
         navigation.replace("signin");
@@ -66,7 +71,7 @@ const DiscoverPeople = ({ navigation, route }) => {
     } catch (error) {
       console.log("Error occurred:", error.message);
       setInProgress(false);
-      setIsError(true)
+      setIsError(true);
     }
   };
 
@@ -86,27 +91,27 @@ const DiscoverPeople = ({ navigation, route }) => {
           </TouchableOpacity>
           <ProgressBar lastStep={90} step={10} />
         </View>
-        <Text style={{ fontSize: 30, fontWeight: "bold" }}>
-          Discover People
-        </Text>
-        <Text style={{ fontSize: 18, marginTop: 10, color: colors.gray }}>
-          Pick some people to follow 😍
-        </Text>
+        {data?.length > 0 && !loading && (
+          <View>
+            <Text style={{ fontSize: 30, fontWeight: "bold" }}>
+              Discover People
+            </Text>
+            <Text style={{ fontSize: 18, marginTop: 10, color: colors.gray }}>
+              Pick some people to follow 😍
+            </Text>
+          </View>
+        )}
 
         <View style={{ flex: 1, marginTop: 20 }}>
-          <FlatList
-            data={FakeFollowers}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => (
-              <PeopleFollowItem
-                onPress={() => handleFollow(item.username)}
-                items={item}
-                followers={follow}
-                names={item.name}
-                username={item.username}
-              />
-            )}
-          />
+          {loading && !datas && <ActivityIndicatorGlobal />}
+          {datas?.length > 0 && !loading && (
+            <FlatList
+              data={datas}
+              keyExtractor={(item) => item.idUser.toString()}
+              renderItem={({ item }) => <PeopleFollowItem datas={item} />}
+            />
+          )}
+          {datas?.length === 0 && <EmptyData />}
           <Buttons
             disabled={inProgress}
             onPress={handleFinish}

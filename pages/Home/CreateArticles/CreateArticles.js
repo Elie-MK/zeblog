@@ -8,23 +8,27 @@ import {
   KeyboardAvoidingView,
   Dimensions,
 } from "react-native";
-import React, { useState } from "react";
-import { colors } from "../../../utilities/Color";
+import React, { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { MaterialIcons } from "@expo/vector-icons";
 import { ScrollView } from "react-native";
-import { Androids } from "../../../utilities/Platform";
 import { Button, Divider } from "@rneui/themed";
 import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import { colors } from "../../../utilities/Color";
+import { Androids } from "../../../utilities/Platform";
 import CategoryArticle from "../../../components/CategoryArticle";
 import { Categories } from "../../../utilities/Categories";
 import { handleCreateArticle } from "../../../utilities/ApiRequestsService";
-import ActivityIndicatorGlobal from "../../../components/ActivityIndicatorGlobal";
 
-const CreateArticles = ({ navigation }) => {
+const CreateArticles = ({ navigation, route }) => {
+  const draft = route.params;
+
   const [textAlignIcon, setTextAlignIcon] = useState("left");
-  const [isPublishing, setIsPublishing]=useState(false)
+  const [isPublishing, setIsPublishing] = useState(false);
+  const [articlesSaved, setArticlesSaved] = useState(null);
 
   const [datas, setDatas] = useState({
     Title: "",
@@ -96,8 +100,8 @@ const CreateArticles = ({ navigation }) => {
 
   const formData = new FormData();
 
-  const imageLink = datas?.pictures?.split('.');
-  const image = imageLink[imageLink.length - 1];
+  const imageLink = datas?.pictures?.split(".");
+  const image = imageLink[imageLink?.length - 1];
 
   async function handleSubmitCreateArticle() {
     formData.append("Title", datas.Title);
@@ -109,19 +113,65 @@ const CreateArticles = ({ navigation }) => {
     });
     formData.append("category", datas.category);
 
-    setIsPublishing(true)
+    setIsPublishing(true);
 
     try {
       const response = await handleCreateArticle(formData);
       if (response.status === 201) {
-        navigation.replace("home")
-        setIsPublishing(false)
+        navigation.replace("home");
+        setIsPublishing(false);
       }
     } catch (error) {
-      setIsPublishing(false)
+      setIsPublishing(false);
       console.log(error);
     }
   }
+
+  const handleSaveArticle = async () => {
+    try {
+      // Retrieve the existing articles from AsyncStorage
+      const existingArticles = await AsyncStorage.getItem("oldsArticles");
+      const parsedArticles = existingArticles
+        ? JSON.parse(existingArticles)
+        : [];
+
+      const highestId =
+        parsedArticles?.length > 0
+          ? Math.max(...parsedArticles.map((article) => article.id))
+          : 0;
+      const date = new Date();
+      const newArticle = { ...datas, id: highestId + 1, createdAt: date };
+
+      const updatedArticles = [...parsedArticles, newArticle];
+
+      // Save the updated array back to AsyncStorage
+      const arrayOfDatas = JSON.stringify(updatedArticles);
+      await AsyncStorage.setItem("oldsArticles", arrayOfDatas);
+      navigation.replace("home");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getOldsArticle = async () => {
+    try {
+      const existingArticles = await AsyncStorage.getItem("oldsArticles");
+      if (existingArticles !== null) {
+        setArticlesSaved(JSON.parse(existingArticles));
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    getOldsArticle();
+    if (draft) {
+      const article = articlesSaved?.find(
+        (article) => article?.id === draft?.idDraft
+      );
+      setDatas(article);
+    }
+  }, [draft]);
 
   return (
     <KeyboardAvoidingView
@@ -148,14 +198,14 @@ const CreateArticles = ({ navigation }) => {
             />
           </TouchableOpacity>
 
-          {datas.Title.length > 8 &&
-            datas.Content.length > 80 &&
+          {datas.Title?.length > 8 &&
+            datas.Content?.length > 80 &&
             datas.category && (
               <View
                 style={{ flexDirection: "row", gap: 10, alignItems: "center" }}
               >
                 <Button
-                disabled={isPublishing}
+                  disabled={isPublishing}
                   buttonStyle={{
                     backgroundColor: colors.main,
                     borderRadius: 20,
@@ -163,13 +213,14 @@ const CreateArticles = ({ navigation }) => {
                     paddingRight: 20,
                   }}
                   title="Save"
+                  onPress={handleSaveArticle}
                 />
                 <Button
                   onPress={handleSubmitCreateArticle}
                   title="Publish"
                   type="outline"
                   loading={isPublishing}
-                  loadingProps={{color:colors.main, size:"small"}}
+                  loadingProps={{ color: colors.main, size: "small" }}
                   loadingStyle={{}}
                   disabled={isPublishing}
                   buttonStyle={{
@@ -187,7 +238,7 @@ const CreateArticles = ({ navigation }) => {
 
         <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
           <TouchableOpacity
-          disabled={isPublishing}
+            disabled={isPublishing}
             activeOpacity={0.7}
             onPress={pickImage}
             style={{
@@ -239,7 +290,7 @@ const CreateArticles = ({ navigation }) => {
             Title
           </Text>
           <TextInput
-          disabled={isPublishing}
+            disabled={isPublishing}
             placeholder="Title"
             placeholderTextColor={colors.gray}
             value={datas.Title}
