@@ -1,9 +1,25 @@
 import { View, Text, FlatList } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FakeTopics } from "../../../utilities/FakeTopics";
 import DraftArticle from "../../../components/DraftArticle";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const DraftArticles = () => {
+  const [articlesSaved, setArticlesSaved] = useState(null);
+
+  const getOldsArticle = async () => {
+    try {
+      const existingArticles = await AsyncStorage.getItem("oldsArticles");
+      if (existingArticles !== null) {
+        setArticlesSaved(JSON.parse(existingArticles));
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    getOldsArticle();
+  }, []);
   return (
     <View style={{ flex: 1 }}>
       <View
@@ -14,17 +30,19 @@ const DraftArticles = () => {
           marginTop: 30,
         }}
       >
-        <Text style={{ fontSize: 20, fontWeight: "bold" }}>48 Articles</Text>
+        <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+          {articlesSaved?.length ?? 0} Article(s)
+        </Text>
       </View>
 
       <FlatList
-        data={FakeTopics}
+        data={articlesSaved}
         keyExtractor={(item) => item.id.toString()}
         showsVerticalScrollIndicator={false}
         style={{ flex: 1, marginTop: 5 }}
         renderItem={({ item }) => (
           <View style={{ marginRight: 20, marginTop: 20 }}>
-            <DraftArticle />
+            <DraftArticle datas={item} />
           </View>
         )}
       />

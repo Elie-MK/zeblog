@@ -6,7 +6,7 @@ import {
   FlatList,
   Image,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { colors } from "../../../utilities/Color";
 import SearchInput from "../../../components/SearchInput";
@@ -14,11 +14,27 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import DraftArticles from "./DraftArticles";
 import PublishedArticles from "./PublishedArticles";
 import useGetRequestApi from "../../../hooks/useGetRequestApi";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const MyArticles = ({ navigation }) => {
   const urlGetArticleByUser = "articles/user/articles";
   const { datas } = useGetRequestApi(urlGetArticleByUser);
   const [isSearch, setIsSearch] = useState(false);
+  const [articlesSaved, setArticlesSaved] = useState(null);
+
+  const getOldsArticle = async () => {
+    try {
+      const existingArticles = await AsyncStorage.getItem("oldsArticles");
+      if (existingArticles !== null) {
+        setArticlesSaved(JSON.parse(existingArticles));
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    getOldsArticle();
+  }, []);
 
   const Top = createMaterialTopTabNavigator();
 
@@ -55,9 +71,9 @@ const MyArticles = ({ navigation }) => {
             tabBarLabel: ({ focused }) => {
               let label;
               if (route.name === "draft") {
-                label = "Draft (14)";
+                label = `Draft (${articlesSaved?.length ?? 0})`;
               } else if (route.name === "published") {
-                label = `Published (${datas?.length})`;
+                label = `Published (${datas?.length ?? 0})`;
               }
               return (
                 <Text
