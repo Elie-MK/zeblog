@@ -123,7 +123,7 @@ const CreateArticles = ({ navigation, route }) => {
       }
     } catch (error) {
       setIsPublishing(false);
-      console.log(error);
+      console.error(error);
     }
   }
 
