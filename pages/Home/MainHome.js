@@ -18,6 +18,7 @@ import AnnounceHome from "../../components/AnnounceHome";
 import useGetRequestApi from "../../hooks/useGetRequestApi";
 import ActivityIndicatorGlobal from "../../components/ActivityIndicatorGlobal";
 import ErrorFetching from "../../components/ErrorFetching";
+import NoArticles from "../../components/NoArticles";
 
 const MainHome = ({ navigation }) => {
   const [articles, setArticles] = useState({
@@ -110,6 +111,9 @@ const MainHome = ({ navigation }) => {
             </Text>
             <Octicons name="arrow-right" size={24} color={colors.main} />
           </View>
+          {articles?.recentArticle?.length < 1 && (
+            <NoArticles title={"No articles found"} />
+          )}
           {AllArticles.loading && <ActivityIndicatorGlobal />}
           {!AllArticles.loading && AllArticles.datas && (
             <View style={{ marginTop: 15 }}>
@@ -154,6 +158,9 @@ const MainHome = ({ navigation }) => {
             </Text>
             <Octicons name="arrow-right" size={24} color={colors.main} />
           </View>
+          {articles?.userArticle?.length < 1 && (
+            <NoArticles isMyArticle navigation={navigation} />
+          )}
           {loading && <ActivityIndicatorGlobal />}
           <View style={{ marginTop: 15 }}>
             {!loading && datas && (

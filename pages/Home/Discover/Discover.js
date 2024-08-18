@@ -12,6 +12,7 @@ import useGetRequestApi from "../../../hooks/useGetRequestApi";
 import CardArticles from "../../../components/CardArticles";
 import ActivityIndicatorGlobal from "../../../components/ActivityIndicatorGlobal";
 import ErrorFetching from "../../../components/ErrorFetching";
+import NoArticles from "../../../components/NoArticles";
 
 const Discover = ({ navigation }) => {
   const [catDatas, setCatDatas] = useState(null);
@@ -24,7 +25,11 @@ const Discover = ({ navigation }) => {
   const getWriters = useGetRequestApi(getWritersUrl);
   const AllArticles = useGetRequestApi(getAllArticle);
 
-  const sliceWriter = getWriters.datas && getWriters.datas.slice(0, 5);
+  const topwriters =
+    getWriters.datas && getWriters?.datas[0].articles?.length >= 200;
+  const sliceWriter = topwriters && getWriters?.datas.slice(0, 5);
+
+  console.log(topwriters);
 
   useEffect(() => {
     if (datas) {
@@ -127,6 +132,9 @@ const Discover = ({ navigation }) => {
                 />
               )}
             </View>
+            {mostPopular?.length < 1 && (
+              <NoArticles title={"No articles found"} />
+            )}
           </View>
 
           {/* Explore by Topics */}
@@ -177,6 +185,8 @@ const Discover = ({ navigation }) => {
                 )}
               />
             )}
+
+            {catDatas?.length < 1 && <NoArticles title={"No topics found"} />}
           </View>
 
           {/* Top Writers */}
@@ -198,7 +208,9 @@ const Discover = ({ navigation }) => {
               </Text>
               <TouchableOpacity
                 onPress={() =>
-                  navigation.navigate("topwriters", { datas: getWriters.datas })
+                  navigation.navigate("topwriters", {
+                    datas: topwriters && getWriters.datas,
+                  })
                 }
               >
                 <Octicons name="arrow-right" size={24} color={colors.main} />

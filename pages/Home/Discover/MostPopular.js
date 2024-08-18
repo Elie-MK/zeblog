@@ -11,6 +11,7 @@ import { AntDesign } from "@expo/vector-icons";
 import SecondCardArticles from "../../../components/SecondCardArticles";
 import { Androids } from "../../../utilities/Platform";
 import useGetRequestApi from "../../../hooks/useGetRequestApi";
+import NoArticles from "../../../components/NoArticles";
 
 const MostPopular = ({ navigation }) => {
   const [isActiveSearch, setIsActiveSearch] = useState(false);
@@ -81,6 +82,13 @@ const MostPopular = ({ navigation }) => {
             )}
           />
         </View>
+        {mostPopular?.length < 1 && (
+          <View
+            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          >
+            <NoArticles title={"No articles found"} />
+          </View>
+        )}
       </View>
     </SafeAreaView>
   );
