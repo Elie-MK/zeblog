@@ -20,8 +20,7 @@ import useGetRequestApi from "../hooks/useGetRequestApi";
 import usePostRequestApi from "../hooks/usePostRequestApi";
 import { getCurrentUser } from "../utilities/ApiRequestsService";
 import Loading from "./Loading";
-import Buttons from "./Buttons";
-import { CommonActions } from "@react-navigation/native";
+
 import ErrorFetching from "./ErrorFetching";
 
 const ViewArticleComponent = ({ navigation, route }) => {

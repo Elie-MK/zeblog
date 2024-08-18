@@ -1,6 +1,5 @@
 import { View, Text, FlatList } from "react-native";
 import React, { useState, useEffect } from "react";
-import { FakeTopics } from "../../../utilities/FakeTopics";
 import DraftArticle from "../../../components/DraftArticle";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -20,6 +19,7 @@ const DraftArticles = () => {
   useEffect(() => {
     getOldsArticle();
   }, []);
+
   return (
     <View style={{ flex: 1 }}>
       <View
@@ -30,9 +30,22 @@ const DraftArticles = () => {
           marginTop: 30,
         }}
       >
-        <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-          {articlesSaved?.length ?? 0} Article(s)
-        </Text>
+        <View>
+          {articlesSaved !== null && (
+            <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+              {articlesSaved?.length ?? 0} Article(s)
+            </Text>
+          )}
+          {articlesSaved === null && (
+            <View
+              style={{
+                justifyContent: "center",
+              }}
+            >
+              <Text style={{ fontSize: 20 }}>No articles found</Text>
+            </View>
+          )}
+        </View>
       </View>
 
       <FlatList

@@ -1,5 +1,5 @@
 import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useCallback } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
 import { Image } from "react-native";
@@ -11,11 +11,13 @@ import ArticlesWriter from "../../../screens/writer/ArticlesWriter";
 import AboutWriter from "../../../screens/writer/AboutWriter";
 import { Androids } from "../../../utilities/Platform";
 import useGetRequestApi from "../../../hooks/useGetRequestApi";
+import { useFocusEffect } from "@react-navigation/native";
 
 const ProfileOverallView = ({ navigation }) => {
   const Top = createMaterialTopTabNavigator();
   const currentuser = "profile";
-  const { datas, error, fetchDatas } = useGetRequestApi(currentuser);
+  const { datas, error } = useGetRequestApi(currentuser);
+
   return (
     <SafeAreaView style={{ flex: 1, marginHorizontal: 20 }}>
       <View

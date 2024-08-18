@@ -18,7 +18,7 @@ const PeopleFollowItem = ({ datas }) => {
           style={{ width: 80, height: 80, borderRadius: 50 }}
           source={
             datas.pictureProfile
-              ? { uri: datas?.pictureProfaile }
+              ? { uri: datas?.pictureProfile }
               : require("../assets/images/vectorPeople.jpg")
           }
         />
