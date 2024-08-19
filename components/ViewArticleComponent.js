@@ -25,7 +25,7 @@ import ErrorFetching from "./ErrorFetching";
 
 const ViewArticleComponent = ({ navigation, route }) => {
   const animation = useRef(null);
-  const [isLiked, setIsLiked] = useState(0);
+  const [isLiked, setIsLiked] = useState(false);
 
   const { idArticle } = route.params;
   const findArticle = `articles/${idArticle}`;
@@ -66,11 +66,14 @@ const ViewArticleComponent = ({ navigation, route }) => {
   }, []);
 
   const likeArticle = () => {
-    if (isLiked) {
-      postSendRequest();
-    } else {
-      postSendRequest();
-    }
+    postSendRequest()
+      .then(() => {
+        setIsLiked(!isLiked);
+        fetchDatas();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   if (!datas && !error) {
     return (
@@ -255,7 +258,10 @@ const ViewArticleComponent = ({ navigation, route }) => {
 
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate("comments", { articleId: idArticle })
+                navigation.navigate("comments", {
+                  articleId: idArticle,
+                  user: currentUser,
+                })
               }
               style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
             >

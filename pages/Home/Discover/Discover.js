@@ -29,8 +29,6 @@ const Discover = ({ navigation }) => {
     getWriters.datas && getWriters?.datas[0].articles?.length >= 200;
   const sliceWriter = topwriters && getWriters?.datas.slice(0, 5);
 
-  console.log(topwriters);
-
   useEffect(() => {
     if (datas) {
       const catData = Categories.filter((item) => datas[item]);

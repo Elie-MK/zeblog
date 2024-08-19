@@ -1,22 +1,29 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   API_BASE_URL,
   handleGetJwtTokenAsyncStorage,
   source,
 } from "../utilities/ApiRequestsService";
 import axios from "axios";
+import { useFocusEffect } from "@react-navigation/native";
 
 const useGetRequestApi = (url, option) => {
   const [datas, setDatas] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  // Create a cancel token source
+  const source = axios.CancelToken.source();
+
   const fetchDatas = async () => {
     setLoading(true);
     const tokens = await handleGetJwtTokenAsyncStorage();
     let responses;
     try {
       if (option) {
-        const response = await axios.get(`${API_BASE_URL}/${url}`);
+        const response = await axios.get(`${API_BASE_URL}/${url}`, {
+          cancelToken: source.token,
+        });
         responses = response;
       } else {
         const response = await axios.get(`${API_BASE_URL}/${url}`, {
@@ -33,14 +40,24 @@ const useGetRequestApi = (url, option) => {
         setLoading(false);
       }
     } catch (error) {
-      setError(error);
+      if (axios.isCancel(error)) {
+        console.log("Request canceled:", error.message);
+      } else {
+        setError(error);
+      }
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchDatas();
-  }, [url]);
+  useFocusEffect(
+    useCallback(() => {
+      fetchDatas();
+
+      return () => {
+        source.cancel("Request canceled by the user.");
+      };
+    }, [url])
+  );
 
   return { datas, error, loading, fetchDatas };
 };
