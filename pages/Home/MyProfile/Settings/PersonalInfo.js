@@ -7,27 +7,79 @@ import {
   Platform,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { AntDesign, Feather } from "@expo/vector-icons";
+import {
+  AntDesign,
+  Feather,
+  Ionicons,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import { ScrollView } from "react-native";
 import ProfileImage from "../../../../components/ProfileImage";
 import * as ImagePicker from "expo-image-picker";
-import InputSettings from "../../../../components/InputSettings";
 import Buttons from "../../../../components/Buttons";
 import BottomSheetModal from "../../../../components/BottomSheetModal";
 import GenderItem from "../../../../components/GenderItem";
 import { Androids } from "../../../../utilities/Platform";
 import useGetRequestApi from "../../../../hooks/useGetRequestApi";
 import ActivityIndicatorGlobal from "../../../../components/ActivityIndicatorGlobal";
-import { format } from "date-fns";
+import BottomSheetDatePicker from "../../../../components/BottomSheetDatePicker";
+import moment from "moment";
+import InputGlobal from "../../../../components/InputGlobal";
+import { colors } from "../../../../utilities/Color";
+import usePutRequestApi from "../../../../hooks/usePutRequestApi";
 
 const PersonalInfo = ({ navigation }) => {
   const personalInfoUrl = "profile";
   const { datas, loading, error } = useGetRequestApi(personalInfoUrl);
-  const [profileImage, setProfileImage] = useState(null);
-  const [selectGender, setSelectGender] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [showModalDate, setShowModalDate] = useState(false);
+  const [isAdult, setIsAdult] = useState(true);
+
+  const [date, setDate] = useState(null);
   const formatDate =
-    datas?.dateOfBirth && format(new Date(datas?.dateOfBirth), "MM/dd/yyyy");
+    datas?.dateOfBirth && moment(datas?.dateOfBirth).format("YYYY-MM-DD");
+
+  const [inProgress, setInProgress] = useState(false);
+
+  const [updateInfo, setUpdateInfo] = useState({
+    fullName: "",
+    email: "",
+    picture: null,
+    gender: "",
+    dateOfBirth: formatDate,
+    streetAdress: "",
+    countryName: "",
+  });
+
+  function handleDatePicker(e, selectedDate) {
+    if (!selectedDate) {
+      if (Platform.OS === "android") {
+        setShowModalDate(false);
+      }
+      return;
+    }
+
+    setDate(selectedDate);
+
+    const formatDate = moment(selectedDate).format("YYYY-MM-DD");
+
+    handleInputsChange("dateOfBirth", formatDate);
+
+    if (Platform.OS === "android") {
+      setShowModalDate(false);
+    }
+
+    const getYear = selectedDate.getFullYear();
+    const age = new Date().getFullYear() - getYear;
+
+    setIsAdult(age >= 18);
+  }
+
+  useEffect(() => {
+    if (datas?.dateOfBirth) {
+      setDate(new Date(datas.dateOfBirth));
+    }
+  }, [datas]);
 
   const handleProfileImage = async () => {
     const requestLibrary =
@@ -40,21 +92,88 @@ const PersonalInfo = ({ navigation }) => {
         aspect: [4, 3],
       });
       if (!image.canceled) {
-        setProfileImage(image.assets[0].uri);
+        const result = image.assets[0].uri;
+        handleInputsChange("picture", result);
       }
     } else {
       alert("Permission to access Library is required!");
     }
   };
 
-  const selectedGender = (gender) => {
-    setSelectGender(gender);
-    setShowModal(!showModal);
-  };
-
   useEffect(() => {
-    setSelectGender(datas?.gender);
+    if (datas) {
+      setUpdateInfo({
+        fullName: datas?.fullName || "",
+        email: datas.email || "",
+        gender: datas.gender || "",
+        dateOfBirth: formatDate || "",
+        streetAdress: datas.streetAdress || "",
+        countryName: datas.countryName || "",
+      });
+    }
   }, [datas]);
+
+  function handleInputsChange(field, value) {
+    if (field === "gender") {
+      setShowModal(false);
+    }
+    setUpdateInfo((prevData) => ({
+      ...prevData,
+      [field]: value,
+    }));
+  }
+
+  const updateUserInfo = new FormData();
+  if (updateInfo.fullName) {
+    updateUserInfo.append("fullName", updateInfo.fullName);
+  }
+  if (updateInfo.email) {
+    updateUserInfo.append("email", updateInfo.email);
+  }
+  if (updateInfo.picture) {
+    const picture = updateInfo.picture;
+    updateUserInfo.append("pictureProfile", {
+      uri: picture,
+      type: "image/jpg",
+      name: "profile",
+    });
+  }
+  if (updateInfo.gender) {
+    updateUserInfo.append("gender", updateInfo.gender);
+  }
+  if (updateInfo.dateOfBirth) {
+    updateUserInfo.append("dateOfBirth", updateInfo.dateOfBirth);
+  }
+  if (updateInfo.streetAdress) {
+    updateUserInfo.append("streetAdress", updateInfo.streetAdress);
+  }
+  if (updateInfo.countryName) {
+    updateUserInfo.append("countryName", updateInfo.countryName);
+  }
+
+  const { handlePutRequest } = usePutRequestApi(
+    personalInfoUrl,
+    updateUserInfo,
+    true
+  );
+
+  const handleUpdate = async () => {
+    if (isAdult) {
+      try {
+        setInProgress(true);
+        const response = await handlePutRequest();
+        if (response.status === 200) {
+          setInProgress(false);
+          navigation.goBack();
+        }
+      } catch (error) {
+        console.log("Error occurred:", error.message);
+        setInProgress(false);
+      }
+    } else {
+      alert("You must be 18 years old to update your profile");
+    }
+  };
 
   return (
     <KeyboardAvoidingView
@@ -97,20 +216,79 @@ const PersonalInfo = ({ navigation }) => {
         <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
           {loading && !datas && <ActivityIndicatorGlobal />}
           <ProfileImage
-            profileImage={profileImage ?? datas?.pictureProfile}
+            profileImage={updateInfo.picture ?? datas?.pictureProfile}
             handleProfileImage={handleProfileImage}
           />
-          <InputSettings value={datas?.fullName} title={"Full Name"} />
-          <InputSettings value={datas?.email} title={"Email"} />
-          <InputSettings
-            title={"Gender"}
-            value={selectGender}
-            onFocus={() => setShowModal(!showModal)}
+          <InputGlobal
+            title={"Full Name"}
+            onChangeText={(fullName) =>
+              handleInputsChange("fullName", fullName)
+            }
+            value={updateInfo.fullName}
+            placeholder={"full Name"}
+            disabled={inProgress}
           />
-          <InputSettings value={formatDate} title={"Date of Birth"} />
-          <InputSettings value={datas?.streetAdress} title={"Street Adress"} />
+          <InputGlobal
+            title={"Email"}
+            onChangeText={(email) => handleInputsChange("email", email)}
+            value={updateInfo.email}
+            placeholder={"Email"}
+            disabled={inProgress}
+          />
 
-          <Buttons disabled={true} title={"Save"} />
+          <InputGlobal
+            title={"Gender"}
+            value={updateInfo.gender}
+            rightIcon={
+              <MaterialIcons
+                name="keyboard-arrow-down"
+                size={25}
+                color={colors.main}
+              />
+            }
+            focus={() => setShowModal(!showModal)}
+            disabled={inProgress}
+          />
+
+          <InputGlobal
+            title={"Date of Birth"}
+            placeholder={"YYYY/MM/DD"}
+            focus={() => setShowModalDate(!showModalDate)}
+            value={updateInfo.dateOfBirth}
+            rightIcon={
+              <TouchableOpacity onPress={() => setShowModalDate(true)}>
+                <Ionicons name="calendar" size={24} color={colors.main} />
+              </TouchableOpacity>
+            }
+            disabled={inProgress}
+          />
+
+          <InputGlobal
+            title={"Street Adress"}
+            onChangeText={(streetAdress) =>
+              handleInputsChange("streetAdress", streetAdress)
+            }
+            value={updateInfo.streetAdress}
+            placeholder={"Street Adress"}
+            disabled={inProgress}
+          />
+
+          <InputGlobal
+            title={"Country Name"}
+            onChangeText={(countryName) =>
+              handleInputsChange("countryName", countryName)
+            }
+            value={updateInfo.countryName}
+            placeholder={"Country Name"}
+            disabled={inProgress}
+          />
+
+          <Buttons
+            disabled={inProgress}
+            isLoading={inProgress}
+            onPress={handleUpdate}
+            title={"Save"}
+          />
         </ScrollView>
         <BottomSheetModal
           title={"Choose your gender"}
@@ -118,10 +296,16 @@ const PersonalInfo = ({ navigation }) => {
           onBackdropPress={() => setShowModal(!showModal)}
         >
           <GenderItem
-            checked={selectGender}
-            selectedGender={(e) => selectedGender(e)}
+            checked={updateInfo.gender}
+            selectedGender={(gender) => handleInputsChange("gender", gender)}
           />
         </BottomSheetModal>
+        <BottomSheetDatePicker
+          date={date}
+          handleDatePicker={handleDatePicker}
+          isVisible={showModalDate}
+          onBackdropPress={() => setShowModalDate(false)}
+        />
       </SafeAreaView>
     </KeyboardAvoidingView>
   );

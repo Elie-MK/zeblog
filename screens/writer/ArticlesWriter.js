@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, FlatList } from "react-native";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { colors } from "../../utilities/Color";
 import { Entypo } from "@expo/vector-icons";
 import SecondCardArticles from "../../components/SecondCardArticles";
@@ -10,8 +10,7 @@ import ActivityIndicatorGlobal from "../../components/ActivityIndicatorGlobal";
 const ArticlesWriter = ({ navigation }) => {
   const [isGrid, setIsGrid] = useState("nogrid");
   const urlGetArticleByUser = "articles/user/articles";
-  const { datas, error, loading, fetchDatas } =
-    useGetRequestApi(urlGetArticleByUser);
+  const { datas, error, loading } = useGetRequestApi(urlGetArticleByUser);
 
   return (
     <View style={{ flex: 1 }}>
