@@ -7,6 +7,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import ActivityIndicatorGlobal from "./ActivityIndicatorGlobal";
 
 const CommentInput = ({
+  datasUser,
   isCommented,
   setIsCommented,
   valueComments,
@@ -17,7 +18,11 @@ const CommentInput = ({
       <Image
         resizeMode="contain"
         style={{ width: 40, height: 40, borderRadius: 22 }}
-        source={require("../assets/images/vectorPeople.jpg")}
+        source={
+          datasUser?.datas
+            ? { uri: datasUser?.datas?.pictureProfile }
+            : require("../assets/images/vectorPeople.jpg")
+        }
       />
       <View style={{ flexDirection: "row", alignItems: "center" }}>
         <TextInput

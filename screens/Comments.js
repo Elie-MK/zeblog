@@ -17,9 +17,10 @@ import useGetRequestApi from "../hooks/useGetRequestApi";
 import usePostRequestApi from "../hooks/usePostRequestApi";
 
 const Comments = ({ navigation, route }) => {
-  const { articleId } = route.params;
+  const { articleId, user } = route.params;
+
   const findComments = `article/comments/${articleId}`;
-  const { datas, error, loading, fetchDatas } = useGetRequestApi(findComments);
+  const { datas, fetchDatas } = useGetRequestApi(findComments);
 
   const [isCommented, setIsCommented] = useState(false);
   const [valueComments, setValueComments] = useState({
@@ -74,6 +75,7 @@ const Comments = ({ navigation, route }) => {
         </View>
         <View style={{ marginBottom: 20 }}>
           <CommentInput
+            datasUser={user}
             onChangeText={setValueComments}
             valueComments={valueComments.contents}
             isCommented={isCommented}
