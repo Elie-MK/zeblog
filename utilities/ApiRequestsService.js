@@ -17,7 +17,8 @@ const option = {
 
 export async function handleSaveJwtTokenAsyncStorage(token) {
   try {
-    await AsyncStorage.setItem("jwtToken", JSON.stringify(token));
+    await AsyncStorage.setItem("jwt-token", token.data.token);
+    await AsyncStorage.setItem("refresh-token", token.data.refreshToken);
   } catch (error) {
     console.log(error);
   }
@@ -25,8 +26,8 @@ export async function handleSaveJwtTokenAsyncStorage(token) {
 
 export async function handleGetJwtTokenAsyncStorage() {
   try {
-    const token = await AsyncStorage.getItem("jwtToken");
-    return token ? JSON.parse(token) : null;
+    const token = await AsyncStorage.getItem("jwt-token");
+    return token ? token : null;
   } catch (error) {
     console.log(error);
     return null;

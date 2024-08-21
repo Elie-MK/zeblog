@@ -7,21 +7,22 @@ import {
   ScrollView,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
-import { colors } from "../utilities/Color";
 import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import FollowersItem from "./FollowersItem";
 import { CardDivider } from "@rneui/base/dist/Card/Card.Divider";
 import { Fontisto } from "@expo/vector-icons";
-import { Androids } from "../utilities/Platform";
 import { formatDistanceToNow, parseISO } from "date-fns";
+
+import { colors } from "../utilities/Color";
+import FollowersItem from "../components/FollowersItem";
+import { Androids } from "../utilities/Platform";
 import useGetRequestApi from "../hooks/useGetRequestApi";
 import usePostRequestApi from "../hooks/usePostRequestApi";
 import { getCurrentUser } from "../utilities/ApiRequestsService";
-import Loading from "./Loading";
-
-import ErrorFetching from "./ErrorFetching";
+import Loading from "../components/Loading";
+import ErrorFetching from "../components/ErrorFetching";
+import { handleVibrateButtonPress } from "../utilities/HapticVibrationClick";
 
 const ViewArticleComponent = ({ navigation, route }) => {
   const animation = useRef(null);
@@ -70,6 +71,7 @@ const ViewArticleComponent = ({ navigation, route }) => {
       .then(() => {
         setIsLiked(!isLiked);
         fetchDatas();
+        handleVibrateButtonPress();
       })
       .catch((error) => {
         console.log(error);
@@ -260,7 +262,7 @@ const ViewArticleComponent = ({ navigation, route }) => {
               onPress={() =>
                 navigation.navigate("comments", {
                   articleId: idArticle,
-                  user: currentUser,
+                  user: currentUser?.datas,
                 })
               }
               style={{ flexDirection: "row", alignItems: "center", gap: 10 }}

@@ -15,6 +15,7 @@ import CommentInput from "../components/CommentInput";
 import { Androids } from "../utilities/Platform";
 import useGetRequestApi from "../hooks/useGetRequestApi";
 import usePostRequestApi from "../hooks/usePostRequestApi";
+import { handleVibrateButtonPress } from "../utilities/HapticVibrationClick";
 
 const Comments = ({ navigation, route }) => {
   const { articleId, user } = route.params;
@@ -36,6 +37,7 @@ const Comments = ({ navigation, route }) => {
         .then(() => {
           setValueComments({ contents: "" });
           fetchDatas();
+          handleVibrateButtonPress();
           setIsCommented(false);
         })
         .catch((error) => {

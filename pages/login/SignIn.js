@@ -94,7 +94,7 @@ const SignIn = ({ navigation }) => {
       ) {
         const response = await loginUser(signupDataToSend);
         if (response.status === 201) {
-          handleSaveJwtTokenAsyncStorage(response.data);
+          handleSaveJwtTokenAsyncStorage(response);
           setIsConnecting(false);
           navigation.dispatch(
             CommonActions.reset({
