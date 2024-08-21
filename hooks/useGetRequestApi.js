@@ -30,7 +30,7 @@ const useGetRequestApi = (url, option) => {
           cancelToken: source.token,
           timeout: 10000,
           headers: {
-            Authorization: `Bearer ${tokens.token}`,
+            Authorization: `Bearer ${tokens}`,
           },
         });
         responses = response;

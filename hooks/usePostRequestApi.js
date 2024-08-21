@@ -21,7 +21,7 @@ const usePostRequestApi = (url, datas, option) => {
         Accept: "application/json",
       };
     } else {
-      headerOption = { Authorization: `Bearer ${tokens.token}` };
+      headerOption = { Authorization: `Bearer ${tokens}` };
     }
 
     try {

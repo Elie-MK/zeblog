@@ -1,4 +1,7 @@
-import { createStackNavigator,  TransitionPresets } from "@react-navigation/stack";
+import {
+  createStackNavigator,
+  TransitionPresets,
+} from "@react-navigation/stack";
 import React from "react";
 import HomeBottomNavigation from "./HomeBottomNavigation";
 import TopTabNavigation from "./TopTabNavigation";
@@ -9,7 +12,7 @@ import DetailArticlesByTopics from "../components/DetailArticlesByTopics";
 import TopWriters from "../pages/Home/Discover/TopWriters";
 import WriterDetail from "../screens/writer/WriterDetail";
 import Searchs from "../screens/Searchs";
-import ViewArticleComponent from "../components/ViewArticleComponent";
+import ViewArticleComponent from "../screens/ViewArticleComponent";
 import { colors } from "../utilities/Color";
 import CreateArticles from "../pages/Home/CreateArticles/CreateArticles";
 import Comments from "../screens/Comments";
@@ -27,12 +30,12 @@ const HomeNavigation = () => {
       opacity: current.progress,
     },
   });
- 
+
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
-        cardStyle:{backgroundColor:colors.white}
+        cardStyle: { backgroundColor: colors.white },
       }}
       initialRouteName="bottomnavhome"
     >
@@ -41,16 +44,39 @@ const HomeNavigation = () => {
       <Stack.Screen name="bookmark" component={MyBookMark} />
       <Stack.Screen name="mostpopular" component={MostPopular} />
       <Stack.Screen name="exploretopic" component={ExploreByTopic} />
-      <Stack.Screen name="articlesbytopics" component={DetailArticlesByTopics} />
+      <Stack.Screen
+        name="articlesbytopics"
+        component={DetailArticlesByTopics}
+      />
       <Stack.Screen name="topwriters" component={TopWriters} />
-      <Stack.Screen name="writerdetail" component={WriterDetail}  />
-      <Stack.Screen name="search" component={Searchs} options={{presentation:"modal"}} />
-      <Stack.Screen name="create" component={CreateArticles} options={{presentation:"modal"}} />
-      <Stack.Screen name="comments" component={Comments} options={{presentation:"modal"}} />
-      <Stack.Screen name="editprofile" component={EditProfile} options={{presentation:"modal"}} />
-      <Stack.Screen name="viewArticle" component={ViewArticleComponent} options={{
-       ...TransitionPresets.ScaleFromCenterAndroid
-      }} />
+      <Stack.Screen name="writerdetail" component={WriterDetail} />
+      <Stack.Screen
+        name="search"
+        component={Searchs}
+        options={{ presentation: "modal" }}
+      />
+      <Stack.Screen
+        name="create"
+        component={CreateArticles}
+        options={{ presentation: "modal" }}
+      />
+      <Stack.Screen
+        name="comments"
+        component={Comments}
+        options={{ presentation: "modal" }}
+      />
+      <Stack.Screen
+        name="editprofile"
+        component={EditProfile}
+        options={{ presentation: "modal" }}
+      />
+      <Stack.Screen
+        name="viewArticle"
+        component={ViewArticleComponent}
+        options={{
+          ...TransitionPresets.ScaleFromCenterAndroid,
+        }}
+      />
 
       {/* Settings */}
       <Stack.Screen name="settings" component={Settings} />
@@ -58,7 +84,6 @@ const HomeNavigation = () => {
       <Stack.Screen name="settingnotification" component={Notification} />
       <Stack.Screen name="security" component={Security} />
       <Stack.Screen name="language" component={Languages} />
-
     </Stack.Navigator>
   );
 };

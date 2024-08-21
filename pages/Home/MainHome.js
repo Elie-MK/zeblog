@@ -30,6 +30,7 @@ const MainHome = ({ navigation }) => {
   const getAllArticle = "articles/all";
   const { datas, error, loading, fetchDatas } =
     useGetRequestApi(urlGetArticleByUser);
+
   const AllArticles = useGetRequestApi(getAllArticle);
 
   useEffect(() => {

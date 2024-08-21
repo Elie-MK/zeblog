@@ -1,7 +1,8 @@
 import { View, ImageBackground } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import Loading from "../components/Loading";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import verifyToken from "../utilities/VerifyToken";
 
 const Welcome = ({ navigation }) => {
   const animation = useRef(null);
@@ -11,7 +12,7 @@ const Welcome = ({ navigation }) => {
     setTimeout(() => {
       AsyncStorage.getItem("alreadyLaunched").then((value) => {
         if (value !== null) {
-          navigation.replace("login");
+          verifyToken(navigation);
         } else {
           navigation.replace("onboarding");
         }
@@ -19,7 +20,7 @@ const Welcome = ({ navigation }) => {
 
       animation.current?.pause();
     }, 3000);
-  }, []);
+  }, [navigation]);
 
   return (
     <View>

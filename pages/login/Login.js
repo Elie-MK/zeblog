@@ -6,35 +6,12 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { colors } from "../../utilities/Color";
 import ButtonWithIcon from "../../components/ButtonWithIcon";
 import Buttons from "../../components/Buttons";
-import { useAuth } from "../../context/AuthContext";
-import { CommonActions } from "@react-navigation/native";
-import { handleGetJwtTokenAsyncStorage } from "../../utilities/ApiRequestsService";
 
 const Login = ({ navigation }) => {
-  const { isConnected, setIsConnected } = useAuth();
-  async function handleAuth() {
-    const token = await handleGetJwtTokenAsyncStorage();
-    if (!token) {
-      setIsConnected(false);
-    }
-  }
-
-  useEffect(() => {
-    handleAuth();
-    if (isConnected) {
-      navigation.dispatch(
-        CommonActions.reset({
-          index: 0,
-          routes: [{ name: "home" }],
-        })
-      );
-    }
-  }, [isConnected]);
-
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.white }}>
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>

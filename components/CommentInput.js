@@ -19,8 +19,8 @@ const CommentInput = ({
         resizeMode="contain"
         style={{ width: 40, height: 40, borderRadius: 22 }}
         source={
-          datasUser?.datas
-            ? { uri: datasUser?.datas?.pictureProfile }
+          datasUser
+            ? { uri: datasUser?.pictureProfile }
             : require("../assets/images/vectorPeople.jpg")
         }
       />
@@ -39,8 +39,9 @@ const CommentInput = ({
           }}
           value={valueComments}
           onChangeText={(text) => onChangeText({ contents: text })}
+          placeholderTextColor={colors.gray}
           multiline
-          placeholder="Add a comment..."
+          placeholder="Add your comment..."
         />
         {isCommented ? (
           <View style={{ marginLeft: -35 }}>

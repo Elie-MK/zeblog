@@ -19,10 +19,10 @@ const usePutRequestApi = (url, datas, option) => {
       headerOption = {
         "Content-Type": "multipart/form-data",
         Accept: "application/json",
-        Authorization: `Bearer ${tokens.token}`,
+        Authorization: `Bearer ${tokens}`,
       };
     } else {
-      headerOption = { Authorization: `Bearer ${tokens.token}` };
+      headerOption = { Authorization: `Bearer ${tokens}` };
     }
 
     try {
