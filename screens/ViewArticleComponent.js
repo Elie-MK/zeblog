@@ -5,6 +5,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   ScrollView,
+  Share,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
@@ -19,29 +20,58 @@ import FollowersItem from "../components/FollowersItem";
 import { Androids } from "../utilities/Platform";
 import useGetRequestApi from "../hooks/useGetRequestApi";
 import usePostRequestApi from "../hooks/usePostRequestApi";
-import { getCurrentUser } from "../utilities/ApiRequestsService";
 import Loading from "../components/Loading";
 import ErrorFetching from "../components/ErrorFetching";
 import { handleVibrateButtonPress } from "../utilities/HapticVibrationClick";
+import {
+  currentUserUrl,
+  favoriteArticleUrl,
+} from "../utilities/AllUrlPathRequests";
+import { useDispatch, useSelector } from "react-redux";
+import { removeFavorite, setFavorite } from "../redux/favoriteSlice";
+import { useIsFocused } from "@react-navigation/native";
 
 const ViewArticleComponent = ({ navigation, route }) => {
   const animation = useRef(null);
-  const [isLiked, setIsLiked] = useState(false);
+  const favorites = useSelector((state) => state.setFavorite);
+  const dispatch = useDispatch();
 
   const { idArticle } = route.params;
+  const currentUser = useGetRequestApi(currentUserUrl);
   const findArticle = `articles/${idArticle}`;
-  const currentuser = "profile";
   const { datas, error, fetchDatas } = useGetRequestApi(findArticle);
-  const currentUser = useGetRequestApi(currentuser);
 
   const isACurrentUser = datas?.user?.idUser === currentUser?.datas?.idUser;
+  const findLike = currentUser?.datas?.likes?.find(
+    (like) => like.idArticles === idArticle
+  );
+
+  const favoriteArticle = usePostRequestApi(
+    `${favoriteArticleUrl}/${datas?.idArticles}`
+  );
+
+  const favorite = favorites?.find(
+    (article) => article?.idArticles === datas?.idArticles
+  );
+
+  const handleFavoriteArticle = () => {
+    favoriteArticle.postSendRequest().then(() => {
+      if (favorite) {
+        dispatch(removeFavorite(datas));
+      } else {
+        dispatch(setFavorite(datas));
+      }
+      handleVibrateButtonPress();
+    });
+  };
 
   const likeUrl = `createLike/${idArticle}`;
   const likeData = {
     likeStatus: "LIKE",
   };
-  const { postSendRequest, data } = usePostRequestApi(likeUrl, likeData);
+  const { postSendRequest } = usePostRequestApi(likeUrl, likeData);
   const [createAt, setCreateAt] = useState("");
+  const [data, setData] = useState(null);
 
   useEffect(() => {
     if (datas) {
@@ -51,25 +81,10 @@ const ViewArticleComponent = ({ navigation, route }) => {
     }
   }, [datas]);
 
-  useEffect(() => {
-    async function currentUser() {
-      const currentUser = await getCurrentUser();
-      if (currentUser.status === 200) {
-        const findLike = currentUser?.data?.likes?.find(
-          (like) => like.idArticles === idArticle
-        );
-        if (findLike) {
-          setIsLiked(true);
-        }
-      }
-    }
-    currentUser();
-  }, []);
-
   const likeArticle = () => {
     postSendRequest()
       .then(() => {
-        setIsLiked(!isLiked);
+        currentUser.fetchDatas();
         fetchDatas();
         handleVibrateButtonPress();
       })
@@ -77,6 +92,12 @@ const ViewArticleComponent = ({ navigation, route }) => {
         console.log(error);
       });
   };
+
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    fetchDatas();
+  }, [isFocused]);
+
   if (!datas && !error) {
     return (
       <View
@@ -98,6 +119,15 @@ const ViewArticleComponent = ({ navigation, route }) => {
   if (error && !datas) {
     return <ErrorFetching data={fetchDatas} navigation={navigation} />;
   }
+
+  const handleShare = () => {
+    const shareOptions = {
+      title: datas.Title,
+      text: datas.Content,
+      url: "url",
+    };
+    Share.share(shareOptions);
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.white }}>
@@ -125,14 +155,14 @@ const ViewArticleComponent = ({ navigation, route }) => {
             <View
               style={{ flexDirection: "row", gap: 30, alignItems: "center" }}
             >
-              <TouchableOpacity>
+              <TouchableOpacity onPress={handleFavoriteArticle}>
                 <MaterialCommunityIcons
-                  name="bookmark-minus-outline"
+                  name={favorite ? "bookmark-minus" : "bookmark-minus-outline"}
                   size={30}
-                  color={colors.white}
+                  color={favorite ? colors.main : colors.white}
                 />
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={handleShare}>
                 <Ionicons name="share-outline" size={30} color={colors.white} />
               </TouchableOpacity>
               <TouchableOpacity>
@@ -249,11 +279,11 @@ const ViewArticleComponent = ({ navigation, route }) => {
               style={{ flexDirection: "row", alignItems: "flex-end", gap: 10 }}
             >
               <AntDesign
-                name={isLiked ? "like1" : "like2"}
+                name={findLike ? "like1" : "like2"}
                 size={24}
-                color={isLiked ? colors.main : colors.black}
+                color={findLike ? colors.main : colors.black}
               />
-              <Text style={{ color: isLiked ? colors.main : colors.black }}>
+              <Text style={{ color: findLike ? colors.main : colors.black }}>
                 Like
               </Text>
             </TouchableOpacity>

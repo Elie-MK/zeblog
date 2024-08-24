@@ -1,5 +1,5 @@
 import { View, Text } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Entypo } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -9,11 +9,13 @@ import { formatDistanceToNow, parseISO } from "date-fns";
 
 import { colors } from "../../utilities/Color";
 import useGetRequestApi from "../../hooks/useGetRequestApi";
+import { currentUserUrl } from "../../utilities/AllUrlPathRequests";
+import { useIsFocused } from "@react-navigation/native";
 
 const AboutWriter = () => {
-  const currentuser = "profile";
-  const { datas } = useGetRequestApi(currentuser);
+  const { datas, fetchDatas } = useGetRequestApi(currentUserUrl);
   const [createAt, setCreateAt] = useState("");
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     if (datas) {
@@ -21,7 +23,11 @@ const AboutWriter = () => {
       const createAt = distance.replace(/^about /, "");
       setCreateAt(createAt);
     }
-  }, [datas]);
+  }, []);
+
+  useEffect(() => {
+    fetchDatas();
+  }, [isFocused]);
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.white }}>

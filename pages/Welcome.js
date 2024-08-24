@@ -8,19 +8,19 @@ const Welcome = ({ navigation }) => {
   const animation = useRef(null);
 
   useEffect(() => {
-    animation.current?.play();
-    setTimeout(() => {
-      AsyncStorage.getItem("alreadyLaunched").then((value) => {
-        if (value !== null) {
-          verifyToken(navigation);
-        } else {
-          navigation.replace("onboarding");
-        }
-      });
+    const checkTokenAndNavigate = async () => {
+      animation.current?.play();
 
-      animation.current?.pause();
-    }, 3000);
-  }, [navigation]);
+      const value = await AsyncStorage.getItem("alreadyLaunched");
+
+      if (value !== null) {
+        await verifyToken(navigation);
+      } else {
+        navigation.replace("onboarding");
+      }
+    };
+    checkTokenAndNavigate();
+  }, []);
 
   return (
     <View>

@@ -211,6 +211,7 @@ const EditProfile = ({ navigation }) => {
           <Buttons
             onPress={handleFinish}
             title={"Save"}
+            disabled={inProgress}
             isLoading={inProgress}
           />
         </ScrollView>

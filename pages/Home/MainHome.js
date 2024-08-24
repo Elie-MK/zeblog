@@ -8,7 +8,7 @@ import {
   Dimensions,
   FlatList,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
 import { colors } from "../../utilities/Color";
@@ -19,6 +19,7 @@ import useGetRequestApi from "../../hooks/useGetRequestApi";
 import ActivityIndicatorGlobal from "../../components/ActivityIndicatorGlobal";
 import ErrorFetching from "../../components/ErrorFetching";
 import NoArticles from "../../components/NoArticles";
+import { useFocusEffect } from "@react-navigation/native";
 
 const MainHome = ({ navigation }) => {
   const [articles, setArticles] = useState({
@@ -32,6 +33,12 @@ const MainHome = ({ navigation }) => {
     useGetRequestApi(urlGetArticleByUser);
 
   const AllArticles = useGetRequestApi(getAllArticle);
+  useFocusEffect(
+    useCallback(() => {
+      fetchDatas();
+      AllArticles.fetchDatas();
+    }, [])
+  );
 
   useEffect(() => {
     if (datas) {
