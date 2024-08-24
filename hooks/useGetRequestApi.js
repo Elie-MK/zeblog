@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from "react";
 import {
   API_BASE_URL,
   handleGetJwtTokenAsyncStorage,
-  source,
 } from "../utilities/ApiRequestsService";
 import axios from "axios";
 import { useFocusEffect } from "@react-navigation/native";
@@ -13,8 +12,8 @@ const useGetRequestApi = (url, option) => {
   const [loading, setLoading] = useState(true);
 
   // Create a cancel token source
-  const source = axios.CancelToken.source();
 
+  const source = axios.CancelToken.source();
   const fetchDatas = async () => {
     setLoading(true);
     const tokens = await handleGetJwtTokenAsyncStorage();
@@ -56,7 +55,7 @@ const useGetRequestApi = (url, option) => {
       return () => {
         source.cancel("Request canceled by the user.");
       };
-    }, [url])
+    }, [url, option])
   );
 
   return { datas, error, loading, fetchDatas };

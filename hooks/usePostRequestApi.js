@@ -15,6 +15,7 @@ const usePostRequestApi = (url, datas, option) => {
   const postSendRequest = async () => {
     setLoading(true);
     const tokens = await handleGetJwtTokenAsyncStorage();
+
     if (option) {
       headerOption = {
         "Content-Type": "multipart/form-data",

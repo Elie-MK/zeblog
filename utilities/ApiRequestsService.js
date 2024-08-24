@@ -19,6 +19,7 @@ export async function handleSaveJwtTokenAsyncStorage(token) {
   try {
     await AsyncStorage.setItem("jwt-token", token.data.token);
     await AsyncStorage.setItem("refresh-token", token.data.refreshToken);
+    console.debug("Tokens stored locally successfully");
   } catch (error) {
     console.log(error);
   }
@@ -64,7 +65,7 @@ export async function handleCreateArticle(datas) {
       datas,
       {
         headers: {
-          Authorization: `Bearer ${tokens.token}`,
+          Authorization: `Bearer ${tokens}`,
           "Content-Type": "multipart/form-data",
           Accept: "application/json",
         },
@@ -81,7 +82,7 @@ export async function getCurrentUser() {
   try {
     const response = await axios.get(`${API_BASE_URL}/profile`, {
       headers: {
-        Authorization: `Bearer ${tokens.token}`,
+        Authorization: `Bearer ${tokens}`,
       },
     });
     return response;

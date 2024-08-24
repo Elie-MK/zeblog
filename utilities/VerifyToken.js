@@ -9,7 +9,6 @@ import { CommonActions } from "@react-navigation/native";
 async function verifyToken(navigation) {
   try {
     const token = await AsyncStorage.getItem("jwt-token");
-    const refreshToken = await AsyncStorage.getItem("refresh-token");
 
     // If no token, redirect to login
     if (!token) {
@@ -32,8 +31,9 @@ async function verifyToken(navigation) {
       );
       return;
     }
+  } catch (error) {
+    const refreshToken = await AsyncStorage.getItem("refresh-token");
 
-    // Token is invalid, attempt to refresh it
     if (refreshToken) {
       try {
         const refreshResponse = await axios.post(
@@ -61,9 +61,6 @@ async function verifyToken(navigation) {
     } else {
       navigation.replace("login");
     }
-  } catch (error) {
-    console.warn("Error during token verification or refresh", error);
-    navigation.replace("login");
   }
 }
 
