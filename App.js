@@ -9,12 +9,14 @@ import SignupSteps from "./navigations/SignupSteps";
 import HomeNavigation from "./navigations/HomeNavigation";
 import { colors } from "./utilities/Color";
 import { AuthProvider } from "./context/AuthContext";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
 export default function App() {
   const Stack = createStackNavigator();
 
   return (
-    <AuthProvider>
+    <Provider store={store}>
       <NavigationContainer>
         <StatusBar style="dark" />
         <Stack.Navigator
@@ -32,6 +34,6 @@ export default function App() {
           <Stack.Screen name="home" component={HomeNavigation} />
         </Stack.Navigator>
       </NavigationContainer>
-    </AuthProvider>
+    </Provider>
   );
 }
