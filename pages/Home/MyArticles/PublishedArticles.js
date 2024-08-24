@@ -1,16 +1,24 @@
 import { View, Text, TouchableOpacity, FlatList } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { colors } from "../../../utilities/Color";
-import { FakeTopics } from "../../../utilities/FakeTopics";
 import { Entypo } from "@expo/vector-icons";
 import SecondCardArticles from "../../../components/SecondCardArticles";
 import CardArticles from "../../../components/CardArticles";
 import useGetRequestApi from "../../../hooks/useGetRequestApi";
+import { currentUserUrl } from "../../../utilities/AllUrlPathRequests";
 
 const PublishedArticles = ({ navigation }) => {
   const [isGrid, setIsGrid] = useState("nogrid");
   const urlGetArticleByUser = "articles/user/articles";
-  const { datas, error, loading } = useGetRequestApi(urlGetArticleByUser);
+  const { datas, error, loading, fetchDatas } =
+    useGetRequestApi(urlGetArticleByUser);
+  const currentUser = useGetRequestApi(currentUserUrl);
+
+  useEffect(() => {
+    if (datas?.length === 1) {
+      setIsGrid("nogrid");
+    }
+  }, [datas]);
 
   if (loading) {
     return (
@@ -74,6 +82,8 @@ const PublishedArticles = ({ navigation }) => {
             {isGrid === "nogrid" ? (
               <SecondCardArticles
                 datas={item}
+                currentUser={currentUser.datas?.favoriteArticles}
+                handleRefresh={currentUser.fetchDatas}
                 onPress={() =>
                   navigation.navigate("viewArticle", {
                     idArticle: item.idArticles,
