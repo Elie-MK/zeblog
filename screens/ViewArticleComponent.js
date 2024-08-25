@@ -71,7 +71,6 @@ const ViewArticleComponent = ({ navigation, route }) => {
   };
   const { postSendRequest } = usePostRequestApi(likeUrl, likeData);
   const [createAt, setCreateAt] = useState("");
-  const [data, setData] = useState(null);
 
   useEffect(() => {
     if (datas) {

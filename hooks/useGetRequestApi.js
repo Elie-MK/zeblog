@@ -40,7 +40,7 @@ const useGetRequestApi = (url, option) => {
       }
     } catch (error) {
       if (axios.isCancel(error)) {
-        console.log("Request canceled:", error.message);
+        console.debug("Request canceled:", error.message);
       } else {
         setError(error);
       }

@@ -22,7 +22,7 @@ const MostPopular = ({ navigation }) => {
   useEffect(() => {
     if (AllArticles.datas) {
       const mostPopular = AllArticles.datas?.filter(
-        (article) => article?.likes?.length >= 1
+        (article) => article?.likes?.length >= 300
       );
       setMostPopular(mostPopular);
     }

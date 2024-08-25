@@ -17,6 +17,7 @@ import { currentUserUrl } from "../../../utilities/AllUrlPathRequests";
 import ActivityIndicatorGlobal from "../../../components/ActivityIndicatorGlobal";
 import { useFocusEffect } from "@react-navigation/native";
 import { useSelector } from "react-redux";
+import NoArticles from "../../../components/NoArticles";
 
 const MyBookMark = ({ navigation }) => {
   const { datas, loading, fetchDatas } = useGetRequestApi(currentUserUrl);
@@ -140,18 +141,7 @@ const MyBookMark = ({ navigation }) => {
               </View>
             )}
             ListEmptyComponent={
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Text style={{ fontSize: 20, color: "#000" }}>
-                  No articles found
-                </Text>
-              </View>
+              <NoArticles title={"No favorite articles found"} />
             }
           />
         )}

@@ -18,10 +18,10 @@ import InputSettings from "../../../components/InputSettings";
 import useGetRequestApi from "../../../hooks/useGetRequestApi";
 import ActivityIndicatorGlobal from "../../../components/ActivityIndicatorGlobal";
 import usePutRequestApi from "../../../hooks/usePutRequestApi";
+import { currentUserUrl } from "../../../utilities/AllUrlPathRequests";
 
 const EditProfile = ({ navigation }) => {
-  const personalInfoUrl = "profile";
-  const { datas, loading, error } = useGetRequestApi(personalInfoUrl);
+  const { datas, loading, error } = useGetRequestApi(currentUserUrl);
 
   const [updateInfo, setUpdateInfo] = useState({
     fullName: "",
@@ -115,7 +115,7 @@ const EditProfile = ({ navigation }) => {
   }
 
   const { handlePutRequest } = usePutRequestApi(
-    personalInfoUrl,
+    currentUserUrl,
     updateUserInfo,
     true
   );

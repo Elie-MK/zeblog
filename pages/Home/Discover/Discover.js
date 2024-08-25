@@ -38,7 +38,7 @@ const Discover = ({ navigation }) => {
       const sliceAllArticles =
         AllArticles?.datas && AllArticles?.datas?.slice(0, 5);
       const mostPopular = sliceAllArticles?.filter(
-        (article) => article?.likes?.length >= 1
+        (article) => article?.likes?.length >= 300
       );
       setMostPopular(mostPopular);
     }
@@ -127,12 +127,12 @@ const Discover = ({ navigation }) => {
                       />
                     </View>
                   )}
+                  ListEmptyComponent={
+                    <NoArticles title={"No articles found"} />
+                  }
                 />
               )}
             </View>
-            {mostPopular?.length < 1 && (
-              <NoArticles title={"No articles found"} />
-            )}
           </View>
 
           {/* Explore by Topics */}
@@ -181,10 +181,9 @@ const Discover = ({ navigation }) => {
                     />
                   </View>
                 )}
+                ListEmptyComponent={<NoArticles title={"No topics found"} />}
               />
             )}
-
-            {catDatas?.length < 1 && <NoArticles title={"No topics found"} />}
           </View>
 
           {/* Top Writers */}
@@ -255,6 +254,9 @@ const Discover = ({ navigation }) => {
                     </Text>
                   </View>
                 )}
+                ListEmptyComponent={
+                  <NoArticles title={"There no top writers yet"} />
+                }
               />
             )}
           </View>

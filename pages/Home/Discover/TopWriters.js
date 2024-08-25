@@ -1,8 +1,15 @@
-import { SafeAreaView, FlatList, TouchableOpacity } from "react-native";
+import {
+  SafeAreaView,
+  FlatList,
+  TouchableOpacity,
+  View,
+  Text,
+} from "react-native";
 import React from "react";
 import NavHeader from "../../../components/NavHeader";
 import PeopleFollowItem from "../../../components/PeopleFollowItem";
 import { colors } from "../../../utilities/Color";
+import NoArticles from "../../../components/NoArticles";
 
 const TopWriters = ({ navigation, route }) => {
   const { datas } = route.params;
@@ -21,6 +28,7 @@ const TopWriters = ({ navigation, route }) => {
               <PeopleFollowItem datas={item} />
             </TouchableOpacity>
           )}
+          ListEmptyComponent={<NoArticles title={"There no top writers yet"} />}
         />
       </NavHeader>
     </SafeAreaView>

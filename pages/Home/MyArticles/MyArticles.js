@@ -3,7 +3,6 @@ import {
   Text,
   SafeAreaView,
   TouchableOpacity,
-  FlatList,
   Image,
 } from "react-native";
 import React, { useState, useEffect } from "react";
@@ -90,8 +89,8 @@ const MyArticles = ({ navigation }) => {
             tabBarIndicatorStyle: { backgroundColor: colors.main, height: 3 },
           })}
         >
-          <Top.Screen name="draft" component={DraftArticles} />
           <Top.Screen name="published" component={PublishedArticles} />
+          <Top.Screen name="draft" component={DraftArticles} />
         </Top.Navigator>
       </View>
     </SafeAreaView>

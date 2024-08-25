@@ -11,20 +11,21 @@ import ArticlesWriter from "../../../screens/writer/ArticlesWriter";
 import AboutWriter from "../../../screens/writer/AboutWriter";
 import { Androids } from "../../../utilities/Platform";
 import useGetRequestApi from "../../../hooks/useGetRequestApi";
-import { useIsFocused } from "@react-navigation/native";
+import ActivityIndicatorGlobal from "../../../components/ActivityIndicatorGlobal";
+import { currentUserUrl } from "../../../utilities/AllUrlPathRequests";
 
 const ProfileOverallView = ({ navigation }) => {
   const Top = createMaterialTopTabNavigator();
-  const currentuser = "profile";
-  const { datas, error, fetchDatas } = useGetRequestApi(currentuser);
-  const isFocused = useIsFocused();
-
-  useEffect(() => {
-    fetchDatas();
-  }, [isFocused]);
+  const { datas, error, loading, fetchDatas } =
+    useGetRequestApi(currentUserUrl);
 
   return (
     <SafeAreaView style={{ flex: 1, marginHorizontal: 20 }}>
+      {loading && (
+        <View style={{ marginTop: 20 }}>
+          <ActivityIndicatorGlobal />
+        </View>
+      )}
       <View
         style={{
           flexDirection: "row",
