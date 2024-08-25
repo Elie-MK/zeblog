@@ -22,6 +22,7 @@ import PersonalInfo from "../pages/Home/MyProfile/Settings/PersonalInfo";
 import Notification from "../pages/Home/MyProfile/Settings/Notification";
 import Security from "../pages/Home/MyProfile/Settings/Security";
 import Languages from "../pages/Home/MyProfile/Settings/Languages";
+import AllArticles from "../screens/AllArticles";
 
 const HomeNavigation = () => {
   const Stack = createStackNavigator();
@@ -48,6 +49,7 @@ const HomeNavigation = () => {
         name="articlesbytopics"
         component={DetailArticlesByTopics}
       />
+      <Stack.Screen name="allArticles" component={AllArticles} />
       <Stack.Screen name="topwriters" component={TopWriters} />
       <Stack.Screen name="writerdetail" component={WriterDetail} />
       <Stack.Screen

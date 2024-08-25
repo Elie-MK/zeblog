@@ -20,6 +20,10 @@ import ActivityIndicatorGlobal from "../../components/ActivityIndicatorGlobal";
 import ErrorFetching from "../../components/ErrorFetching";
 import NoArticles from "../../components/NoArticles";
 import { useFocusEffect } from "@react-navigation/native";
+import {
+  getAllArticle,
+  urlGetArticleByUser,
+} from "../../utilities/AllUrlPathRequests";
 
 const MainHome = ({ navigation }) => {
   const [articles, setArticles] = useState({
@@ -27,8 +31,6 @@ const MainHome = ({ navigation }) => {
     recentArticle: [],
   });
 
-  const urlGetArticleByUser = "articles/user/articles";
-  const getAllArticle = "articles/all";
   const { datas, error, loading, fetchDatas } =
     useGetRequestApi(urlGetArticleByUser);
 
@@ -64,6 +66,12 @@ const MainHome = ({ navigation }) => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      {loading ||
+        (AllArticles.loading && (
+          <View style={{ marginTop: 20 }}>
+            <ActivityIndicatorGlobal />
+          </View>
+        ))}
       <View
         style={{
           marginHorizontal: 15,
@@ -117,7 +125,15 @@ const MainHome = ({ navigation }) => {
             >
               Recent Articles
             </Text>
-            <Octicons name="arrow-right" size={24} color={colors.main} />
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("allArticles", {
+                  datas: AllArticles.datas,
+                })
+              }
+            >
+              <Octicons name="arrow-right" size={24} color={colors.main} />
+            </TouchableOpacity>
           </View>
           {articles?.recentArticle?.length < 1 && (
             <NoArticles title={"No articles found"} />
@@ -164,7 +180,9 @@ const MainHome = ({ navigation }) => {
             >
               Your Articles
             </Text>
-            <Octicons name="arrow-right" size={24} color={colors.main} />
+            <TouchableOpacity onPress={() => navigation.navigate("myArticles")}>
+              <Octicons name="arrow-right" size={24} color={colors.main} />
+            </TouchableOpacity>
           </View>
           {articles?.userArticle?.length < 1 && (
             <NoArticles isMyArticle navigation={navigation} />
