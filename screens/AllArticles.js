@@ -66,7 +66,9 @@ const AllArticles = ({ navigation }) => {
                     <SecondCardArticles
                       datas={item}
                       onPress={() =>
-                        navigation.navigate("viewArticle", { datas: item })
+                        navigation.navigate("viewArticle", {
+                          idArticle: item.idArticles,
+                        })
                       }
                     />
                   </View>
