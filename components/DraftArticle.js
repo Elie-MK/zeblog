@@ -4,11 +4,15 @@ import { TouchableOpacity } from "react-native";
 import { colors } from "../utilities/Color";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { currentUserUrl } from "../utilities/AllUrlPathRequests";
+import useGetRequestApi from "../hooks/useGetRequestApi";
+import { formatDistanceToNow, parseISO } from "date-fns";
 
 const DraftArticle = ({ datas }) => {
-  const [isBook, setIsBook] = useState(false);
   const text = datas?.Title.substring(0, 34) + "...";
   const navigation = useNavigation();
+
+  const currentUser = useGetRequestApi(currentUserUrl);
 
   return (
     <View style={{ width: "60%" }}>
@@ -33,12 +37,16 @@ const DraftArticle = ({ datas }) => {
           >
             <Image
               style={{ width: 25, height: 25, borderRadius: 22 }}
-              source={require("../assets/images/vectorPeople.jpg")}
+              source={
+                currentUser.datas
+                  ? { uri: currentUser.datas.pictureProfile }
+                  : require("../assets/images/vectorPeople.jpg")
+              }
             />
             <Text
               style={{ fontSize: 14, fontWeight: "600", color: colors.main }}
             >
-              Doe
+              {currentUser.datas?.username}
             </Text>
           </View>
           <View
@@ -50,18 +58,14 @@ const DraftArticle = ({ datas }) => {
             }}
           >
             <Text style={{ color: colors.gray, fontWeight: "600" }}>
-              3 days ago
+              {formatDistanceToNow(parseISO(datas?.createdAt))} ago
             </Text>
             <TouchableOpacity
               onPress={() =>
                 navigation.navigate("create", { idDraft: datas.id })
               }
             >
-              <Feather
-                name={"edit-3"}
-                size={25}
-                color={isBook ? colors.main : colors.gray}
-              />
+              <Feather name={"edit-3"} size={25} color={colors.gray} />
             </TouchableOpacity>
           </View>
         </View>

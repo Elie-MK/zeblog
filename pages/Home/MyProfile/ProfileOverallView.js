@@ -13,11 +13,19 @@ import { Androids } from "../../../utilities/Platform";
 import useGetRequestApi from "../../../hooks/useGetRequestApi";
 import ActivityIndicatorGlobal from "../../../components/ActivityIndicatorGlobal";
 import { currentUserUrl } from "../../../utilities/AllUrlPathRequests";
+import { useIsFocused } from "@react-navigation/native";
 
 const ProfileOverallView = ({ navigation }) => {
   const Top = createMaterialTopTabNavigator();
   const { datas, error, loading, fetchDatas } =
     useGetRequestApi(currentUserUrl);
+
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    if (isFocused) {
+      fetchDatas();
+    }
+  }, [isFocused]);
 
   return (
     <SafeAreaView style={{ flex: 1, marginHorizontal: 20 }}>

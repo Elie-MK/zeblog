@@ -63,11 +63,15 @@ const DiscoverPeople = ({ navigation, route }) => {
   const handleFinish = async () => {
     setInProgress(true);
     try {
-      const response = await postSendRequest();
-      if (response.status === 201) {
-        setInProgress(false);
-        navigation.replace("signin");
-      }
+      postSendRequest()
+        .then(() => {
+          setInProgress(false);
+          navigation.replace("signin");
+        })
+        .catch(() => {
+          setIsError(true);
+          setInProgress(false);
+        });
     } catch (error) {
       console.log("Error occurred:", error.message);
       setInProgress(false);
