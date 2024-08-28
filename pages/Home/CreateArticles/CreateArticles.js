@@ -22,13 +22,13 @@ import { Androids } from "../../../utilities/Platform";
 import CategoryArticle from "../../../components/CategoryArticle";
 import { Categories } from "../../../utilities/Categories";
 import { handleCreateArticle } from "../../../utilities/ApiRequestsService";
+import { useIsFocused } from "@react-navigation/native";
 
 const CreateArticles = ({ navigation, route }) => {
-  const draft = route.params;
+  const { idDraft } = route.params || {};
 
   const [textAlignIcon, setTextAlignIcon] = useState("left");
   const [isPublishing, setIsPublishing] = useState(false);
-  const [articlesSaved, setArticlesSaved] = useState(null);
 
   const [datas, setDatas] = useState({
     Title: "",
@@ -120,6 +120,12 @@ const CreateArticles = ({ navigation, route }) => {
       if (response.status === 201) {
         navigation.replace("home");
         setIsPublishing(false);
+        setDatas({
+          Title: "",
+          Content: "",
+          pictures: "",
+          category: "",
+        });
       }
     } catch (error) {
       setIsPublishing(false);
@@ -157,21 +163,34 @@ const CreateArticles = ({ navigation, route }) => {
     try {
       const existingArticles = await AsyncStorage.getItem("oldsArticles");
       if (existingArticles !== null) {
-        setArticlesSaved(JSON.parse(existingArticles));
+        if (idDraft) {
+          const datas = JSON.parse(existingArticles);
+          const article = datas.find((article) => article?.id === idDraft);
+          setDatas(article);
+        }
       }
     } catch (error) {
       console.error(error);
     }
   };
   useEffect(() => {
-    getOldsArticle();
-    if (draft) {
-      const article = articlesSaved?.find(
-        (article) => article?.id === draft?.idDraft
-      );
-      setDatas(article);
+    if (idDraft) {
+      getOldsArticle();
     }
-  }, [draft]);
+  }, [idDraft]);
+
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (!isFocused) {
+      setDatas({
+        Title: "",
+        Content: "",
+        pictures: "",
+        category: "",
+      });
+    }
+  }, [isFocused]);
 
   return (
     <KeyboardAvoidingView
