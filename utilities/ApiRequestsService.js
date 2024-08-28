@@ -1,7 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
-export const API_BASE_URL = "http://192.168.1.114:3000/api";
+// export const API_BASE_URL = "http://192.168.1.114:3000/api";
+export const API_BASE_URL = "https://zeblog-api.vercel.app/api";
 export const source = axios.CancelToken.source();
 const tokens = handleGetJwtTokenAsyncStorage();
 
